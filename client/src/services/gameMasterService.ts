@@ -1,4 +1,4 @@
-import { PaginatedResponse, ApiResponse } from '@kazrpg/shared';
+import { PaginatedResponse, ApiResponse } from '../types/shared';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || '/api';
 

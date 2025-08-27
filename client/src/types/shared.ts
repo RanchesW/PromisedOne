@@ -84,3 +84,186 @@ export interface User {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface Game {
+  _id: string;
+  title: string;
+  description: string;
+  partyNotes?: string;
+  system: GameSystem;
+  customSystem?: string;
+  platform: Platform;
+  sessionType: SessionType;
+  experienceLevel: ExperienceLevel;
+  gm: string;
+  gmDetails?: Partial<User>;
+  price: number;
+  currency: string;
+  capacity: number;
+  bookedSeats: number;
+  availableSeats: number;
+  schedule: {
+    startTime: Date;
+    endTime: Date;
+    timezone: string;
+    recurring?: {
+      frequency: 'weekly' | 'biweekly' | 'monthly';
+      endDate?: Date;
+    };
+  };
+  location?: {
+    address: string;
+    city: string;
+    state: string;
+    country: string;
+    coordinates?: [number, number];
+  };
+  onlineDetails?: {
+    platform: string;
+    inviteLink?: string;
+  };
+  tags: string[];
+  ageRestriction?: {
+    minAge: number;
+    maxAge?: number;
+  };
+  bookingType: BookingType;
+  cancellationPolicy: {
+    cutoffHours: number;
+    refundPercentage: number;
+  };
+  isActive: boolean;
+  isEarlyBird: boolean;
+  earlyBirdDiscount?: number;
+  bannerImage?: string;
+  iconImage?: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface Booking {
+  _id: string;
+  game: string;
+  player: string;
+  numberOfSeats: number;
+  companions?: {
+    name: string;
+    email?: string;
+  }[];
+  status: BookingStatus;
+  totalAmount: number;
+  currency: string;
+  paymentIntentId?: string;
+  specialRequests?: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface Message {
+  _id: string;
+  sender: string;
+  recipient: string;
+  content: string;
+  messageType: 'text' | 'image' | 'file' | 'game_invitation';
+  isRead: boolean;
+  readAt?: Date;
+  conversation: string;
+  relatedGame?: string;
+  metadata?: {
+    fileName?: string;
+    fileSize?: number;
+    fileType?: string;
+    imageUrl?: string;
+  };
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface Conversation {
+  _id: string;
+  participants: string[];
+  lastMessage?: string;
+  lastActivity: Date;
+  isGroup: boolean;
+  groupName?: string;
+  groupAvatar?: string;
+  createdBy: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface FriendRequest {
+  _id: string;
+  sender: string;
+  recipient: string;
+  status: 'pending' | 'accepted' | 'declined';
+  message?: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface Notification {
+  _id: string;
+  user: string;
+  type: 'booking_confirmed' | 'booking_cancelled' | 'game_reminder' | 'review_received' | 'message_received' | 'referral_credit' | 'friend_request' | 'friend_accepted' | 'system_announcement' | 'maintenance' | 'event_notification' | 'game_update';
+  title: string;
+  message: string;
+  relatedId?: string;
+  isRead: boolean;
+  priority: 'low' | 'medium' | 'high' | 'urgent';
+  category: 'social' | 'booking' | 'system' | 'game' | 'payment';
+  actionUrl?: string;
+  metadata?: {
+    icon?: string;
+    color?: string;
+    expiresAt?: Date;
+  };
+  createdAt: Date;
+}
+
+export interface ApiResponse<T = any> {
+  success: boolean;
+  data?: T;
+  message?: string;
+  error?: string;
+}
+
+export interface PaginatedResponse<T> {
+  data: T[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    pages: number;
+  };
+}
+
+export interface GameSearchFilters {
+  keyword?: string;
+  system?: GameSystem;
+  platform?: Platform;
+  sessionType?: SessionType;
+  experienceLevel?: ExperienceLevel;
+  priceRange?: {
+    min: number;
+    max: number;
+  };
+  dateRange?: {
+    start: Date;
+    end: Date;
+  };
+  timezone?: string;
+  tags?: string[];
+  ageAppropriate?: boolean;
+  availableSeats?: number;
+  page?: number;
+  limit?: number;
+  sortBy?: 'date' | 'price' | 'rating' | 'created';
+  sortOrder?: 'asc' | 'desc';
+}
+
+export interface PaymentIntent {
+  clientSecret: string;
+  amount: number;
+  currency: string;
+}

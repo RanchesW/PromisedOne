@@ -1,4 +1,4 @@
-import { Game, GameSearchFilters, ApiResponse, PaginatedResponse } from '@kazrpg/shared';
+import { Game, GameSearchFilters, ApiResponse, PaginatedResponse } from '../types/shared';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || '/api';
 

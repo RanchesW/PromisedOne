@@ -1,5 +1,5 @@
 import apiService, { bookingsAPI, paymentsAPI } from './api';
-import { Booking, PaymentIntent } from '@kazrpg/shared';
+import { Booking, PaymentIntent } from '../types/shared';
 
 export interface BookingRequest {
   gameId: string;

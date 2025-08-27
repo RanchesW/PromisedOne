@@ -1,5 +1,5 @@
 import apiService, { usersAPI, uploadsAPI } from './api';
-import { User } from '@kazrpg/shared';
+import { User } from '../types/shared';
 
 export interface UpdateProfileData {
   firstName?: string;

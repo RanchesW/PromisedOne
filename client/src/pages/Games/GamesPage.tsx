@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Game, GameSystem, Platform, SessionType, ExperienceLevel } from '@kazrpg/shared';
+import { Game, GameSystem, Platform, SessionType, ExperienceLevel } from '../../types/shared';
 import LoadingSpinner from '../../components/UI/LoadingSpinner';
 import gameService from '../../services/gameService';
 import { formatDate } from '../../utils/dateUtils';

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { Game } from '@kazrpg/shared';
+import { Game } from '../../types/shared';
 import { useAuth } from '../../contexts/AuthContext';
 import LoadingSpinner from '../../components/UI/LoadingSpinner';
 import gameService from '../../services/gameService';

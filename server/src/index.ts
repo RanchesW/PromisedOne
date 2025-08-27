@@ -41,7 +41,10 @@ const httpServer = createServer(app);
 // Socket.IO setup
 const io = new Server(httpServer, {
   cors: {
-    origin: process.env.SOCKET_CORS_ORIGIN || 'http://localhost:3000',
+    origin: [
+      'http://localhost:3000',
+      'https://promised-one-client.vercel.app'
+    ],
     methods: ['GET', 'POST'],
   },
 });
@@ -56,7 +59,10 @@ app.use(morgan('combined'));
 
 // CORS - apply CORS before static files
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+  origin: [
+    'http://localhost:3000',
+    'https://promised-one-client.vercel.app'
+  ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],

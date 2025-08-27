@@ -315,8 +315,55 @@ export interface GameSearchFilters {
   sortOrder?: 'asc' | 'desc';
 }
 
+// Authentication types
+export interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
+export interface RegisterData {
+  email: string;
+  password: string;
+  username: string;
+  firstName: string;
+  lastName: string;
+  timezone: string;
+}
+
+export interface UpdateProfileData {
+  username?: string;
+  firstName?: string;
+  lastName?: string;
+  bio?: string;
+  avatar?: string;
+  timezone?: string;
+  preferences?: {
+    emailNotifications: boolean;
+    publicProfile: boolean;
+    showTimezone: boolean;
+  };
+}
+
+export interface AuthResponse {
+  user: User;
+  token: string;
+  refreshToken: string;
+}
+
+// Payment types
 export interface PaymentIntent {
   clientSecret: string;
   amount: number;
   currency: string;
+}
+
+export interface ReferralCredit {
+  _id: string;
+  user: string;
+  referredUser: string;
+  amount: number;
+  currency: string;
+  isUsed: boolean;
+  expiresAt: Date;
+  createdAt: Date;
 }

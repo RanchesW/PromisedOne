@@ -1,0 +1,129 @@
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { useAuth, UserRole } from './contexts/AuthContext';
+import { RouteTransitionProvider } from './contexts/RouteTransitionContext';
+import { NotificationProvider } from './contexts/NotificationContext';
+
+// Layout Components
+import Layout from './components/Layout/Layout';
+import ProtectedRoute from './components/Auth/ProtectedRoute';
+import RouteTransitionWrapper from './components/UI/RouteTransitionWrapper';
+
+// Public Pages
+import HomePage from './pages/HomePage';
+import LoginPage from './pages/Auth/LoginPage';
+import RegisterPage from './pages/Auth/RegisterPage';
+import ForgotPasswordPage from './pages/Auth/ForgotPasswordPage';
+import GamesPage from './pages/Games/GamesPage';
+import GameDetailPage from './pages/Games/GameDetailPage';
+import JoinCampaignPage from './pages/Games/JoinCampaignPage';
+import GameMastersPage from './pages/GameMasters/GameMastersPage';
+
+// Protected Pages
+import DashboardPage from './pages/Dashboard/DashboardPage';
+import ProfilePage from './pages/Profile/ProfilePage';
+import PublicProfilePage from './pages/Profile/PublicProfilePage';
+import CreateGamePage from './pages/Games/CreateGamePage';
+import MyGamesPage from './pages/Games/MyGamesPage';
+import BookingsPage from './pages/Bookings/BookingsPage';
+import MessagesPage from './pages/Messages/MessagesPage';
+import ReviewsPage from './pages/Reviews/ReviewsPage';
+import BecomeGM from './pages/BecomeGM/BecomeGM';
+import ApplicationConfirmation from './pages/BecomeGM/ApplicationConfirmation';
+
+// Admin Pages
+import AdminDashboard from './pages/Admin/AdminDashboard';
+
+// Components
+import LoadingSpinner from './components/UI/LoadingSpinner';
+
+function App() {
+  const { isLoading } = useAuth();
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <LoadingSpinner size="lg" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50 text-gray-900">
+      <NotificationProvider>
+        <RouteTransitionProvider>
+          <RouteTransitionWrapper>
+          <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<Layout />}>
+            <Route index element={<HomePage />} />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="register" element={<RegisterPage />} />
+            <Route path="forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="games" element={<GamesPage />} />
+            <Route path="games/:id" element={<GameDetailPage />} />
+            <Route path="games/:id/join" element={<JoinCampaignPage />} />
+            <Route path="find-game-masters" element={<GameMastersPage />} />
+            <Route path="profile/:userId" element={<PublicProfilePage />} />
+            
+            {/* Protected Routes */}
+            <Route element={<ProtectedRoute />}>
+              <Route path="profile" element={<ProfilePage />} />
+              <Route path="profile/public" element={<PublicProfilePage />} />
+              <Route path="settings/profile" element={<ProfilePage />} />
+              <Route path="settings/featured-prompts" element={<ProfilePage />} />
+              <Route path="settings/payment" element={<ProfilePage />} />
+              <Route path="settings/refer-a-friend" element={<ProfilePage />} />
+              <Route path="settings/notifications" element={<ProfilePage />} />
+              <Route path="settings/privacy" element={<ProfilePage />} />
+              <Route path="settings/social-login" element={<ProfilePage />} />
+              <Route path="my-games" element={<MyGamesPage />} />
+              <Route path="bookings" element={<BookingsPage />} />
+              <Route path="messages" element={<MessagesPage />} />
+              <Route path="reviews" element={<ReviewsPage />} />
+              <Route path="become-gm" element={<BecomeGM />} />
+              <Route path="become-gm/confirmation" element={<ApplicationConfirmation />} />
+            </Route>
+            
+            {/* Dashboard - Not for Admins */}
+            <Route element={<ProtectedRoute roles={[UserRole.PLAYER, UserRole.GM_APPLICANT, UserRole.APPROVED_GM]} />}>
+              <Route path="dashboard" element={<DashboardPage />} />
+            </Route>
+            
+            {/* GM Routes */}
+            <Route element={<ProtectedRoute roles={[UserRole.APPROVED_GM]} />}>
+              <Route path="create-game" element={<CreateGamePage />} />
+            </Route>
+            
+            {/* Admin Routes */}
+            <Route element={<ProtectedRoute roles={[UserRole.ADMIN]} />}>
+              <Route path="admin" element={<AdminDashboard />} />
+            </Route>
+          </Route>
+          
+          {/* 404 Page */}
+          <Route path="*" element={
+            <Layout>
+              <div className="min-h-screen flex items-center justify-center">
+                <div className="text-center">
+                  <h1 className="text-6xl font-fantasy font-bold text-orange-500 mb-4">404</h1>
+                  <p className="text-xl text-slate-400 mb-8">Page not found</p>
+                  <a 
+                    href="/" 
+                    className="btn-primary"
+                  >
+                    Return Home
+                  </a>
+                </div>
+              </div>
+            </Layout>
+          } />
+        </Routes>
+          </RouteTransitionWrapper>
+        </RouteTransitionProvider>
+      </NotificationProvider>
+    </div>
+  );
+}
+
+export default App;

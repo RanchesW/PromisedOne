@@ -1,0 +1,252 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* StartPlaying-inspired Color Scheme */
+:root {
+  /* Background Colors */
+  --primary-bg: #ffffff;
+  --secondary-bg: #f8fafc;
+  --accent-bg: #f1f5f9;
+  --surface-bg: #e2e8f0;
+  --dark-bg: #0f172a;
+  
+  /* Text Colors */
+  --primary-text: #0f172a;
+  --secondary-text: #334155;
+  --muted-text: #64748b;
+  --white-text: #ffffff;
+  
+  /* Accent Colors (Blue theme like StartPlaying) */
+  --primary-blue: #2563eb;
+  --primary-blue-hover: #1d4ed8;
+  --light-blue: #3b82f6;
+  --dark-blue: #1e40af;
+  
+  /* Status Colors */
+  --success: #059669;
+  --warning: #d97706;
+  --error: #dc2626;
+  
+  /* Borders */
+  --border-color: #e2e8f0;
+  --border-light: #cbd5e1;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-blue: 0 0 20px rgba(37, 99, 235, 0.3);
+}
+
+/* Custom fonts */
+.font-fantasy {
+  font-family: 'Cinzel', serif;
+}
+
+/* Custom components with StartPlaying Blue Theme */
+@layer components {
+  .btn-primary {
+    @apply bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg;
+  }
+  
+  .btn-secondary {
+    @apply bg-white hover:bg-gray-50 text-gray-900 font-medium py-3 px-6 rounded-lg transition-all duration-200 border border-gray-300 hover:border-gray-400;
+  }
+  
+  .btn-outline {
+    @apply border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-medium py-3 px-6 rounded-lg transition-all duration-200;
+  }
+  
+  .card {
+    @apply bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-200;
+  }
+  
+  .input-field {
+    @apply w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200;
+  }
+  
+  .nav-link {
+    @apply text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200;
+  }
+  
+  .nav-link-active {
+    @apply text-blue-600 bg-blue-50 px-3 py-2 rounded-md text-sm font-medium;
+  }
+  
+  .fantasy-border {
+    @apply border border-gray-200 rounded-lg bg-white shadow-sm;
+  }
+  
+  .glow-text {
+    @apply text-blue-600 font-semibold;
+  }
+}
+
+/* Custom animations */
+@keyframes glow {
+  0%, 100% {
+    text-shadow: 0 0 5px rgba(217, 119, 6, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(217, 119, 6, 0.8);
+  }
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--secondary-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-bg);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--surface-bg);
+}
+
+/* Focus visible improvements */
+.focus-visible\:ring-2:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--primary-accent);
+}
+
+/* Dark mode transitions */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom select styling */
+.select-container {
+  position: relative;
+}
+
+.select-container select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+}
+
+/* Loading spinner */
+.spinner {
+  border: 2px solid var(--accent-bg);
+  border-top: 2px solid var(--primary-accent);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Game card hover effects */
+.game-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.game-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(217, 119, 6, 0.2);
+}
+
+/* Toast customization */
+.Toaster__toast-body {
+  font-family: inherit;
+}
+
+/* React Select dark theme overrides */
+.react-select-container .react-select__control {
+  background-color: var(--secondary-bg);
+  border-color: var(--border-color);
+  color: var(--primary-text);
+}
+
+.react-select-container .react-select__menu {
+  background-color: var(--secondary-bg);
+  border: 1px solid var(--border-color);
+}
+
+.react-select-container .react-select__option {
+  background-color: transparent;
+  color: var(--primary-text);
+}
+
+.react-select-container .react-select__option:hover {
+  background-color: var(--accent-bg);
+}
+
+.react-select-container .react-select__option--is-selected {
+  background-color: var(--primary-accent);
+}
+
+.react-select-container .react-select__single-value {
+  color: var(--primary-text);
+}
+
+.react-select-container .react-select__placeholder {
+  color: var(--muted-text);
+}
+
+/* Date picker overrides */
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.react-datepicker__input-container input {
+  width: 100%;
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* Toast notification animations */
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.3s ease-out;
+}

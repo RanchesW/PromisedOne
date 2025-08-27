@@ -1,0 +1,60 @@
+import React from 'react';
+
+const HomePage: React.FC = () => {
+  return (
+    <div className="min-h-screen">
+      {/* Hero Section with Fantasy Background */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Background Image with Blur */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-110"
+            style={{
+              backgroundImage: `url('/images/pxfuel.jpg')`
+          }}
+        ></div>
+        
+        {/* Dark Overlay for Text Readability */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/80 via-slate-800/70 to-slate-900/90"></div>
+        
+        {/* Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-5xl sm:text-6xl lg:text-8xl font-fantasy font-bold text-white mb-6">
+            KazRPG
+          </h1>
+          <p className="text-2xl sm:text-3xl lg:text-4xl font-normal text-slate-300 mb-12">
+            Tabletop RPGs Run by Professional Game Masters
+          </p>
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <a
+              href="/games"
+              className="bg-blue-600 hover:bg-blue-700 text-white text-xl px-10 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+            >
+              Find Games →
+            </a>
+            <a
+              href="/find-game-masters"
+              className="border-2 border-white text-white hover:bg-white hover:text-slate-900 text-xl px-10 py-4 rounded-lg font-semibold transition-all duration-300"
+            >
+              Find Game Masters
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* What is KazRPG Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-6">
+            What is <span className="text-blue-600">KazRPG</span>?
+          </h2>
+          <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
+            KazRPG is the largest online platform for players to find tabletop roleplaying games and 
+            professional GMs for any game system and any virtual tabletop!
+          </p>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default HomePage;

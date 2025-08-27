@@ -41,12 +41,23 @@ const httpServer = createServer(app);
 // Socket.IO setup
 const io = new Server(httpServer, {
   cors: {
-    origin: [
-      'http://localhost:3000',
-      'http://95.141.138.162:3000',
-      'https://promised-one-client.vercel.app',
-      'https://promised-one-client-cbpsp9qji-ranchesws-projects.vercel.app'
-    ],
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+      
+      const allowedOrigins = [
+        'http://localhost:3000',
+        'http://95.141.138.162:3000',
+        'https://promised-one-client.vercel.app'
+      ];
+      
+      const isVercelPreview = origin.includes('promised-one-client') && origin.includes('vercel.app');
+      
+      if (allowedOrigins.includes(origin) || isVercelPreview) {
+        return callback(null, true);
+      }
+      
+      callback(new Error('Not allowed by CORS'));
+    },
     methods: ['GET', 'POST'],
   },
 });
@@ -61,12 +72,25 @@ app.use(morgan('combined'));
 
 // CORS - apply CORS before static files
 app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'http://95.141.138.162:3000',
-    'https://promised-one-client.vercel.app',
-    'https://promised-one-client-cbpsp9qji-ranchesws-projects.vercel.app'
-  ],
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    const allowedOrigins = [
+      'http://localhost:3000',
+      'http://95.141.138.162:3000',
+      'https://promised-one-client.vercel.app'
+    ];
+    
+    // Allow any Vercel preview deployment
+    const isVercelPreview = origin.includes('promised-one-client') && origin.includes('vercel.app');
+    
+    if (allowedOrigins.includes(origin) || isVercelPreview) {
+      return callback(null, true);
+    }
+    
+    callback(new Error('Not allowed by CORS'));
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],

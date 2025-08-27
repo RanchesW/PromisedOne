@@ -19,11 +19,14 @@ import {
 } from '../types/shared';
 
 // Base API configuration
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://95.141.138.162:5000/api';
-const SERVER_BASE_URL = process.env.REACT_APP_SERVER_URL || 'http://95.141.138.162:5000';
-
-// Production: Using public IP address for backend connection
-// Local development will still use localhost through environment variables
+// For production, use public IP. For local dev, use localhost
+const isProduction = process.env.NODE_ENV === 'production';
+const API_BASE_URL = isProduction 
+  ? 'http://95.141.138.162:5000/api'
+  : process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const SERVER_BASE_URL = isProduction 
+  ? 'http://95.141.138.162:5000'
+  : process.env.REACT_APP_SERVER_URL || 'http://localhost:5000';
 
 // Utility function to convert avatar paths to full URLs or return base64 data URLs
 export const getAvatarUrl = (avatarPath: string | undefined): string | null => {

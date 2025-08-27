@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
-import { UserRole } from '../types/shared';
+import { UserRole } from '../../types/shared';
 import LoadingSpinner from '../../components/UI/LoadingSpinner';
 
 interface DMApplicationData {

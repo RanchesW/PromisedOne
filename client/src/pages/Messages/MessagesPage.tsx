@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { messageService } from '../../services/messageService';
 import { useAuth } from '../../contexts/AuthContext';
 import { getAvatarUrl } from '../../services/api';
-import { Message, Conversation, FriendRequest, Notification, User } from '../types/shared';
+import { Message, Conversation, FriendRequest, Notification, User } from '../../types/shared';
 import { 
   MessageBubble, 
   ChatInput, 

@@ -43,7 +43,8 @@ const io = new Server(httpServer, {
   cors: {
     origin: [
       'http://localhost:3000',
-      'https://promised-one-client.vercel.app'
+      'https://promised-one-client.vercel.app',
+      'https://promised-one-client-cbpsp9qji-ranchesws-projects.vercel.app'
     ],
     methods: ['GET', 'POST'],
   },
@@ -61,7 +62,8 @@ app.use(morgan('combined'));
 app.use(cors({
   origin: [
     'http://localhost:3000',
-    'https://promised-one-client.vercel.app'
+    'https://promised-one-client.vercel.app',
+    'https://promised-one-client-cbpsp9qji-ranchesws-projects.vercel.app'
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],

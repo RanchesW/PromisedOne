@@ -159,6 +159,21 @@ export interface Booking {
   updatedAt: Date;
 }
 
+export interface Review {
+  _id: string;
+  game: string;
+  reviewer: string;
+  gm: string;
+  rating: number;
+  title: string;
+  comment: string;
+  privateFeedback?: string;
+  isPublic: boolean;
+  isVerified: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export interface Message {
   _id: string;
   sender: string;

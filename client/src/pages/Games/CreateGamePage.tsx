@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
-import { GameSystem, Platform, SessionType, ExperienceLevel, BookingType, UserRole } from '../../types/shared';
+import { GameSystem, Platform, SessionType, ExperienceLevel, BookingType, UserRole } from '../types/shared';
 import LoadingSpinner from '../../components/UI/LoadingSpinner';
 import ImageUploadWithCrop from '../../components/UI/ImageUploadWithCrop';
 import gameService from '../../services/gameService';

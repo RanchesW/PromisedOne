@@ -3,7 +3,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { adminService } from '../../services/adminService';
 import LoadingSpinner from '../../components/UI/LoadingSpinner';
 import SystemNotifications from './SystemNotifications';
-import { UserRole } from '../../types/shared';
+import { UserRole } from '../types/shared';
 
 interface AdminStats {
   totalUsers: number;

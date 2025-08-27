@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { User, UserRole, ExperienceLevel, GameSystem } from '../../types/shared';
+import { User, UserRole, ExperienceLevel, GameSystem } from '../types/shared';
 
 // Re-export types for backward compatibility
 export type { User };

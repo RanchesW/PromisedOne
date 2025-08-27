@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
-import { Game, Booking, UserRole } from '../../types/shared';
+import { Game, Booking, UserRole } from '../types/shared';
 import LoadingSpinner from '../../components/UI/LoadingSpinner';
 import gameService from '../../services/gameService';
 import bookingService from '../../services/bookingService';

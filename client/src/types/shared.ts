@@ -217,6 +217,44 @@ export interface FriendRequest {
   updatedAt: Date;
 }
 
+export interface Friendship {
+  _id: string;
+  user1: string;
+  user2: string;
+  createdAt: Date;
+}
+
+export interface GameRequest {
+  _id: string;
+  requester: string;
+  title: string;
+  description: string;
+  preferredSystem: GameSystem;
+  preferredPlatform: Platform;
+  preferredSessionType: SessionType;
+  experienceLevel: ExperienceLevel;
+  budget: {
+    min: number;
+    max: number;
+    currency: string;
+  };
+  schedule: {
+    preferredDays: string[];
+    preferredTimes: string[];
+    timezone: string;
+  };
+  groupSize: number;
+  isActive: boolean;
+  responses: {
+    gm: string;
+    message: string;
+    proposedPrice: number;
+    createdAt: Date;
+  }[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export interface Notification {
   _id: string;
   user: string;

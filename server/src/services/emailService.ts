@@ -37,7 +37,7 @@ class EmailService {
 
       // Only create transporter if credentials are provided
       if (emailConfig.auth.user && emailConfig.auth.pass) {
-        this.transporter = nodemailer.createTransporter(emailConfig);
+        this.transporter = nodemailer.createTransport(emailConfig);
         console.log('✅ Email transporter initialized');
       } else {
         console.log('⚠️ Email credentials not provided, email service disabled');

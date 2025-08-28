@@ -91,8 +91,8 @@ router.post('/register', async (req: Request, res: Response) => {
     const verificationToken = crypto.randomBytes(32).toString('hex');
     const verificationExpires = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes
 
-    // Create new user
-    const user = new User({
+    // Don't save to database yet - store user data temporarily for verification
+    const pendingUserData = {
       email,
       password,
       username,
@@ -100,18 +100,10 @@ router.post('/register', async (req: Request, res: Response) => {
       lastName,
       role: UserRole.PLAYER,
       timezone,
-      isEmailVerified: false,
-      emailVerificationToken: verificationToken,
-      emailVerificationExpires: verificationExpires,
-      isActive: false, // User inactive until email verified
-      preferences: {
-        experienceLevel,
-        systems: preferredSystems,
-        platforms: ['online'] // Default to online
-      }
-    });
-
-    await user.save();
+      experienceLevel,
+      preferredSystems,
+      createdAt: new Date()
+    };
 
     // Send verification email
     const emailSent = await emailService.sendVerificationEmail(
@@ -124,12 +116,12 @@ router.post('/register', async (req: Request, res: Response) => {
       console.warn('Failed to send verification email, but user was created');
     }
 
-    // Store verification code temporarily (in production, use Redis or database)
+    // Store verification code and user data temporarily (in production, use Redis or database)
     // For now, we'll use a simple in-memory store
     global.verificationCodes = global.verificationCodes || {};
     global.verificationCodes[verificationToken] = {
       code: verificationCode,
-      userId: user._id.toString(),
+      userData: pendingUserData,
       email,
       expires: verificationExpires
     };
@@ -138,8 +130,7 @@ router.post('/register', async (req: Request, res: Response) => {
       success: true,
       message: 'Registration successful! Please check your email for verification code.',
       data: {
-        userId: user._id,
-        email: user.email,
+        email,
         verificationToken,
         emailSent,
         requiresVerification: true
@@ -317,22 +308,26 @@ router.post('/verify-email', async (req: Request, res: Response) => {
       });
     }
 
-    // Find and update user
-    const user = await User.findById(verificationData.userId);
-    if (!user) {
-      delete global.verificationCodes[verificationToken];
-      return res.status(404).json({
-        success: false,
-        message: 'User not found'
-      });
-    }
+    // Create and save user only after successful verification
+    const userData = verificationData.userData;
+    const user = new User({
+      email: userData.email,
+      password: userData.password,
+      username: userData.username,
+      firstName: userData.firstName,
+      lastName: userData.lastName,
+      role: userData.role,
+      timezone: userData.timezone,
+      isEmailVerified: true, // Already verified
+      isActive: true, // Active immediately
+      lastLoginAt: new Date(),
+      preferences: {
+        experienceLevel: userData.experienceLevel,
+        systems: userData.preferredSystems,
+        platforms: ['online'] // Default to online
+      }
+    });
 
-    // Verify and activate user
-    user.isEmailVerified = true;
-    user.isActive = true;
-    user.emailVerificationToken = undefined;
-    user.emailVerificationExpires = undefined;
-    user.lastLoginAt = new Date();
     await user.save();
 
     // Clean up verification data
@@ -380,18 +375,29 @@ router.post('/resend-verification', async (req: Request, res: Response) => {
       });
     }
 
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: 'User not found'
-      });
-    }
-
-    if (user.isEmailVerified) {
+    // Check if user exists and is already verified
+    const existingUser = await User.findOne({ email });
+    if (existingUser && existingUser.isEmailVerified) {
       return res.status(400).json({
         success: false,
         message: 'Email is already verified'
+      });
+    }
+
+    // Check if there's a pending verification for this email
+    global.verificationCodes = global.verificationCodes || {};
+    let pendingVerification = null;
+    for (const token in global.verificationCodes) {
+      if (global.verificationCodes[token].email === email) {
+        pendingVerification = global.verificationCodes[token];
+        break;
+      }
+    }
+
+    if (!pendingVerification) {
+      return res.status(404).json({
+        success: false,
+        message: 'No pending verification found for this email. Please register again.'
       });
     }
 
@@ -400,16 +406,17 @@ router.post('/resend-verification', async (req: Request, res: Response) => {
     const verificationToken = crypto.randomBytes(32).toString('hex');
     const verificationExpires = new Date(Date.now() + 15 * 60 * 1000);
 
-    // Update user with new token
-    user.emailVerificationToken = verificationToken;
-    user.emailVerificationExpires = verificationExpires;
-    await user.save();
+    // Remove old verification and store new one with same user data
+    for (const token in global.verificationCodes) {
+      if (global.verificationCodes[token].email === email) {
+        delete global.verificationCodes[token];
+        break;
+      }
+    }
 
-    // Store in memory
-    global.verificationCodes = global.verificationCodes || {};
     global.verificationCodes[verificationToken] = {
       code: verificationCode,
-      userId: user._id.toString(),
+      userData: pendingVerification.userData,
       email,
       expires: verificationExpires
     };
@@ -418,7 +425,7 @@ router.post('/resend-verification', async (req: Request, res: Response) => {
     const emailSent = await emailService.sendVerificationEmail(
       email,
       verificationCode,
-      user.firstName
+      pendingVerification.userData.firstName
     );
 
     res.json({

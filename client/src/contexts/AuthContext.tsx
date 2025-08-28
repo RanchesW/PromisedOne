@@ -21,7 +21,6 @@ export interface AuthContextType {
 }
 
 export interface RegisterResponse {
-  userId: string;
   email: string;
   verificationToken: string;
   emailSent: boolean;
@@ -206,7 +205,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         
         // Don't log in automatically - user needs to verify email first
         return {
-          userId: data.data.userId,
           email: data.data.email,
           verificationToken: data.data.verificationToken,
           emailSent: data.data.emailSent,

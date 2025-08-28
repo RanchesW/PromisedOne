@@ -136,7 +136,10 @@ router.get('/', async (req: Request, res: Response) => {
     const response: ApiResponse<PaginatedResponse<IGame>> = {
       success: true,
       data: {
-        data: games.map(game => game.toObject()) as IGame[],
+        data: games.map(game => ({
+          ...game.toObject(),
+          gm: game.gm.toString()
+        })) as IGame[],
         pagination: {
           page: pageNum,
           limit: limitNum,
@@ -185,7 +188,10 @@ router.get('/my-games', auth, async (req: AuthenticatedRequest, res: Response) =
 
     res.json({
       success: true,
-      data: games,
+      data: games.map(game => ({
+        ...game.toObject(),
+        gm: game.gm.toString()
+      })),
       message: 'My games fetched successfully'
     });
   } catch (error) {
@@ -212,7 +218,10 @@ router.get('/:id', async (req: Request, res: Response) => {
 
     res.json({
       success: true,
-      data: game
+      data: {
+        ...game.toObject(),
+        gm: game.gm.toString()
+      }
     });
   } catch (error: any) {
     console.error('Get game error:', error);
@@ -355,7 +364,10 @@ router.put('/:id', auth, async (req: AuthenticatedRequest, res: Response) => {
 
     res.json({
       success: true,
-      data: game,
+      data: {
+        ...game.toObject(),
+        gm: game.gm.toString()
+      },
       message: 'Game updated successfully'
     });
   } catch (error: any) {
@@ -448,7 +460,10 @@ router.get('/gm/:gmId', async (req: Request, res: Response) => {
     res.json({
       success: true,
       data: {
-        data: games,
+        data: games.map(game => ({
+          ...game.toObject(),
+          gm: game.gm.toString()
+        })),
         pagination: {
           page: pageNum,
           limit: limitNum,

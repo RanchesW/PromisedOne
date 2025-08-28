@@ -395,12 +395,12 @@ const GamesPage: React.FC = () => {
                           <span className="inline-block bg-red-500 text-white text-xs px-2 py-1 rounded uppercase font-semibold tracking-wide">
                             {game.availableSeats === 0 ? 'FULL' : `${game.availableSeats} NEEDED TO START`}
                           </span>
-                        ) : game.availableSeats <= 4 ? (
-                          <span className="inline-block bg-orange-500 text-white text-xs px-2 py-1 rounded uppercase font-semibold tracking-wide">
+                        ) : game.availableSeats <= 2 ? (
+                          <span className="inline-block text-xs px-2 py-1 rounded uppercase font-semibold tracking-wide" style={{background: '#E8F7C0', color: '#222'}}>
                             {game.availableSeats} NEEDED TO START
                           </span>
                         ) : (
-                          <span className="inline-block bg-blue-500 text-white text-xs px-2 py-1 rounded uppercase font-semibold tracking-wide">
+                          <span className="inline-block text-xs px-2 py-1 rounded uppercase font-semibold tracking-wide" style={{background: '#D7F6FF', color: '#222'}}>
                             {game.availableSeats} NEEDED TO START
                           </span>
                         )}

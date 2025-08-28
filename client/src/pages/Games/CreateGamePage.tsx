@@ -112,10 +112,10 @@ const CreateGamePage: React.FC = () => {
             Only approved Game Masters can create games. Please apply to become a GM first.
           </p>
           <button
-            onClick={() => navigate('/dashboard')}
+            onClick={() => navigate('/games')}
             className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors"
           >
-            Go to Dashboard
+            Browse Games
           </button>
         </div>
       </div>

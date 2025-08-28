@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth, UserRole } from './contexts/AuthContext';
 import { RouteTransitionProvider } from './contexts/RouteTransitionContext';
 import { NotificationProvider } from './contexts/NotificationContext';
@@ -85,10 +85,8 @@ function App() {
               <Route path="become-gm/confirmation" element={<ApplicationConfirmation />} />
             </Route>
             
-            {/* Dashboard - Not for Admins */}
-            <Route element={<ProtectedRoute roles={[UserRole.PLAYER, UserRole.GM_APPLICANT, UserRole.APPROVED_GM]} />}>
-              <Route path="dashboard" element={<DashboardPage />} />
-            </Route>
+            {/* Dashboard redirect - redirect to games */}
+            <Route path="dashboard" element={<Navigate to="/games" replace />} />
             
             {/* GM Routes */}
             <Route element={<ProtectedRoute roles={[UserRole.APPROVED_GM]} />}>

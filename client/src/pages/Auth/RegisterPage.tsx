@@ -83,8 +83,8 @@ const RegisterPage: React.FC = () => {
         preferredSystems: [],
       });
       
-      // Registration successful, redirect to dashboard
-      navigateWithTransition('/dashboard', '🎲 Welcome to the realm! Your adventure begins now...', 2500);
+      // Registration successful, redirect to games
+      navigateWithTransition('/games', '🎲 Welcome to the realm! Start browsing epic adventures...', 2500);
     } catch (err: any) {
       setError(err.message || 'Registration failed. Please try again.');
     } finally {

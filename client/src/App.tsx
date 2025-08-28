@@ -2,7 +2,6 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth, UserRole } from './contexts/AuthContext';
 import { RouteTransitionProvider } from './contexts/RouteTransitionContext';
-import { NotificationProvider } from './contexts/NotificationContext';
 
 // Layout Components
 import Layout from './components/Layout/Layout';
@@ -57,9 +56,8 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
-      <NotificationProvider>
-        <RouteTransitionProvider>
-          <RouteTransitionWrapper>
+      <RouteTransitionProvider>
+        <RouteTransitionWrapper>
           <Routes>
           {/* Public Routes */}
           <Route path="/" element={<Layout />}>
@@ -133,9 +131,8 @@ function App() {
             </Layout>
           } />
         </Routes>
-          </RouteTransitionWrapper>
-        </RouteTransitionProvider>
-      </NotificationProvider>
+        </RouteTransitionWrapper>
+      </RouteTransitionProvider>
     </div>
   );
 }

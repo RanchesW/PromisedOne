@@ -44,8 +44,8 @@ const Users: React.FC = () => {
 
       if (response.ok) {
         const data = await response.json();
-        setUsers(data.users || []);
-        setTotalPages(data.totalPages || 1);
+        setUsers(data.data?.users || []);
+        setTotalPages(data.data?.pagination?.totalPages || 1);
       }
     } catch (error) {
       console.error('Error loading users:', error);

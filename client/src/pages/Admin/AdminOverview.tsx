@@ -30,29 +30,24 @@ const AdminOverview: React.FC = () => {
     try {
       setLoading(true);
       
-      // Load various stats in parallel
-      const [usersRes, gamesRes, applicationsRes] = await Promise.all([
-        fetch(`${process.env.REACT_APP_API_URL || 'https://promisedone.onrender.com/api'}/admin/users`, {
-          headers: { 'Authorization': `Bearer ${localStorage.getItem('authToken')}` }
-        }),
-        fetch(`${process.env.REACT_APP_API_URL || 'https://promisedone.onrender.com/api'}/admin/games`, {
-          headers: { 'Authorization': `Bearer ${localStorage.getItem('authToken')}` }
-        }),
-        fetch(`${process.env.REACT_APP_API_URL || 'https://promisedone.onrender.com/api'}/admin/users?role=gm_applicant`, {
-          headers: { 'Authorization': `Bearer ${localStorage.getItem('authToken')}` }
-        })
-      ]);
-
-      const users = usersRes.ok ? await usersRes.json() : { data: [] };
-      const games = gamesRes.ok ? await gamesRes.json() : { data: [] };
-      const applications = applicationsRes.ok ? await applicationsRes.json() : { data: [] };
-
-      setStats({
-        totalUsers: users.data?.length || 0,
-        totalGames: games.data?.length || 0,
-        pendingApplications: applications.data?.length || 0,
-        activeUsers: users.data?.filter((user: any) => user.isActive !== false).length || 0
+      // Use the dedicated admin stats endpoint
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'https://promisedone.onrender.com/api'}/admin/stats`, {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('authToken')}` }
       });
+
+      if (response.ok) {
+        const data = await response.json();
+        const statsData = data.data;
+        
+        setStats({
+          totalUsers: statsData.totalUsers || 0,
+          totalGames: statsData.activeGames || 0,
+          pendingApplications: statsData.pendingGMApplications || 0,
+          activeUsers: statsData.totalPlayers + statsData.totalGMs || 0
+        });
+      } else {
+        console.error('Failed to load stats:', response.status);
+      }
     } catch (error) {
       console.error('Error loading admin stats:', error);
     } finally {

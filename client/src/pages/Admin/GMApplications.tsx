@@ -39,7 +39,7 @@ const GMApplications: React.FC = () => {
 
       if (response.ok) {
         const data = await response.json();
-        setApplications(data.users || []);
+        setApplications(data.data?.users || []);
       }
     } catch (error) {
       console.error('Error loading GM applications:', error);
@@ -50,12 +50,13 @@ const GMApplications: React.FC = () => {
 
   const handleApplicationAction = async (userId: string, action: 'approve' | 'reject') => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL || 'https://promisedone.onrender.com/api'}/admin/gm-application/${userId}/${action}`, {
-        method: 'POST',
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'https://promisedone.onrender.com/api'}/admin/gm-applications/${userId}`, {
+        method: 'PUT',
         headers: { 
           'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
           'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify({ action })
       });
 
       if (response.ok) {

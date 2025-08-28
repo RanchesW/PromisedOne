@@ -45,7 +45,7 @@ const Games: React.FC = () => {
 
       if (response.ok) {
         const data = await response.json();
-        setGames(data.data || []);
+        setGames(data.data?.games || []);
       }
     } catch (error) {
       console.error('Error loading games:', error);

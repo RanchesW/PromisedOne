@@ -34,6 +34,10 @@ export interface UserDocument extends Omit<IUser, '_id'>, Document {
     promptId: string;
     customText: string;
   }>;
+  // Email verification fields
+  isEmailVerified: boolean;
+  emailVerificationToken?: string;
+  emailVerificationExpires?: Date;
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
@@ -169,6 +173,14 @@ const userSchema = new Schema<UserDocument>({
   isEmailVerified: {
     type: Boolean,
     default: false,
+  },
+  emailVerificationToken: {
+    type: String,
+    select: false,
+  },
+  emailVerificationExpires: {
+    type: Date,
+    select: false,
   },
   isActive: {
     type: Boolean,

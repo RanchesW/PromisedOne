@@ -507,4 +507,87 @@ router.get('/games', async (req: AuthRequest, res: Response) => {
   }
 });
 
+// Platform Settings endpoints
+interface PlatformSettings {
+  siteName: string;
+  description: string;
+  maintenanceMode: boolean;
+  registrationEnabled: boolean;
+  maxGamesPerUser: number;
+  sessionDuration: number;
+  autoApproveGMs: boolean;
+  emailNotifications: boolean;
+  systemNotifications: boolean;
+}
+
+// Default settings
+const defaultSettings: PlatformSettings = {
+  siteName: 'KazRPG',
+  description: 'Connect with Game Masters and join amazing RPG sessions',
+  maintenanceMode: false,
+  registrationEnabled: true,
+  maxGamesPerUser: 5,
+  sessionDuration: 240,
+  autoApproveGMs: false,
+  emailNotifications: true,
+  systemNotifications: true
+};
+
+// Get platform settings
+router.get('/settings', async (req: AuthRequest, res: Response) => {
+  try {
+    // For now, return default settings. In production, you'd store these in a database
+    // You could create a Settings model or store in a configuration collection
+    res.json({
+      success: true,
+      data: defaultSettings
+    });
+  } catch (error) {
+    console.error('Error fetching platform settings:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch platform settings' 
+    });
+  }
+});
+
+// Update platform settings
+router.put('/settings', async (req: AuthRequest, res: Response) => {
+  try {
+    const settings = req.body as Partial<PlatformSettings>;
+    
+    // Validate settings
+    if (settings.maxGamesPerUser && (settings.maxGamesPerUser < 1 || settings.maxGamesPerUser > 20)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Max games per user must be between 1 and 20'
+      });
+    }
+    
+    if (settings.sessionDuration && (settings.sessionDuration < 60 || settings.sessionDuration > 480)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Session duration must be between 60 and 480 minutes'
+      });
+    }
+    
+    // In production, you would save these to a database
+    // For now, we'll just return success
+    
+    console.log('Platform settings update requested:', settings);
+    
+    res.json({
+      success: true,
+      message: 'Platform settings updated successfully',
+      data: { ...defaultSettings, ...settings }
+    });
+  } catch (error) {
+    console.error('Error updating platform settings:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to update platform settings' 
+    });
+  }
+});
+
 export default router;

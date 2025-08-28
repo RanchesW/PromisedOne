@@ -18,7 +18,7 @@ export const getImageUrl = (imagePath?: string): string => {
   
   // Legacy support: for old file-based images, construct URL
   // This can be removed after migration is complete
-  const BACKEND_URL = process.env.REACT_APP_API_URL?.replace('/api', '') || 'http://localhost:5000';
+  const BACKEND_URL = process.env.REACT_APP_API_URL?.replace('/api', '') || 'https://promisedone.onrender.com';
   const cleanPath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
   const fullUrl = `${BACKEND_URL}${cleanPath}`;
   

@@ -272,20 +272,22 @@ const MessagesPage: React.FC = () => {
       
       // Add the new message to the messages array
       const newMsg = response.data.data;
-      setMessages(prev => [...prev, newMsg]);
-      
-      // Send via Socket.IO for real-time delivery
-      if (socketService.connected) {
-        socketService.sendMessage({
-          roomId: selectedConversation._id,
-          message: content,
-          userId: user._id,
-          username: user.username,
-          messageId: newMsg._id,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          avatar: user.avatar
-        });
+      if (newMsg) {
+        setMessages(prev => [...prev, newMsg]);
+        
+        // Send via Socket.IO for real-time delivery
+        if (socketService.connected) {
+          socketService.sendMessage({
+            roomId: selectedConversation._id,
+            message: content,
+            userId: user._id,
+            username: user.username,
+            messageId: newMsg._id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            avatar: user.avatar
+          });
+        }
       }
       
       // Refresh conversations to update last message

@@ -65,6 +65,10 @@ class SocketService {
     message: string;
     userId: string;
     username: string;
+    messageId?: string;
+    firstName?: string;
+    lastName?: string;
+    avatar?: string;
   }) {
     if (this.socket) {
       this.socket.emit('send-message', data);

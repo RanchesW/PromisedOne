@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const updateUserToAdmin = async () => {
   try {
-    console.log('🔄 Connecting to MongoDB...');
-    await mongoose.connect('mongodb://localhost:27017/kazrpg');
+    console.log('🔄 Connecting to MongoDB Atlas...');
+    await mongoose.connect('mongodb+srv://ranchesw:Ali256652@kazrpg.obl4ctn.mongodb.net/?retryWrites=true&w=majority&appName=KazRPG');
     
     console.log('🔍 Finding user with email: rancheswest777@gmail.com');
     

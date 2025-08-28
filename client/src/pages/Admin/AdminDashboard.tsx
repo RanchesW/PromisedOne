@@ -111,7 +111,7 @@ const AdminDashboard: React.FC = () => {
   const loadGMApplications = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:5000/api/admin/users?role=gm_applicant', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'https://promisedone.onrender.com/api'}/admin/users?role=gm_applicant`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
@@ -134,7 +134,7 @@ const AdminDashboard: React.FC = () => {
   const loadUsers = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:5000/api/admin/users', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'https://promisedone.onrender.com/api'}/admin/users`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
@@ -157,7 +157,7 @@ const AdminDashboard: React.FC = () => {
   const loadGames = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:5000/api/admin/games', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'https://promisedone.onrender.com/api'}/admin/games`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
@@ -179,7 +179,7 @@ const AdminDashboard: React.FC = () => {
 
   const handleApplicationAction = async (applicationId: string, action: 'approve' | 'reject', notes?: string) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/admin/gm-applications/${applicationId}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'https://promisedone.onrender.com/api'}/admin/gm-applications/${applicationId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -224,7 +224,7 @@ const AdminDashboard: React.FC = () => {
 
   const handleUserRoleChange = async (userId: string, newRole: UserRole) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/admin/users/${userId}/role`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'https://promisedone.onrender.com/api'}/admin/users/${userId}/role`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -248,7 +248,7 @@ const AdminDashboard: React.FC = () => {
 
   const handleUserStatusToggle = async (userId: string, isActive: boolean) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/admin/users/${userId}/status`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'https://promisedone.onrender.com/api'}/admin/users/${userId}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -282,7 +282,7 @@ const AdminDashboard: React.FC = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/api/admin/games/${showGameDeleteModal._id}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'https://promisedone.onrender.com/api'}/admin/games/${showGameDeleteModal._id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

@@ -120,10 +120,37 @@ app.get('/health', (req, res) => {
   });
 });
 
+// Test API route
+app.get('/api', (req, res) => {
+  res.json({
+    success: true,
+    message: 'KazRPG API is running',
+    version: '1.0.0',
+    endpoints: [
+      'GET /health',
+      'GET /api',
+      'POST /api/auth/register',
+      'POST /api/auth/login',
+      'GET /api/games',
+      'GET /api/users'
+    ]
+  });
+});
+
+// Debug route imports
+console.log('Route imports check:');
+console.log('- authRoutes:', typeof authRoutes, Object.keys(authRoutes || {}));
+console.log('- userRoutes:', typeof userRoutes, Object.keys(userRoutes || {}));
+console.log('- gameRoutes:', typeof gameRoutes, Object.keys(gameRoutes || {}));
+
 // API Routes
+console.log('Registering API routes...');
 app.use('/api/auth', authRoutes);
+console.log('✓ Auth routes registered');
 app.use('/api/users', userRoutes);
+console.log('✓ User routes registered');
 app.use('/api/games', gameRoutes);
+console.log('✓ Game routes registered');
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/messages', messageRoutes);
@@ -132,6 +159,7 @@ app.use('/api/upload', uploadRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/favorites', favoritesRoutes);
+console.log('All routes registered!');
 
 // Socket.IO connection handling
 io.on('connection', (socket) => {

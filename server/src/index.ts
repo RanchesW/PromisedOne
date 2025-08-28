@@ -176,7 +176,41 @@ io.on('connection', (socket) => {
   });
 
   socket.on('send-message', (data) => {
+    // Emit to other users in the room
     socket.to(data.roomId).emit('receive-message', data);
+    
+    // Also emit delivery confirmation back to sender
+    socket.emit('message-delivered-update', {
+      messageId: data.messageId,
+      deliveredAt: new Date()
+    });
+  });
+
+  socket.on('message-read', (data: { messageId: string; roomId: string }) => {
+    // Mark message as read and notify other users in the room
+    socket.to(data.roomId).emit('message-read-update', {
+      messageId: data.messageId,
+      readBy: socket.id,
+      readAt: new Date()
+    });
+    console.log(`Message ${data.messageId} marked as read in room ${data.roomId}`);
+  });
+
+  socket.on('message-delivered', (data: { messageId: string; roomId: string }) => {
+    // Mark message as delivered and notify sender
+    socket.to(data.roomId).emit('message-delivered-update', {
+      messageId: data.messageId,
+      deliveredTo: socket.id,
+      deliveredAt: new Date()
+    });
+    console.log(`Message ${data.messageId} marked as delivered in room ${data.roomId}`);
+  });
+
+  socket.on('typing', (data: { roomId: string; isTyping: boolean }) => {
+    socket.to(data.roomId).emit('user-typing', {
+      userId: socket.id,
+      isTyping: data.isTyping
+    });
   });
 
   socket.on('disconnect', () => {

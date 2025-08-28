@@ -1,212 +1,330 @@
-import React, { useState } from 'react';
-import { messageService } from '../../services/messageService';
+import React, { useState, useEffect } from 'react';
+import { BellIcon, ExclamationTriangleIcon, InformationCircleIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
+
+interface Notification {
+  _id: string;
+  title: string;
+  message: string;
+  type: 'info' | 'warning' | 'success' | 'error';
+  targetAudience: 'all' | 'users' | 'gms' | 'admins';
+  isActive: boolean;
+  createdAt: string;
+  expiresAt?: string;
+}
 
 const SystemNotifications: React.FC = () => {
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [showCreateForm, setShowCreateForm] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
     message: '',
-    type: 'system_announcement',
-    priority: 'medium',
+    type: 'info' as const,
+    targetAudience: 'all' as const,
     expiresAt: ''
   });
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
-    setSuccess(false);
+  useEffect(() => {
+    loadNotifications();
+  }, []);
 
+  const loadNotifications = async () => {
     try {
-      await messageService.createSystemNotification({
-        title: formData.title,
-        message: formData.message,
-        type: formData.type,
-        priority: formData.priority,
-        expiresAt: formData.expiresAt || undefined
+      setLoading(true);
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'https://promisedone.onrender.com/api'}/admin/notifications`, {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('authToken')}` }
       });
-      
-      setSuccess(true);
-      setFormData({
-        title: '',
-        message: '',
-        type: 'system_announcement',
-        priority: 'medium',
-        expiresAt: ''
-      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setNotifications(data.data || []);
+      }
     } catch (error) {
-      setError('Failed to send notification. Please try again.');
-      console.error('Error sending notification:', error);
+      console.error('Error loading notifications:', error);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
+  const handleCreateNotification = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'https://promisedone.onrender.com/api'}/admin/notifications`, {
+        method: 'POST',
+        headers: { 
+          'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        loadNotifications();
+        setShowCreateForm(false);
+        setFormData({
+          title: '',
+          message: '',
+          type: 'info',
+          targetAudience: 'all',
+          expiresAt: ''
+        });
+      }
+    } catch (error) {
+      console.error('Error creating notification:', error);
+    }
   };
 
-  return (
-    <div className="max-w-2xl mx-auto">
-      <div className="bg-slate-800 rounded-lg p-6">
-        <h2 className="text-2xl font-bold text-white mb-6">Send System Notification</h2>
-        
-        {success && (
-          <div className="bg-green-600 text-white p-4 rounded-lg mb-6">
-            Notification sent successfully to all users!
-          </div>
-        )}
-        
-        {error && (
-          <div className="bg-red-600 text-white p-4 rounded-lg mb-6">
-            {error}
-          </div>
-        )}
+  const handleToggleActive = async (id: string, isActive: boolean) => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'https://promisedone.onrender.com/api'}/admin/notifications/${id}`, {
+        method: 'PATCH',
+        headers: { 
+          'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ isActive })
+      });
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label htmlFor="title" className="block text-sm font-medium text-slate-300 mb-2">
-              Title
-            </label>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              value={formData.title}
-              onChange={handleChange}
-              required
-              className="w-full bg-slate-700 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Notification title..."
-            />
-          </div>
+      if (response.ok) {
+        loadNotifications();
+      }
+    } catch (error) {
+      console.error('Error updating notification:', error);
+    }
+  };
 
-          <div>
-            <label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-2">
-              Message
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              required
-              rows={4}
-              className="w-full bg-slate-700 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Notification message..."
-            />
-          </div>
+  const getTypeIcon = (type: string) => {
+    switch (type) {
+      case 'warning':
+        return <ExclamationTriangleIcon className="h-5 w-5 text-yellow-500" />;
+      case 'success':
+        return <CheckCircleIcon className="h-5 w-5 text-green-500" />;
+      case 'error':
+        return <ExclamationTriangleIcon className="h-5 w-5 text-red-500" />;
+      default:
+        return <InformationCircleIcon className="h-5 w-5 text-blue-500" />;
+    }
+  };
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="type" className="block text-sm font-medium text-slate-300 mb-2">
-                Type
-              </label>
-              <select
-                id="type"
-                name="type"
-                value={formData.type}
-                onChange={handleChange}
-                className="w-full bg-slate-700 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="system_announcement">System Announcement</option>
-                <option value="maintenance">Maintenance</option>
-                <option value="event_notification">Event Notification</option>
-                <option value="game_update">Game Update</option>
-              </select>
-            </div>
+  const getTypeBadgeColor = (type: string) => {
+    switch (type) {
+      case 'warning':
+        return 'bg-yellow-100 text-yellow-800';
+      case 'success':
+        return 'bg-green-100 text-green-800';
+      case 'error':
+        return 'bg-red-100 text-red-800';
+      default:
+        return 'bg-blue-100 text-blue-800';
+    }
+  };
 
-            <div>
-              <label htmlFor="priority" className="block text-sm font-medium text-slate-300 mb-2">
-                Priority
-              </label>
-              <select
-                id="priority"
-                name="priority"
-                value={formData.priority}
-                onChange={handleChange}
-                className="w-full bg-slate-700 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-                <option value="urgent">Urgent</option>
-              </select>
-            </div>
-          </div>
+  const getAudienceBadgeColor = (audience: string) => {
+    switch (audience) {
+      case 'admins':
+        return 'bg-red-100 text-red-800';
+      case 'gms':
+        return 'bg-blue-100 text-blue-800';
+      case 'users':
+        return 'bg-green-100 text-green-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
+    }
+  };
 
-          <div>
-            <label htmlFor="expiresAt" className="block text-sm font-medium text-slate-300 mb-2">
-              Expires At (Optional)
-            </label>
-            <input
-              type="datetime-local"
-              id="expiresAt"
-              name="expiresAt"
-              value={formData.expiresAt}
-              onChange={handleChange}
-              className="w-full bg-slate-700 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <p className="text-slate-400 text-sm mt-1">
-              If set, the notification will automatically expire and be removed at this time.
-            </p>
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading || !formData.title || !formData.message}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-slate-600 text-white py-3 rounded-lg font-medium transition-colors"
-          >
-            {loading ? 'Sending...' : 'Send Notification'}
-          </button>
-        </form>
-
-        <div className="mt-8 bg-slate-700 rounded-lg p-4">
-          <h3 className="text-lg font-semibold text-white mb-3">Quick Templates</h3>
-          <div className="space-y-2">
-            <button
-              onClick={() => setFormData({
-                title: 'Scheduled Maintenance',
-                message: 'KazRPG will be undergoing scheduled maintenance on [DATE] from [TIME] to [TIME]. During this time, the platform may be temporarily unavailable.',
-                type: 'maintenance',
-                priority: 'high',
-                expiresAt: ''
-              })}
-              className="w-full text-left bg-slate-600 hover:bg-slate-500 text-white p-3 rounded text-sm transition-colors"
-            >
-              Maintenance Notification
-            </button>
-            <button
-              onClick={() => setFormData({
-                title: 'New Feature Available',
-                message: 'We\'ve just released a new feature that enhances your gaming experience. Check it out in your dashboard!',
-                type: 'system_announcement',
-                priority: 'medium',
-                expiresAt: ''
-              })}
-              className="w-full text-left bg-slate-600 hover:bg-slate-500 text-white p-3 rounded text-sm transition-colors"
-            >
-              Feature Announcement
-            </button>
-            <button
-              onClick={() => setFormData({
-                title: 'Special Event This Weekend',
-                message: 'Join us for a special community event this weekend! Extra rewards and exclusive games available.',
-                type: 'event_notification',
-                priority: 'medium',
-                expiresAt: ''
-              })}
-              className="w-full text-left bg-slate-600 hover:bg-slate-500 text-white p-3 rounded text-sm transition-colors"
-            >
-              Event Notification
-            </button>
+  if (loading) {
+    return (
+      <div className="space-y-6">
+        <div className="animate-pulse">
+          <div className="h-8 bg-gray-200 rounded w-1/4 mb-4"></div>
+          <div className="space-y-4">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="bg-white p-6 rounded-lg shadow">
+                <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">System Notifications</h1>
+          <p className="text-gray-600">Send platform-wide notifications to users</p>
+        </div>
+        <button
+          onClick={() => setShowCreateForm(true)}
+          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          <BellIcon className="h-4 w-4 mr-2" />
+          Create Notification
+        </button>
+      </div>
+
+      {/* Create Notification Form */}
+      {showCreateForm && (
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+          <h3 className="text-lg font-medium text-gray-900 mb-4">Create New Notification</h3>
+          <form onSubmit={handleCreateNotification} className="space-y-4">
+            <div>
+              <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+                Title
+              </label>
+              <input
+                type="text"
+                id="title"
+                required
+                value={formData.title}
+                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="message" className="block text-sm font-medium text-gray-700">
+                Message
+              </label>
+              <textarea
+                id="message"
+                required
+                rows={4}
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="type" className="block text-sm font-medium text-gray-700">
+                  Type
+                </label>
+                <select
+                  id="type"
+                  value={formData.type}
+                  onChange={(e) => setFormData({ ...formData, type: e.target.value as any })}
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                >
+                  <option value="info">Info</option>
+                  <option value="warning">Warning</option>
+                  <option value="success">Success</option>
+                  <option value="error">Error</option>
+                </select>
+              </div>
+
+              <div>
+                <label htmlFor="targetAudience" className="block text-sm font-medium text-gray-700">
+                  Target Audience
+                </label>
+                <select
+                  id="targetAudience"
+                  value={formData.targetAudience}
+                  onChange={(e) => setFormData({ ...formData, targetAudience: e.target.value as any })}
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                >
+                  <option value="all">All Users</option>
+                  <option value="users">Regular Users</option>
+                  <option value="gms">Game Masters</option>
+                  <option value="admins">Admins</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="expiresAt" className="block text-sm font-medium text-gray-700">
+                Expires At (Optional)
+              </label>
+              <input
+                type="datetime-local"
+                id="expiresAt"
+                value={formData.expiresAt}
+                onChange={(e) => setFormData({ ...formData, expiresAt: e.target.value })}
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              />
+            </div>
+
+            <div className="flex justify-end space-x-3">
+              <button
+                type="button"
+                onClick={() => setShowCreateForm(false)}
+                className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="px-4 py-2 border border-transparent rounded-md text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Create Notification
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {/* Notifications List */}
+      {notifications.length === 0 ? (
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8 text-center">
+          <BellIcon className="mx-auto h-12 w-12 text-gray-400" />
+          <p className="mt-2 text-gray-500">No notifications created yet</p>
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {notifications.map((notification) => (
+            <div key={notification._id} className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <div className="flex justify-between items-start">
+                <div className="flex-1">
+                  <div className="flex items-start space-x-3">
+                    {getTypeIcon(notification.type)}
+                    <div className="flex-1">
+                      <h3 className="text-lg font-medium text-gray-900">{notification.title}</h3>
+                      <p className="text-gray-600 mt-1">{notification.message}</p>
+                      <div className="flex items-center space-x-3 mt-3">
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getTypeBadgeColor(notification.type)}`}>
+                          {notification.type}
+                        </span>
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getAudienceBadgeColor(notification.targetAudience)}`}>
+                          {notification.targetAudience}
+                        </span>
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                          notification.isActive ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                        }`}>
+                          {notification.isActive ? 'Active' : 'Inactive'}
+                        </span>
+                      </div>
+                      <div className="text-xs text-gray-500 mt-2">
+                        Created: {new Date(notification.createdAt).toLocaleString()}
+                        {notification.expiresAt && (
+                          <span className="ml-4">
+                            Expires: {new Date(notification.expiresAt).toLocaleString()}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="ml-4">
+                  <button
+                    onClick={() => handleToggleActive(notification._id, !notification.isActive)}
+                    className={`inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white ${
+                      notification.isActive 
+                        ? 'bg-red-600 hover:bg-red-700 focus:ring-red-500'
+                        : 'bg-green-600 hover:bg-green-700 focus:ring-green-500'
+                    } focus:outline-none focus:ring-2 focus:ring-offset-2`}
+                  >
+                    {notification.isActive ? 'Deactivate' : 'Activate'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

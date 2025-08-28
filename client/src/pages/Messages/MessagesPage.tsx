@@ -72,23 +72,34 @@ const MessagesPage: React.FC = () => {
         
         // Add message to the conversation if it's the active one
         if (selectedConversation && data.roomId === selectedConversation._id) {
-          setMessages(prevMessages => [
-            ...prevMessages,
-            {
-              _id: data.messageId || Date.now().toString(),
-              content: data.message,
-              sender: {
-                _id: data.userId,
-                username: data.username,
-                firstName: data.firstName || data.username,
-                lastName: data.lastName || '',
-                avatar: data.avatar
-              },
-              conversation: data.roomId,
-              createdAt: new Date().toISOString(),
-              messageType: 'text'
-            }
-          ]);
+          const newMessage = {
+            _id: data.messageId || Date.now().toString(),
+            content: data.message,
+            sender: {
+              _id: data.userId,
+              username: data.username,
+              firstName: data.firstName || data.username,
+              lastName: data.lastName || '',
+              avatar: data.avatar
+            },
+            conversation: data.roomId,
+            createdAt: new Date().toISOString(),
+            messageType: 'text',
+            isRead: false,
+            isDelivered: true
+          };
+          
+          setMessages(prevMessages => [...prevMessages, newMessage]);
+          
+          // Automatically mark as read if it's not from current user
+          if (data.userId !== user._id && socketService.connected) {
+            setTimeout(() => {
+              socketService.markMessageAsRead({
+                messageId: newMessage._id,
+                roomId: data.roomId
+              });
+            }, 500); // Small delay to simulate reading time
+          }
           
           // Scroll to bottom
           setTimeout(() => {
@@ -132,6 +143,26 @@ const MessagesPage: React.FC = () => {
           }
           return newSet;
         });
+      });
+
+      // Listen for message read status updates
+      socketService.onMessageRead((data) => {
+        console.log('📖 Message read update:', data);
+        setMessages(prevMessages => prevMessages.map(msg => 
+          msg._id === data.messageId 
+            ? { ...msg, isRead: true, readAt: data.readAt }
+            : msg
+        ));
+      });
+
+      // Listen for message delivery status updates
+      socketService.onMessageDelivered((data) => {
+        console.log('✅ Message delivered update:', data);
+        setMessages(prevMessages => prevMessages.map(msg => 
+          msg._id === data.messageId 
+            ? { ...msg, isDelivered: true, deliveredAt: data.deliveredAt }
+            : msg
+        ));
       });
 
       // Join room when conversation is selected
@@ -252,7 +283,22 @@ const MessagesPage: React.FC = () => {
     setSelectedConversation(conversation);
     try {
       const response = await messageService.getConversationMessages(conversation._id);
-      setMessages(response.data.data || []);
+      const loadedMessages = response.data.data || [];
+      setMessages(loadedMessages);
+      
+      // Mark unread messages in this conversation as read
+      const unreadMessages = loadedMessages.filter((msg: any) => 
+        !msg.isRead && msg.sender._id !== user?._id
+      );
+      
+      for (const msg of unreadMessages) {
+        if (socketService.connected) {
+          socketService.markMessageAsRead({
+            messageId: msg._id,
+            roomId: conversation._id
+          });
+        }
+      }
     } catch (error) {
       console.error('Error loading messages:', error);
     }

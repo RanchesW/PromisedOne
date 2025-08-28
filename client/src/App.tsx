@@ -32,7 +32,13 @@ import BecomeGM from './pages/BecomeGM/BecomeGM';
 import ApplicationConfirmation from './pages/BecomeGM/ApplicationConfirmation';
 
 // Admin Pages
-import AdminDashboard from './pages/Admin/AdminDashboard';
+import AdminLayout from './components/Admin/AdminLayout';
+import AdminOverview from './pages/Admin/AdminOverview';
+import GMApplications from './pages/Admin/GMApplications';
+import Users from './pages/Admin/Users';
+import Games from './pages/Admin/Games';
+import SystemNotifications from './pages/Admin/SystemNotifications';
+import Settings from './pages/Admin/Settings';
 
 // Components
 import LoadingSpinner from './components/UI/LoadingSpinner';
@@ -95,7 +101,15 @@ function App() {
             
             {/* Admin Routes */}
             <Route element={<ProtectedRoute roles={[UserRole.ADMIN]} />}>
-              <Route path="admin" element={<AdminDashboard />} />
+              <Route path="admin" element={<AdminLayout />}>
+                <Route index element={<AdminOverview />} />
+                <Route path="overview" element={<AdminOverview />} />
+                <Route path="gm-applications" element={<GMApplications />} />
+                <Route path="users" element={<Users />} />
+                <Route path="games" element={<Games />} />
+                <Route path="notifications" element={<SystemNotifications />} />
+                <Route path="settings" element={<Settings />} />
+              </Route>
             </Route>
           </Route>
           

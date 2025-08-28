@@ -103,6 +103,34 @@ class SocketService {
     }
   }
 
+  // Send message read status
+  markMessageAsRead(data: { messageId: string; roomId: string }) {
+    if (this.socket) {
+      this.socket.emit('message-read', data);
+    }
+  }
+
+  // Listen for message read status updates
+  onMessageRead(callback: (data: { messageId: string; readBy: string; readAt: Date }) => void) {
+    if (this.socket) {
+      this.socket.on('message-read-update', callback);
+    }
+  }
+
+  // Send message delivery status
+  markMessageAsDelivered(data: { messageId: string; roomId: string }) {
+    if (this.socket) {
+      this.socket.emit('message-delivered', data);
+    }
+  }
+
+  // Listen for message delivery status updates
+  onMessageDelivered(callback: (data: { messageId: string; deliveredTo: string; deliveredAt: Date }) => void) {
+    if (this.socket) {
+      this.socket.on('message-delivered-update', callback);
+    }
+  }
+
   // Clean up event listeners
   removeAllListeners() {
     if (this.socket) {

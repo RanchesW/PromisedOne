@@ -105,7 +105,7 @@ const Header: React.FC = () => {
   };
 
   const handleAdminNavigation = () => {
-    navigateWithTransition('/admin', '🎲 Entering the sacred halls of administration...', 2500);
+    navigateWithTransition('/admin/overview', '🎲 Entering the sacred halls of administration...', 2500);
     setIsMobileMenuOpen(false);
   };
 

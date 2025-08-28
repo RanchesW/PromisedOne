@@ -59,7 +59,7 @@ router.get('/user', async (req: Request, res: Response) => {
     const userId = (req as any).user.id;
 
     // TODO: Implement fetch user bookings logic
-    const bookings = [];
+    const bookings: any[] = [];
 
     res.json({
       success: true,

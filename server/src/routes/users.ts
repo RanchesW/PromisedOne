@@ -375,25 +375,25 @@ router.get('/game-masters', async (req: Request, res: Response) => {
 
     // Language filter
     if (language) {
-      const languageArray = Array.isArray(language) ? language : language.split(',');
+      const languageArray = Array.isArray(language) ? language : (typeof language === 'string' ? language.split(',') : []);
       query['profile.languages'] = { $in: languageArray };
     }
 
     // Game styles filter
     if (gameStyles) {
-      const styleArray = Array.isArray(gameStyles) ? gameStyles : gameStyles.split(',');
+      const styleArray = Array.isArray(gameStyles) ? gameStyles : (typeof gameStyles === 'string' ? gameStyles.split(',') : []);
       query.gameStyles = { $in: styleArray };
     }
 
     // Themes filter
     if (themes) {
-      const themeArray = Array.isArray(themes) ? themes : themes.split(',');
+      const themeArray = Array.isArray(themes) ? themes : (typeof themes === 'string' ? themes.split(',') : []);
       query.themes = { $in: themeArray };
     }
 
     // System filter (from preferences)
     if (system) {
-      const systemArray = Array.isArray(system) ? system : system.split(',');
+      const systemArray = Array.isArray(system) ? system : (typeof system === 'string' ? system.split(',') : []);
       query['preferences.systems'] = { $in: systemArray };
     }
 

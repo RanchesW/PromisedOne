@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { User, UserRole, ExperienceLevel, GameSystem } from '../types/shared';
+import socketService from '../services/socketService';
 
 // Re-export types for backward compatibility
 export type { User };
@@ -51,6 +52,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setToken(storedToken);
       try {
         setUser(JSON.parse(storedUser));
+        // Connect Socket.IO for existing logged-in users
+        socketService.connect(storedToken);
       } catch (error) {
         console.error('Error parsing stored user data:', error);
         localStorage.removeItem('authToken');
@@ -139,6 +142,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         // Store in localStorage
         localStorage.setItem('authToken', data.data.token);
         localStorage.setItem('user', JSON.stringify(data.data.user));
+        
+        // Connect Socket.IO for real-time features
+        socketService.connect(data.data.token);
       } else {
         throw new Error('Login failed');
       }
@@ -174,6 +180,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         // Store in localStorage
         localStorage.setItem('authToken', data.data.token);
         localStorage.setItem('user', JSON.stringify(data.data.user));
+        
+        // Connect Socket.IO for real-time features
+        socketService.connect(data.data.token);
       } else {
         throw new Error('Registration failed');
       }
@@ -190,6 +199,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setToken(null);
     localStorage.removeItem('authToken');
     localStorage.removeItem('user');
+    
+    // Disconnect Socket.IO
+    socketService.disconnect();
   };
 
   const updateUser = async (userData: Partial<User>): Promise<void> => {

@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { messageService } from '../../services/messageService';
 import { useAuth } from '../../contexts/AuthContext';
 import { getAvatarUrl } from '../../services/api';
+import socketService from '../../services/socketService';
 import { Message, Conversation, FriendRequest, Notification, User } from '../../types/shared';
 import { 
   MessageBubble, 
@@ -61,6 +62,93 @@ const MessagesPage: React.FC = () => {
   useEffect(() => {
     loadInitialData();
   }, []);
+
+  // Socket.IO real-time messaging setup
+  useEffect(() => {
+    if (user && socketService.connected) {
+      // Listen for incoming messages
+      socketService.onMessage((data) => {
+        console.log('📩 Received real-time message:', data);
+        
+        // Add message to the conversation if it's the active one
+        if (selectedConversation && data.roomId === selectedConversation._id) {
+          setMessages(prevMessages => [
+            ...prevMessages,
+            {
+              _id: data.messageId || Date.now().toString(),
+              content: data.message,
+              sender: {
+                _id: data.userId,
+                username: data.username,
+                firstName: data.firstName || data.username,
+                lastName: data.lastName || '',
+                avatar: data.avatar
+              },
+              conversation: data.roomId,
+              createdAt: new Date().toISOString(),
+              messageType: 'text'
+            }
+          ]);
+          
+          // Scroll to bottom
+          setTimeout(() => {
+            messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+          }, 100);
+        }
+        
+        // Update conversations list to show new message
+        setConversations(prevConvs => prevConvs.map(conv => 
+          conv._id === data.roomId 
+            ? { ...conv, lastMessage: { content: data.message, createdAt: new Date().toISOString() } }
+            : conv
+        ));
+      });
+
+      // Listen for typing indicators
+      socketService.onTyping((data) => {
+        if (data.userId !== user._id) {
+          setTypingUsers(prev => {
+            if (data.isTyping) {
+              // Add user to typing list if not already there
+              return prev.find(u => u.id === data.userId) 
+                ? prev 
+                : [...prev, { id: data.userId, name: data.username }];
+            } else {
+              // Remove user from typing list
+              return prev.filter(u => u.id !== data.userId);
+            }
+          });
+        }
+      });
+
+      // Listen for user status changes
+      socketService.onUserStatusChange((data) => {
+        setOnlineUsers(prev => {
+          const newSet = new Set(prev);
+          if (data.isOnline) {
+            newSet.add(data.userId);
+          } else {
+            newSet.delete(data.userId);
+          }
+          return newSet;
+        });
+      });
+
+      // Join room when conversation is selected
+      if (selectedConversation) {
+        socketService.joinRoom(selectedConversation._id);
+        console.log('🏠 Joined conversation room:', selectedConversation._id);
+      }
+    }
+
+    // Cleanup function
+    return () => {
+      if (selectedConversation) {
+        socketService.leaveRoom(selectedConversation._id);
+      }
+      socketService.removeAllListeners();
+    };
+  }, [user, selectedConversation, socketService.connected]);
 
   // Handle URL query parameters to set active tab
   useEffect(() => {
@@ -171,9 +259,10 @@ const MessagesPage: React.FC = () => {
   };
 
   const handleSendMessage = async (content: string, messageType = 'text', metadata?: any) => {
-    if (!selectedConversation || !content.trim()) return;
+    if (!selectedConversation || !content.trim() || !user) return;
 
     try {
+      // Send via API (for database storage)
       const response = await messageService.sendMessage(
         selectedConversation._id,
         content,
@@ -184,6 +273,20 @@ const MessagesPage: React.FC = () => {
       // Add the new message to the messages array
       const newMsg = response.data.data;
       setMessages(prev => [...prev, newMsg]);
+      
+      // Send via Socket.IO for real-time delivery
+      if (socketService.connected) {
+        socketService.sendMessage({
+          roomId: selectedConversation._id,
+          message: content,
+          userId: user._id,
+          username: user.username,
+          messageId: newMsg._id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          avatar: user.avatar
+        });
+      }
       
       // Refresh conversations to update last message
       await loadConversations();

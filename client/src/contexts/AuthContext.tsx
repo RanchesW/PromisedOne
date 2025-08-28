@@ -10,11 +10,21 @@ export interface AuthContextType {
   user: User | null;
   token: string | null;
   login: (email: string, password: string) => Promise<void>;
-  register: (userData: RegisterData) => Promise<void>;
+  register: (userData: RegisterData) => Promise<RegisterResponse>;
+  verifyEmail: (verificationToken: string, verificationCode: string) => Promise<void>;
+  resendVerification: (email: string) => Promise<void>;
   logout: () => void;
   updateUser: (userData: Partial<User>) => Promise<void>;
   isLoading: boolean;
   isAuthenticated: boolean;
+}
+
+export interface RegisterResponse {
+  userId: string;
+  email: string;
+  verificationToken: string;
+  emailSent: boolean;
+  requiresVerification: boolean;
 }
 
 export interface RegisterData {
@@ -156,7 +166,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const register = async (userData: RegisterData): Promise<void> => {
+  const register = async (userData: RegisterData): Promise<RegisterResponse> => {
     setIsLoading(true);
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000/api'}/auth/register`, {
@@ -174,6 +184,44 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
 
       if (data.success && data.data) {
+        // Don't log in automatically - user needs to verify email first
+        return {
+          userId: data.data.userId,
+          email: data.data.email,
+          verificationToken: data.data.verificationToken,
+          emailSent: data.data.emailSent,
+          requiresVerification: data.data.requiresVerification
+        };
+      } else {
+        throw new Error('Registration failed');
+      }
+    } catch (error) {
+      console.error('Registration error:', error);
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const verifyEmail = async (verificationToken: string, verificationCode: string): Promise<void> => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000/api'}/auth/verify-email`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ verificationToken, verificationCode }),
+      });
+
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.message || 'Email verification failed');
+      }
+
+      if (data.success && data.data) {
+        // After successful verification, log the user in
         setUser(data.data.user);
         setToken(data.data.token);
         
@@ -184,13 +232,38 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         // Connect Socket.IO for real-time features
         socketService.connect(data.data.token);
       } else {
-        throw new Error('Registration failed');
+        throw new Error('Email verification failed');
       }
     } catch (error) {
-      console.error('Registration error:', error);
+      console.error('Email verification error:', error);
       throw error;
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const resendVerification = async (email: string): Promise<void> => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000/api'}/auth/resend-verification`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to resend verification code');
+      }
+
+      if (!data.success) {
+        throw new Error('Failed to resend verification code');
+      }
+    } catch (error) {
+      console.error('Resend verification error:', error);
+      throw error;
     }
   };
 
@@ -253,6 +326,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     token,
     login,
     register,
+    verifyEmail,
+    resendVerification,
     logout,
     updateUser,
     isLoading,

@@ -218,22 +218,32 @@ router.post('/login', async (req: Request, res: Response) => {
       });
     }
 
-    // Check if email is verified
+    // Check if user is active (this covers both email verification and admin suspension)
+    if (!user.isActive) {
+      // If user is inactive and email not verified, they need to verify
+      if (!user.isEmailVerified) {
+        return res.status(401).json({
+          success: false,
+          message: 'Please verify your email address before logging in',
+          requiresVerification: true,
+          email: user.email
+        });
+      }
+      // If email is verified but still inactive, it's an admin action
+      return res.status(401).json({
+        success: false,
+        message: 'Your account is currently inactive. Please contact support.',
+        accountInactive: true
+      });
+    }
+
+    // Double check email verification for extra security
     if (!user.isEmailVerified) {
       return res.status(401).json({
         success: false,
         message: 'Please verify your email address before logging in',
         requiresVerification: true,
         email: user.email
-      });
-    }
-
-    // Check if user is active
-    if (!user.isActive) {
-      return res.status(401).json({
-        success: false,
-        message: 'Your account is currently inactive. Please contact support.',
-        accountInactive: true
       });
     }
 

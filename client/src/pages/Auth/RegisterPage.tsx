@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth, UserRole, ExperienceLevel } from '../../contexts/AuthContext';
 import { useRouteTransition } from '../../hooks/useRouteTransition';
 
@@ -16,6 +16,7 @@ interface FormData {
 const RegisterPage: React.FC = () => {
   const { register } = useAuth();
   const { navigateWithTransition } = useRouteTransition();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [formData, setFormData] = useState<FormData>({
@@ -71,7 +72,7 @@ const RegisterPage: React.FC = () => {
     setIsLoading(true);
     
     try {
-      await register({
+      const result = await register({
         firstName: formData.firstName,
         lastName: formData.lastName,
         username: formData.username,
@@ -83,8 +84,20 @@ const RegisterPage: React.FC = () => {
         preferredSystems: [],
       });
       
-      // Registration successful, redirect to games
-      navigateWithTransition('/games', '🎲 Welcome to the realm! Start browsing epic adventures...', 2500);
+      // Show success message briefly, then redirect to verification page
+      navigateWithTransition('/verify-email', '📧 Check your email for the verification code...', 1500);
+      
+      // Navigate to verification page with state data after transition
+      setTimeout(() => {
+        navigate('/verify-email', {
+          state: {
+            email: result.email,
+            verificationToken: result.verificationToken,
+            emailSent: result.emailSent
+          },
+          replace: true
+        });
+      }, 1500);
     } catch (err: any) {
       setError(err.message || 'Registration failed. Please try again.');
     } finally {

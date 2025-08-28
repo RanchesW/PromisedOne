@@ -13,6 +13,7 @@ import RouteTransitionWrapper from './components/UI/RouteTransitionWrapper';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/Auth/LoginPage';
 import RegisterPage from './pages/Auth/RegisterPage';
+import VerifyEmailPage from './pages/Auth/VerifyEmailPage';
 import ForgotPasswordPage from './pages/Auth/ForgotPasswordPage';
 import GamesPage from './pages/Games/GamesPage';
 import GameDetailPage from './pages/Games/GameDetailPage';
@@ -65,6 +66,7 @@ function App() {
             <Route index element={<HomePage />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="register" element={<RegisterPage />} />
+            <Route path="verify-email" element={<VerifyEmailPage />} />
             <Route path="forgot-password" element={<ForgotPasswordPage />} />
             <Route path="games" element={<GamesPage />} />
             <Route path="games/:id" element={<GameDetailPage />} />

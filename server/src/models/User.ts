@@ -184,7 +184,7 @@ const userSchema = new Schema<UserDocument>({
   },
   isActive: {
     type: Boolean,
-    default: true,
+    default: false, // Changed: Users should be inactive by default until email verified
   },
   lastLoginAt: {
     type: Date,

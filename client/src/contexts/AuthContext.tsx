@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { User, UserRole, ExperienceLevel, GameSystem } from '../types/shared';
 import socketService from '../services/socketService';
+import { useNotification } from './NotificationContext';
 
 // Re-export types for backward compatibility
 export type { User };
@@ -52,6 +53,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { showNotification } = useNotification();
 
   // Check for existing token on mount
   useEffect(() => {
@@ -146,6 +148,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
 
       if (data.success && data.data) {
+        // Show success notification
+        showNotification(`Welcome back, ${data.data.user.firstName}!`, 'success', 3000);
+        
         setUser(data.data.user);
         setToken(data.data.token);
         
@@ -158,8 +163,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       } else {
         throw new Error('Login failed');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Login error:', error);
+      
+      // Show error notification based on specific error types
+      let errorMessage = 'Login failed. Please try again.';
+      if (error.message?.includes('verify your email')) {
+        errorMessage = 'Please verify your email address before logging in.';
+      } else if (error.message?.includes('Invalid credentials')) {
+        errorMessage = 'Invalid email or password. Please check your credentials.';
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+      
+      showNotification(errorMessage, 'error', 5000);
       throw error;
     } finally {
       setIsLoading(false);
@@ -184,6 +201,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
 
       if (data.success && data.data) {
+        // Show success notification
+        showNotification('Registration successful! Check your email for verification code.', 'success', 4000);
+        
         // Don't log in automatically - user needs to verify email first
         return {
           userId: data.data.userId,
@@ -195,8 +215,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       } else {
         throw new Error('Registration failed');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Registration error:', error);
+      
+      // Show error notification
+      const errorMessage = error.message || 'Registration failed. Please try again.';
+      showNotification(errorMessage, 'error', 5000);
+      
       throw error;
     } finally {
       setIsLoading(false);
@@ -221,6 +246,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
 
       if (data.success && data.data) {
+        // Show success notification
+        showNotification('Email verified successfully! Welcome to KazRPG!', 'success', 4000);
+        
         // After successful verification, log the user in
         setUser(data.data.user);
         setToken(data.data.token);
@@ -234,8 +262,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       } else {
         throw new Error('Email verification failed');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Email verification error:', error);
+      
+      // Show error notification
+      const errorMessage = error.message || 'Email verification failed. Please try again.';
+      showNotification(errorMessage, 'error', 5000);
+      
       throw error;
     } finally {
       setIsLoading(false);
@@ -261,8 +294,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (!data.success) {
         throw new Error('Failed to resend verification code');
       }
-    } catch (error) {
+      
+      // Show success notification
+      showNotification('New verification code sent to your email!', 'success', 4000);
+    } catch (error: any) {
       console.error('Resend verification error:', error);
+      
+      // Show error notification
+      const errorMessage = error.message || 'Failed to resend verification code. Please try again.';
+      showNotification(errorMessage, 'error', 5000);
+      
       throw error;
     }
   };

@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useRouteTransition } from '../../hooks/useRouteTransition';
+import { useNotification } from '../../contexts/NotificationContext';
 
 const VerifyEmailPage: React.FC = () => {
   const { verifyEmail, resendVerification } = useAuth();
   const { navigateWithTransition } = useRouteTransition();
   const navigate = useNavigate();
   const location = useLocation();
+  const { showNotification } = useNotification();
   
   const [verificationCode, setVerificationCode] = useState('');
   const [isLoading, setIsLoading] = useState(false);

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth, UserRole, ExperienceLevel } from '../../contexts/AuthContext';
 import { useRouteTransition } from '../../hooks/useRouteTransition';
+import { useNotification } from '../../contexts/NotificationContext';
 
 interface FormData {
   firstName: string;
@@ -17,6 +18,7 @@ const RegisterPage: React.FC = () => {
   const { register } = useAuth();
   const { navigateWithTransition } = useRouteTransition();
   const navigate = useNavigate();
+  const { showNotification } = useNotification();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [formData, setFormData] = useState<FormData>({

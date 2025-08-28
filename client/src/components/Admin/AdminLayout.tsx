@@ -3,7 +3,7 @@ import { Outlet, NavLink, useLocation } from 'react-router-dom';
 import { 
   ChartBarIcon, 
   UsersIcon, 
-  GameController2Icon,
+  RectangleStackIcon,
   ClipboardDocumentListIcon,
   CogIcon,
   BellIcon
@@ -34,7 +34,7 @@ const AdminLayout: React.FC = () => {
     {
       name: 'Games',
       href: '/admin/games',
-      icon: GameController2Icon,
+      icon: RectangleStackIcon,
       description: 'Manage games and sessions'
     },
     {

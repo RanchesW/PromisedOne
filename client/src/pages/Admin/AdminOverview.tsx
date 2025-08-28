@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   UsersIcon, 
-  GameController2Icon,
+  RectangleStackIcon,
   ClipboardDocumentListIcon,
   ChartBarIcon
 } from '@heroicons/react/24/outline';
@@ -72,7 +72,7 @@ const AdminOverview: React.FC = () => {
     {
       name: 'Active Games',
       value: stats.totalGames,
-      icon: GameController2Icon,
+      icon: RectangleStackIcon,
       color: 'bg-green-500',
       change: '+5%',
       changeType: 'positive'

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { GameController2Icon, UsersIcon, CalendarIcon } from '@heroicons/react/24/outline';
+import { RectangleStackIcon, UsersIcon, CalendarIcon } from '@heroicons/react/24/outline';
 
 interface Game {
   _id: string;
@@ -119,7 +119,7 @@ const Games: React.FC = () => {
       {/* Games List */}
       {games.length === 0 ? (
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8 text-center">
-          <GameController2Icon className="mx-auto h-12 w-12 text-gray-400" />
+          <RectangleStackIcon className="mx-auto h-12 w-12 text-gray-400" />
           <p className="mt-2 text-gray-500">No games found</p>
         </div>
       ) : (

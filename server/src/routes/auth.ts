@@ -86,8 +86,8 @@ router.post('/register', async (req: Request, res: Response) => {
       });
     }
 
-    // Generate email verification code
-    const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+    // Generate email verification code (alphanumeric like X4AA0Z)
+    const verificationCode = Math.random().toString(36).substring(2, 8).toUpperCase();
     const verificationToken = crypto.randomBytes(32).toString('hex');
     const verificationExpires = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes
 
@@ -401,8 +401,8 @@ router.post('/resend-verification', async (req: Request, res: Response) => {
       });
     }
 
-    // Generate new verification code
-    const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+    // Generate new verification code (alphanumeric like X4AA0Z)
+    const verificationCode = Math.random().toString(36).substring(2, 8).toUpperCase();
     const verificationToken = crypto.randomBytes(32).toString('hex');
     const verificationExpires = new Date(Date.now() + 15 * 60 * 1000);
 

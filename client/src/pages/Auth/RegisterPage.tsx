@@ -86,20 +86,20 @@ const RegisterPage: React.FC = () => {
         preferredSystems: [],
       });
       
-      // Show success message briefly, then redirect to verification page
-      navigateWithTransition('/verify-email', '📧 Check your email for the verification code...', 1500);
-      
-      // Navigate to verification page with state data after transition
-      setTimeout(() => {
-        navigate('/verify-email', {
+      // Show success message and redirect to verification page with state
+      navigateWithTransition(
+        '/verify-email', 
+        '📧 Check your email for the verification code...', 
+        2000,
+        {
           state: {
             email: result.email,
             verificationToken: result.verificationToken,
             emailSent: result.emailSent
           },
           replace: true
-        });
-      }, 1500);
+        }
+      );
     } catch (err: any) {
       setError(err.message || 'Registration failed. Please try again.');
     } finally {

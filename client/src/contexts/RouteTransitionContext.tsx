@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 interface RouteTransitionContextType {
   isTransitioning: boolean;
   transitionMessage: string;
-  navigateWithTransition: (to: string, message?: string, duration?: number) => void;
+  navigateWithTransition: (to: string, message?: string, duration?: number, navigationOptions?: any) => void;
   navigateWithoutTransition: (to: string) => void;
   setIsTransitioning: (isTransitioning: boolean) => void;
 }
@@ -23,7 +23,8 @@ export const RouteTransitionProvider: React.FC<RouteTransitionProviderProps> = (
   const navigateWithTransition = useCallback((
     to: string, 
     message: string = 'Loading...', 
-    duration: number = 2000
+    duration: number = 2000,
+    navigationOptions?: any
   ) => {
     console.log('Starting transition:', { to, message, duration }); // Debug log
     setTransitionMessage(message);
@@ -32,7 +33,11 @@ export const RouteTransitionProvider: React.FC<RouteTransitionProviderProps> = (
     setTimeout(() => {
       console.log('Navigating to:', to); // Debug log
       try {
-        navigate(to);
+        if (navigationOptions) {
+          navigate(to, navigationOptions);
+        } else {
+          navigate(to);
+        }
         console.log('Navigation completed successfully'); // Debug log
       } catch (error) {
         console.error('Navigation error:', error); // Debug log

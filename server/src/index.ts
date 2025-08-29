@@ -47,7 +47,8 @@ const io = new Server(httpServer, {
       const allowedOrigins = [
         'http://localhost:3000',
         'http://95.141.138.162:3000',
-        'https://promised-one-client.vercel.app'
+        'https://promised-one-client.vercel.app',
+        'https://promised-one-client-3zyz5hl0k-ranchesws-projects.vercel.app'
       ];
       
       const isVercelPreview = origin.includes('promised-one-client') && origin.includes('vercel.app');
@@ -79,7 +80,8 @@ app.use(cors({
     const allowedOrigins = [
       'http://localhost:3000',
       'http://95.141.138.162:3000',
-      'https://promised-one-client.vercel.app'
+      'https://promised-one-client.vercel.app',
+      'https://promised-one-client-3zyz5hl0k-ranchesws-projects.vercel.app'
     ];
     
     // Allow any Vercel preview deployment

@@ -49,7 +49,7 @@ const VerifyEmailPage: React.FC = () => {
     setSuccess('');
     
     if (!verificationCode || verificationCode.length !== 6) {
-      setError('Please enter a valid 6-digit verification code');
+      setError('Please enter a valid 6-character verification code');
       return;
     }
 
@@ -87,7 +87,7 @@ const VerifyEmailPage: React.FC = () => {
   };
 
   const handleCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/\D/g, ''); // Only digits
+    const value = e.target.value.replace(/[^A-Z0-9]/gi, '').toUpperCase(); // Only letters and numbers, convert to uppercase
     if (value.length <= 6) {
       setVerificationCode(value);
     }
@@ -110,7 +110,7 @@ const VerifyEmailPage: React.FC = () => {
             Verify Your Email
           </h2>
           <p className="mt-2 text-sm text-slate-600">
-            We've sent a 6-digit verification code to
+            We've sent a 6-character verification code to
           </p>
           <p className="font-medium text-slate-900">{email}</p>
         </div>
@@ -141,12 +141,12 @@ const VerifyEmailPage: React.FC = () => {
                 value={verificationCode}
                 onChange={handleCodeChange}
                 className="input-field text-center text-2xl font-mono tracking-widest"
-                placeholder="000000"
+                placeholder="X4AA0Z"
                 maxLength={6}
                 autoComplete="one-time-code"
               />
               <p className="mt-2 text-xs text-slate-500 text-center">
-                Enter the 6-digit code from your email
+                Enter the 6-character code from your email
               </p>
               
               {timeLeft > 0 && (

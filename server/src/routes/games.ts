@@ -2,7 +2,7 @@ import { Router, Request, Response } from 'express';
 import { auth } from '../middleware/auth';
 import Game from '../models/Game';
 import { User } from '../models/User';
-import { UserRole, GameSearchFilters, ApiResponse, PaginatedResponse, Game as IGame } from '@kazrpg/shared';
+import { UserRole, GameSearchFilters, ApiResponse, PaginatedResponse, Game as IGame } from '../../../shared/src/types';
 
 interface AuthenticatedRequest extends Request {
   user?: {

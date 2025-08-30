@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from 'mongoose';
-import { Game as IGame, GameSystem, Platform, SessionType, ExperienceLevel, BookingType } from '@kazrpg/shared';
+import { Game as IGame, GameSystem, Platform, SessionType, ExperienceLevel, BookingType } from '../../../shared/src/types';
 
 export interface GameDocument extends Omit<IGame, '_id' | 'gm'>, Document {
   gm: mongoose.Types.ObjectId;

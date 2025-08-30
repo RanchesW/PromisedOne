@@ -2,7 +2,7 @@ import { Router, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import { User, UserDocument } from '../models/User';
-import { UserRole } from '@kazrpg/shared';
+import { UserRole } from '../../../shared/src/types';
 import { getJwtSecret, getJwtExpiresIn } from '../config/jwt';
 import { emailService } from '../services/emailService';
 

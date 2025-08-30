@@ -73,23 +73,26 @@ app.use(morgan('combined'));
 // CORS - apply CORS before static files
 app.use(cors({
   origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
+    // Allow requests with no origin (same-origin requests in production)
     if (!origin) return callback(null, true);
     
     const allowedOrigins = [
-      'http://localhost:3000',
-      'http://95.141.138.162:3000',
-      'https://promised-one-client.vercel.app',
-      'https://promised-one-client-3zyz5hl0k-ranchesws-projects.vercel.app'
+      'http://localhost:3000', // Local development
+      'http://95.141.138.162:3000', // Development IP
+      'https://promised-one-client.vercel.app', // Old Vercel URLs
+      'https://promised-one-client-3zyz5hl0k-ranchesws-projects.vercel.app',
+      'https://kazrpg-fullstack.onrender.com' // New Render URL
     ];
     
-    // Allow any Vercel preview deployment
+    // Allow any Vercel preview deployment or Render URLs
     const isVercelPreview = origin.includes('promised-one-client') && origin.includes('vercel.app');
+    const isRenderURL = origin.includes('.onrender.com');
     
-    if (allowedOrigins.includes(origin) || isVercelPreview) {
+    if (allowedOrigins.includes(origin) || isVercelPreview || isRenderURL) {
       return callback(null, true);
     }
     
+    console.log('CORS blocked origin:', origin);
     callback(new Error('Not allowed by CORS'));
   },
   credentials: true,

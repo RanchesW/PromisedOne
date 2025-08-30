@@ -21,6 +21,7 @@ import reviewRoutes from './routes/reviews';
 import messageRoutes from './routes/messages';
 import requestRoutes from './routes/requests';
 import uploadRoutes from './routes/upload';
+import uploadCloudinaryRoutes from './routes/upload-cloudinary';
 import paymentRoutes from './routes/payments';
 import adminRoutes from './routes/admin';
 import favoritesRoutes from './routes/favorites';
@@ -158,10 +159,31 @@ app.use('/api/reviews', reviewRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/requests', requestRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/upload-cloud', uploadCloudinaryRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/favorites', favoritesRoutes);
 console.log('All routes registered!');
+
+// Serve React build in production
+if (process.env.NODE_ENV === 'production') {
+  // Serve static files from React build
+  app.use(express.static(path.join(__dirname, '../../client/build')));
+  
+  // Catch-all handler for React Router
+  app.get('*', (req, res) => {
+    // Don't serve React app for API routes
+    if (req.path.startsWith('/api') || req.path.startsWith('/uploads')) {
+      return res.status(404).json({ error: 'API endpoint not found' });
+    }
+    
+    res.sendFile(path.join(__dirname, '../../client/build/index.html'));
+  });
+  
+  console.log('Production mode: Serving React build from /client/build');
+} else {
+  console.log('Development mode: React served separately on port 3000');
+}
 
 // Socket.IO connection handling
 io.on('connection', (socket) => {

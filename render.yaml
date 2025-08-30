@@ -1,0 +1,31 @@
+services:
+  # Full-stack web service (React + Express)
+  - type: web
+    name: kazrpg-fullstack
+    env: node
+    plan: free
+    buildCommand: npm run build:render
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        fromDatabase:
+          name: kazrpg-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false  # Set this manually in Render dashboard
+      - key: CLOUDINARY_API_KEY
+        sync: false  # Set this manually in Render dashboard  
+      - key: CLOUDINARY_API_SECRET
+        sync: false  # Set this manually in Render dashboard
+    healthCheckPath: /health
+
+databases:
+  # MongoDB Atlas connection (you'll set this up manually)
+  # OR use Render's PostgreSQL if you want to switch databases
+  - name: kazrpg-db
+    databaseName: kazrpg
+    user: kazrpg-user

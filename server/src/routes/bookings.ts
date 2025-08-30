@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import { auth } from '../middleware/auth';
-import { BookingStatus, BookingType } from '../../../shared/src/types';
+import { BookingStatus, BookingType } from '../types/shared';
 
 const router = Router();
 

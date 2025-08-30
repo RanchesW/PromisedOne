@@ -2,7 +2,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { User } from '../models/User';
 import Notification from '../models/Notification';
-import { UserRole } from '../../../shared/src/types';
+import { UserRole } from '../types/shared';
 import { getJwtSecret } from '../config/jwt';
 
 const router = Router();

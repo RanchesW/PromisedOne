@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from 'mongoose';
-import { UserRole } from '../../../shared/src/types';
+import { UserRole } from '../types/shared';
 
 export interface GMApplicationDocument extends Document {
   userId: mongoose.Types.ObjectId;

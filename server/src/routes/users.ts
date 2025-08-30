@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { auth, AuthRequest } from '../middleware/auth';
 import { User } from '../models/User';
-import { UserRole } from '../../../shared/src/types';
+import { UserRole } from '../types/shared';
 
 const router = Router();
 

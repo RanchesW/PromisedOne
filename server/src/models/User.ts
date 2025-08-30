@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import bcrypt from 'bcryptjs';
-import { User as IUser, UserRole } from '../../../shared/src/types';
+import { User as IUser, UserRole } from '../types/shared';
 
 export interface DMApplication {
   experience: string;

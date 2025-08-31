@@ -485,19 +485,24 @@ const Header: React.FC = () => {
                 </div>
               </div>
             ) : (
-              <div className="hidden md:flex items-center space-x-6">
-                <Link
-                  to="/login"
-                  className="text-slate-700 hover:text-blue-600 transition-colors font-medium text-lg"
-                >
-                  Login
-                </Link>
-                <Link
-                  to="/register"
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors text-lg"
-                >
-                  Sign Up
-                </Link>
+              <div className="hidden md:flex items-center">
+                {/* Separator */}
+                <div className="h-6 w-px bg-gray-300 mx-3"></div>
+                
+                <div className="flex items-center space-x-6">
+                  <Link
+                    to="/login"
+                    className="text-slate-700 hover:text-blue-600 transition-colors font-medium text-lg"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors text-lg"
+                  >
+                    Sign Up
+                  </Link>
+                </div>
               </div>
             )}
           </div>
@@ -582,14 +587,14 @@ const Header: React.FC = () => {
             ) : (
               <>
                 <Link
-                  to="/auth/login"
+                  to="/login"
                   className="block px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Login
                 </Link>
                 <Link
-                  to="/auth/register"
+                  to="/register"
                   className="block px-3 py-2 bg-purple-600 text-white hover:bg-purple-700 rounded-md transition-colors text-center"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >

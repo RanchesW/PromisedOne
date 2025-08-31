@@ -6,6 +6,10 @@ services:
     plan: free
     buildCommand: npm run build:render
     startCommand: npm start
+    disk:
+      name: kazrpg-uploads
+      mountPath: /app/server/uploads
+      sizeGB: 1
     envVars:
       - key: NODE_ENV
         value: production
@@ -15,12 +19,6 @@ services:
           property: connectionString
       - key: JWT_SECRET
         generateValue: true
-      - key: CLOUDINARY_CLOUD_NAME
-        sync: false  # Set this manually in Render dashboard
-      - key: CLOUDINARY_API_KEY
-        sync: false  # Set this manually in Render dashboard  
-      - key: CLOUDINARY_API_SECRET
-        sync: false  # Set this manually in Render dashboard
       - key: SMTP_HOST
         sync: false  # Set this manually in Render dashboard (e.g., smtp.gmail.com)
       - key: SMTP_PORT

@@ -200,8 +200,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
 
       if (data.success && data.data) {
-        // Show success notification
-        showNotification('Registration successful! Check your email for verification code.', 'success', 4000);
+        // Show notification to check email
+        showNotification('Check your email for verification code.', 'info', 4000);
         
         // Don't log in automatically - user needs to verify email first
         return {

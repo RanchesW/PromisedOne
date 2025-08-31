@@ -86,7 +86,7 @@ const RegisterPage: React.FC = () => {
         preferredSystems: [],
       });
       
-      // Show success message and redirect to verification page with state
+      // Redirect to verification page with state
       navigateWithTransition(
         '/verify-email', 
         '📧 Check your email for the verification code...', 

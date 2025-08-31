@@ -7,9 +7,8 @@ class SocketService {
   connect(token?: string) {
     if (this.socket && this.isConnected) return;
 
-    const SERVER_URL = process.env.NODE_ENV === 'production' 
-      ? 'https://promisedone.onrender.com'
-      : 'http://localhost:5000';
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL || 
+      (process.env.NODE_ENV === 'production' ? '' : 'http://localhost:5000');
 
     console.log('🔌 Connecting to Socket.IO server:', SERVER_URL);
 

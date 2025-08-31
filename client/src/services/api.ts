@@ -21,12 +21,10 @@ import {
 // Base API configuration
 // For production, use public IP. For local dev, use localhost
 const isProduction = process.env.NODE_ENV === 'production';
-const API_BASE_URL = isProduction 
-  ? 'https://promisedone.onrender.com/api'
-  : process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
-const SERVER_BASE_URL = isProduction 
-  ? 'https://promisedone.onrender.com'
-  : process.env.REACT_APP_SERVER_URL || 'http://localhost:5000';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 
+  (isProduction ? '/api' : 'http://localhost:5000/api');
+const SERVER_BASE_URL = process.env.REACT_APP_SERVER_URL || 
+  (isProduction ? '' : 'http://localhost:5000');
 
 // Utility function to convert avatar paths to full URLs or return base64 data URLs
 export const getAvatarUrl = (avatarPath: string | undefined): string | null => {

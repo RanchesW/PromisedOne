@@ -145,7 +145,7 @@ const Header: React.FC = () => {
           {/* Right side - Navigation + Icons */}
           <div className="flex items-center space-x-2">
             {/* Navigation */}
-            <nav className="hidden md:flex items-center space-x-1">
+            <nav className="hidden md:flex items-center space-x-3">
             {/* Navigation Links */}
             {navLinks.map(link => (
               <Link
@@ -487,7 +487,7 @@ const Header: React.FC = () => {
             ) : (
               <div className="hidden md:flex items-center">
                 {/* Separator */}
-                <div className="h-6 w-px bg-gray-300 mx-3"></div>
+                <div className="h-6 w-px bg-gray-300 ml-1 mr-3"></div>
                 
                 <div className="flex items-center space-x-6">
                   <Link

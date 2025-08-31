@@ -390,42 +390,120 @@ const PublicProfilePage: React.FC = () => {
             </div>
               {/* Featured Prompts */}
                 <div className="mt-8">
-                  <h4 className="text-2xl font-bold text-gray-900 mb-4">Featured Prompts</h4>
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-600 rounded-lg flex items-center justify-center">
+                      <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.196-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                      </svg>
+                    </div>
+                    <h4 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                      Featured Prompts
+                    </h4>
+                  </div>
                   {profile.featuredPrompts && profile.featuredPrompts.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {profile.featuredPrompts.map((prompt: {promptId: string, customText: string}, index: number) => {
-                        // Map promptId to display text
-                        const getPromptText = (promptId: string) => {
-                          const promptMap: {[key: string]: string} = {
-                            'became_gm_because': 'I became a GM because',
-                            'favorite_system': 'My favorite system of all time is',
-                            'best_moment': 'My best gaming moment was when',
-                            'character_type': 'I always play the character who',
-                            'dm_style': 'My DM style can best be described as',
-                            'game_goal': 'What I want most from a game is',
-                            'player_pet_peeve': 'My biggest pet peeve as a player is',
-                            'memorable_npc': 'The most memorable NPC I created was',
-                            'campaign_dream': 'My dream campaign would be',
-                            'gaming_philosophy': 'My gaming philosophy is'
+                        // Map promptId to display text and get colors
+                        const getPromptData = (promptId: string) => {
+                          const promptMap: {[key: string]: {text: string, gradient: string, icon: string}} = {
+                            'became_gm_because': {
+                              text: 'I became a GM because',
+                              gradient: 'from-emerald-400 to-cyan-400',
+                              icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253'
+                            },
+                            'favorite_system': {
+                              text: 'My favorite system of all time is',
+                              gradient: 'from-rose-400 to-pink-400',
+                              icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z'
+                            },
+                            'best_moment': {
+                              text: 'My best gaming moment was when',
+                              gradient: 'from-amber-400 to-orange-400',
+                              icon: 'M13 10V3L4 14h7v7l9-11h-7z'
+                            },
+                            'character_type': {
+                              text: 'I always play the character who',
+                              gradient: 'from-purple-400 to-indigo-400',
+                              icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'
+                            },
+                            'dm_style': {
+                              text: 'My DM style can best be described as',
+                              gradient: 'from-blue-400 to-purple-400',
+                              icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'
+                            },
+                            'game_goal': {
+                              text: 'What I want most from a game is',
+                              gradient: 'from-green-400 to-blue-400',
+                              icon: 'M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z'
+                            },
+                            'player_pet_peeve': {
+                              text: 'My biggest pet peeve as a player is',
+                              gradient: 'from-red-400 to-rose-400',
+                              icon: 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z'
+                            },
+                            'memorable_npc': {
+                              text: 'The most memorable NPC I created was',
+                              gradient: 'from-teal-400 to-green-400',
+                              icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z'
+                            },
+                            'campaign_dream': {
+                              text: 'My dream campaign would be',
+                              gradient: 'from-indigo-400 to-cyan-400',
+                              icon: 'M8 13v-1m4 1v-3m4 3V8M8 21l4-7 4 7M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z'
+                            },
+                            'gaming_philosophy': {
+                              text: 'My gaming philosophy is',
+                              gradient: 'from-violet-400 to-purple-400',
+                              icon: 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z'
+                            }
                           };
-                          return promptMap[promptId] || 'Featured prompt';
+                          return promptMap[promptId] || {text: 'Featured prompt', gradient: 'from-gray-400 to-gray-500', icon: 'M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'};
                         };
 
+                        const promptData = getPromptData(prompt.promptId);
+
                         return (
-                          <div key={index} className="border border-gray-200 rounded-xl p-4 shadow-sm" style={{width: '369px', height: '82px', display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
-                            <div className="text-lg font-semibold text-gray-800 mb-1">
-                              {getPromptText(prompt.promptId)}
+                          <div key={index} className="group relative bg-gradient-to-br from-white to-gray-50 border border-gray-200 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                            {/* Gradient background overlay */}
+                            <div className={`absolute inset-0 bg-gradient-to-br ${promptData.gradient} opacity-0 group-hover:opacity-5 rounded-2xl transition-opacity duration-300`}></div>
+                            
+                            {/* Icon */}
+                            <div className={`inline-flex items-center justify-center w-10 h-10 bg-gradient-to-br ${promptData.gradient} rounded-xl mb-3 shadow-lg`}>
+                              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={promptData.icon} />
+                              </svg>
                             </div>
-                            <div className="text-gray-600 leading-relaxed text-base">
-                              {prompt.customText}
+
+                            {/* Content */}
+                            <div className="relative z-10">
+                              <h5 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2 leading-tight">
+                                {promptData.text}
+                              </h5>
+                              <p className="text-lg font-medium text-gray-800 leading-relaxed group-hover:text-gray-900 transition-colors">
+                                {prompt.customText}
+                              </p>
+                            </div>
+
+                            {/* Decorative dots */}
+                            <div className="absolute top-4 right-4 opacity-20 group-hover:opacity-40 transition-opacity">
+                              <div className="flex space-x-1">
+                                <div className={`w-2 h-2 bg-gradient-to-br ${promptData.gradient} rounded-full`}></div>
+                                <div className={`w-2 h-2 bg-gradient-to-br ${promptData.gradient} rounded-full`}></div>
+                                <div className={`w-2 h-2 bg-gradient-to-br ${promptData.gradient} rounded-full`}></div>
+                              </div>
                             </div>
                           </div>
                         );
                       })}
                     </div>
                   ) : (
-                    <div className="text-gray-500 italic">
-                      This user hasn't set up any featured prompts yet.
+                    <div className="bg-gradient-to-br from-gray-50 to-gray-100 border-2 border-dashed border-gray-300 rounded-2xl p-8 text-center">
+                      <div className="w-12 h-12 bg-gray-200 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                      <p className="text-gray-500 font-medium">This user hasn't set up any featured prompts yet.</p>
                     </div>
                   )}
                 </div>

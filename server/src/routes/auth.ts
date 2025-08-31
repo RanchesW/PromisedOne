@@ -128,7 +128,7 @@ router.post('/register', async (req: Request, res: Response) => {
 
     res.status(201).json({
       success: true,
-      message: 'Registration successful! Please check your email for verification code.',
+      message: 'Please check your email for verification code.',
       data: {
         email,
         verificationToken,

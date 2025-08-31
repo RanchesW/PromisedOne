@@ -21,6 +21,18 @@ services:
         sync: false  # Set this manually in Render dashboard  
       - key: CLOUDINARY_API_SECRET
         sync: false  # Set this manually in Render dashboard
+      - key: SMTP_HOST
+        sync: false  # Set this manually in Render dashboard (e.g., smtp.gmail.com)
+      - key: SMTP_PORT
+        sync: false  # Set this manually in Render dashboard (e.g., 587)
+      - key: SMTP_SECURE
+        sync: false  # Set this manually in Render dashboard (true/false)
+      - key: SMTP_USER
+        sync: false  # Set this manually in Render dashboard (your email)
+      - key: SMTP_PASS
+        sync: false  # Set this manually in Render dashboard (your app password)
+      - key: EMAIL_FROM_NAME
+        sync: false  # Set this manually in Render dashboard (e.g., KazRPG)
     healthCheckPath: /health
 
 databases:

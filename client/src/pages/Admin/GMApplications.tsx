@@ -384,15 +384,6 @@ const GMApplications: React.FC = () => {
                   )}
                 </div>
 
-                {/* Pricing */}
-                {selectedApplication.pricing && (
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Proposed Pricing</label>
-                    <p className="mt-1 text-lg font-semibold text-green-600">
-                      ${selectedApplication.pricing.sessionPrice} {selectedApplication.pricing.currency} per session
-                    </p>
-                  </div>
-                )}
               </div>
             </div>
 

@@ -126,20 +126,17 @@ router.get('/', async (req: Request, res: Response) => {
 
     // Execute query
     const games = await Game.find(query)
-      .populate('gm', 'username firstName lastName avatar pronouns stats.averageRating stats.gamesHosted')
+      .populate('gm', 'username firstName lastName avatar pronouns stats')
       .sort(sortOptions)
       .skip(skip)
       .limit(limitNum);
 
     const total = await Game.countDocuments(query);
 
-    const response: ApiResponse<PaginatedResponse<IGame>> = {
+    const response = {
       success: true,
       data: {
-        data: games.map(game => ({
-          ...game.toObject(),
-          gm: game.gm.toString()
-        })) as IGame[],
+        data: games.map(game => game.toObject()),
         pagination: {
           page: pageNum,
           limit: limitNum,
@@ -181,17 +178,14 @@ router.get('/my-games', auth, async (req: AuthenticatedRequest, res: Response) =
     console.log('My Games API: Looking for games with GM ID:', userId);
 
     const games = await Game.find({ gm: userId })
-      .populate('gm', 'firstName lastName username avatar stats pronouns')
+      .populate('gm', 'username firstName lastName avatar pronouns stats')
       .sort({ createdAt: -1 });
 
     console.log('My Games API: Found games:', games.length);
 
     res.json({
       success: true,
-      data: games.map(game => ({
-        ...game.toObject(),
-        gm: game.gm.toString()
-      })),
+      data: games.map(game => game.toObject()),
       message: 'My games fetched successfully'
     });
   } catch (error) {
@@ -218,10 +212,7 @@ router.get('/:id', async (req: Request, res: Response) => {
 
     res.json({
       success: true,
-      data: {
-        ...game.toObject(),
-        gm: game.gm.toString()
-      }
+      data: game.toObject()
     });
   } catch (error: any) {
     console.error('Get game error:', error);
@@ -295,7 +286,7 @@ router.post('/', auth, async (req: AuthenticatedRequest, res: Response) => {
     await game.save();
 
     // Populate GM details before sending response
-    await game.populate('gm', 'username firstName lastName avatar pronouns stats.averageRating stats.gamesHosted');
+    await game.populate('gm', 'username firstName lastName avatar pronouns stats');
 
     res.status(201).json({
       success: true,
@@ -360,14 +351,11 @@ router.put('/:id', auth, async (req: AuthenticatedRequest, res: Response) => {
     Object.assign(game, req.body);
     await game.save();
 
-    await game.populate('gm', 'username firstName lastName avatar pronouns stats.averageRating stats.gamesHosted');
+    await game.populate('gm', 'username firstName lastName avatar pronouns stats');
 
     res.json({
       success: true,
-      data: {
-        ...game.toObject(),
-        gm: game.gm.toString()
-      },
+      data: game.toObject(),
       message: 'Game updated successfully'
     });
   } catch (error: any) {
@@ -450,7 +438,7 @@ router.get('/gm/:gmId', async (req: Request, res: Response) => {
     const skip = (pageNum - 1) * limitNum;
 
     const games = await Game.find({ gm: req.params.gmId, isActive: true })
-      .populate('gm', 'username firstName lastName avatar pronouns stats.averageRating stats.gamesHosted')
+      .populate('gm', 'username firstName lastName avatar pronouns stats')
       .sort({ 'schedule.startTime': 1 })
       .skip(skip)
       .limit(limitNum);
@@ -460,10 +448,7 @@ router.get('/gm/:gmId', async (req: Request, res: Response) => {
     res.json({
       success: true,
       data: {
-        data: games.map(game => ({
-          ...game.toObject(),
-          gm: game.gm.toString()
-        })),
+        data: games.map(game => game.toObject()),
         pagination: {
           page: pageNum,
           limit: limitNum,

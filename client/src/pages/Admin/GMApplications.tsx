@@ -3,13 +3,10 @@ import { CheckIcon, XMarkIcon, EyeIcon } from '@heroicons/react/24/outline';
 
 interface GMApplication {
   _id: string;
-  user: {
-    _id: string;
-    username: string;
-    email: string;
-    firstName?: string;
-    lastName?: string;
-  };
+  username: string;
+  email: string;
+  firstName?: string;
+  lastName?: string;
   dmApplication: {
     experience: string;
     preferredSystems: string[];
@@ -104,17 +101,17 @@ const GMApplications: React.FC = () => {
               <div className="flex justify-between items-start">
                 <div className="flex-1">
                   <h3 className="text-lg font-medium text-gray-900">
-                    {application.user.firstName && application.user.lastName 
-                      ? `${application.user.firstName} ${application.user.lastName}`
-                      : application.user.username}
+                    {application.firstName && application.lastName 
+                      ? `${application.firstName} ${application.lastName}`
+                      : application.username}
                   </h3>
-                  <p className="text-sm text-gray-600">{application.user.email}</p>
+                  <p className="text-sm text-gray-600">{application.email}</p>
                   <p className="text-sm text-gray-500 mt-1">
-                    Applied: {new Date(application.dmApplication.submittedAt).toLocaleDateString()}
+                    Applied: {application.dmApplication?.submittedAt ? new Date(application.dmApplication.submittedAt).toLocaleDateString() : 'N/A'}
                   </p>
                   <div className="mt-2">
                     <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                      {application.dmApplication.status}
+                      {application.dmApplication?.status || 'pending'}
                     </span>
                   </div>
                 </div>
@@ -154,38 +151,46 @@ const GMApplications: React.FC = () => {
             <div className="px-6 py-4 border-b border-gray-200">
               <h3 className="text-lg font-medium text-gray-900">GM Application Details</h3>
               <p className="text-sm text-gray-600">
-                {selectedApplication.user.firstName && selectedApplication.user.lastName 
-                  ? `${selectedApplication.user.firstName} ${selectedApplication.user.lastName}`
-                  : selectedApplication.user.username}
+                {selectedApplication.firstName && selectedApplication.lastName 
+                  ? `${selectedApplication.firstName} ${selectedApplication.lastName}`
+                  : selectedApplication.username}
               </p>
             </div>
             <div className="px-6 py-4 space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Experience</label>
-                <p className="mt-1 text-sm text-gray-900">{selectedApplication.dmApplication.experience}</p>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Preferred Systems</label>
-                <div className="mt-1 flex flex-wrap gap-2">
-                  {selectedApplication.dmApplication.preferredSystems.map((system, index) => (
-                    <span key={index} className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                      {system}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Availability</label>
-                <p className="mt-1 text-sm text-gray-900">{selectedApplication.dmApplication.availability}</p>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Sample Game Description</label>
-                <p className="mt-1 text-sm text-gray-900 whitespace-pre-wrap">{selectedApplication.dmApplication.sampleGameDescription}</p>
-              </div>
-              {selectedApplication.dmApplication.references && (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">References</label>
-                  <p className="mt-1 text-sm text-gray-900">{selectedApplication.dmApplication.references}</p>
+              {selectedApplication.dmApplication ? (
+                <>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Experience</label>
+                    <p className="mt-1 text-sm text-gray-900">{selectedApplication.dmApplication.experience}</p>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Preferred Systems</label>
+                    <div className="mt-1 flex flex-wrap gap-2">
+                      {selectedApplication.dmApplication.preferredSystems?.map((system, index) => (
+                        <span key={index} className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                          {system}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Availability</label>
+                    <p className="mt-1 text-sm text-gray-900">{selectedApplication.dmApplication.availability}</p>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Sample Game Description</label>
+                    <p className="mt-1 text-sm text-gray-900 whitespace-pre-wrap">{selectedApplication.dmApplication.sampleGameDescription}</p>
+                  </div>
+                  {selectedApplication.dmApplication.references && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700">References</label>
+                      <p className="mt-1 text-sm text-gray-900">{selectedApplication.dmApplication.references}</p>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div className="text-center text-gray-500">
+                  <p>No application data available</p>
                 </div>
               )}
             </div>

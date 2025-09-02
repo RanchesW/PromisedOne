@@ -259,10 +259,12 @@ const PublicProfilePage: React.FC = () => {
                   </svg>
                 </button>
               )}
-              <button className="bg-gray-900 text-white px-8 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors">
-                Request Booking
-              </button>
-              {isGameMaster && (
+              {!isOwnProfile && (
+                <button className="bg-gray-900 text-white px-8 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors">
+                  Request Booking
+                </button>
+              )}
+              {isGameMaster && !isOwnProfile && (
                 <button className="border border-gray-300 text-gray-700 px-8 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors">
                   Message
                 </button>

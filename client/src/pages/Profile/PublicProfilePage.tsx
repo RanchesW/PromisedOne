@@ -107,6 +107,13 @@ const PublicProfilePage: React.FC = () => {
     return Math.floor((new Date().getTime() - new Date(profile.createdAt).getTime()) / (365.25 * 24 * 60 * 60 * 1000));
   };
 
+  const handleMessage = () => {
+    if (!profile?._id) return;
+    
+    // Navigate to messages with the user ID as a query parameter
+    navigate(`/messages?user=${profile._id}`);
+  };
+
   const getSystemDisplayName = (system: string) => {
     const systemNames = {
       'dnd_5e': 'D&D 5th Edition',
@@ -265,7 +272,10 @@ const PublicProfilePage: React.FC = () => {
                 </button>
               )}
               {isGameMaster && !isOwnProfile && (
-                <button className="border border-gray-300 text-gray-700 px-8 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+                <button 
+                  onClick={handleMessage}
+                  className="border border-gray-300 text-gray-700 px-8 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors"
+                >
                   Message
                 </button>
               )}

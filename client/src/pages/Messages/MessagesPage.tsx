@@ -61,6 +61,16 @@ const MessagesPage: React.FC = () => {
     loadInitialData();
   }, []);
 
+  // Handle user query parameter to auto-start conversation
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const userId = urlParams.get('user');
+    
+    if (userId && user && conversations.length > 0) {
+      handleUserMessage(userId);
+    }
+  }, [location.search, user, conversations]);
+
   // Socket.IO real-time messaging setup
   useEffect(() => {
     if (user && socketService.connected) {
@@ -287,6 +297,35 @@ const MessagesPage: React.FC = () => {
       }
     } catch (error) {
       console.error('Error loading messages:', error);
+    }
+  };
+
+  const handleUserMessage = async (userId: string) => {
+    try {
+      // First, check if we already have a conversation with this user
+      const existingConversation = conversations.find(conv => 
+        !conv.isGroup && 
+        conv.participants.some((p: any) => p._id === userId)
+      );
+
+      if (existingConversation) {
+        // Select the existing conversation
+        selectConversation(existingConversation);
+        return;
+      }
+
+      // If no conversation exists, create a new one by sending a message
+      // For now, we'll just navigate to search and let the user start the conversation
+      // In a full implementation, you might want to create the conversation directly
+      setSearchQuery('');
+      setShowSearch(true);
+      
+    } catch (error) {
+      console.error('Error starting conversation:', error);
+      setToastMessage({ 
+        message: 'Failed to start conversation', 
+        type: 'error' 
+      });
     }
   };
 

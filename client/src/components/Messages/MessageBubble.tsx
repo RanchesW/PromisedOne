@@ -51,7 +51,32 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({
 
   const handleContextMenu = (e: React.MouseEvent) => {
     e.preventDefault();
-    setContextMenuPosition({ x: e.clientX, y: e.clientY });
+    
+    // Get viewport dimensions
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    const menuWidth = 160; // min-w-[160px]
+    const menuHeight = 320; // approximate height based on menu items
+    
+    // Calculate position to keep menu within viewport
+    let x = e.clientX;
+    let y = e.clientY;
+    
+    // Adjust horizontal position if menu would go off-screen
+    if (x + menuWidth > viewportWidth) {
+      x = viewportWidth - menuWidth - 10; // 10px padding from edge
+    }
+    
+    // Adjust vertical position if menu would go off-screen
+    if (y + menuHeight > viewportHeight) {
+      y = viewportHeight - menuHeight - 10; // 10px padding from edge
+    }
+    
+    // Ensure minimum distance from edges
+    x = Math.max(10, x);
+    y = Math.max(10, y);
+    
+    setContextMenuPosition({ x, y });
     setShowContextMenu(true);
     setShowReactions(false);
   };
@@ -170,9 +195,9 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({
                 {formatTime(message.createdAt)}
                 {isOwn && (
                   <>
-                    {message.isRead && <span className="ml-1 text-blue-500">✓✓</span>}
-                    {!message.isRead && message.isDelivered && <span className="ml-1 text-gray-400">✓✓</span>}
-                    {!message.isRead && !message.isDelivered && <span className="ml-1 text-gray-400">✓</span>}
+                    {message.isRead && <span className="ml-2 text-blue-500">Read</span>}
+                    {!message.isRead && message.isDelivered && <span className="ml-2 text-gray-500">Delivered</span>}
+                    {!message.isRead && !message.isDelivered && <span className="ml-2 text-gray-500">Sent</span>}
                   </>
                 )}
               </span>

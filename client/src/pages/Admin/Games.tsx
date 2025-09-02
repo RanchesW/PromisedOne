@@ -55,6 +55,10 @@ const Games: React.FC = () => {
   };
 
   const getStatusBadgeColor = (status: string) => {
+    if (!status) {
+      return 'bg-gray-100 text-gray-800';
+    }
+    
     switch (status.toLowerCase()) {
       case 'active':
         return 'bg-green-100 text-green-800';
@@ -132,7 +136,7 @@ const Games: React.FC = () => {
                   <p className="text-sm text-gray-600">{game.system}</p>
                 </div>
                 <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusBadgeColor(game.status)}`}>
-                  {game.status}
+                  {game.status || 'Unknown'}
                 </span>
               </div>
 

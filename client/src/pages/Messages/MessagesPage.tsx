@@ -684,21 +684,34 @@ const MessagesPage: React.FC = () => {
                     >
                       <div className="flex items-center space-x-3">
                         <div className="relative flex-shrink-0">
-                          <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
-                            {isGroup ? (
+                          {isGroup ? (
+                            <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
                               <span className="text-white font-semibold text-lg">👥</span>
-                            ) : otherUser?.avatar ? (
-                              <img
-                                src={getAvatarUrl(otherUser.avatar) || ''}
-                                alt={otherUser.username || 'User'}
-                                className="w-10 h-10 rounded-full object-cover"
-                              />
-                            ) : (
-                              <span className="text-white font-semibold">
-                                {otherUser?.firstName?.[0] || '?'}{otherUser?.lastName?.[0] || '?'}
-                              </span>
-                            )}
-                          </div>
+                            </div>
+                          ) : (
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                if (otherUser?._id) {
+                                  window.location.href = `/profile/${otherUser._id}`;
+                                }
+                              }}
+                              className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center hover:ring-2 hover:ring-blue-300 transition-all cursor-pointer"
+                              title={`View ${otherUser?.firstName || otherUser?.username}'s profile`}
+                            >
+                              {otherUser?.avatar ? (
+                                <img
+                                  src={getAvatarUrl(otherUser.avatar) || ''}
+                                  alt={otherUser.username || 'User'}
+                                  className="w-10 h-10 rounded-full object-cover"
+                                />
+                              ) : (
+                                <span className="text-white font-semibold">
+                                  {otherUser?.firstName?.[0] || '?'}{otherUser?.lastName?.[0] || '?'}
+                                </span>
+                              )}
+                            </button>
+                          )}
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center space-x-2">
@@ -751,25 +764,37 @@ const MessagesPage: React.FC = () => {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
                         <div className="relative">
-                          <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
-                            {selectedConversation.isGroup ? (
+                          {selectedConversation.isGroup ? (
+                            <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
                               <span className="text-white font-semibold text-lg">👥</span>
-                            ) : (() => {
-                              const otherUser = getOtherParticipant(selectedConversation);
-                              return otherUser?.avatar ? (
-                                <img
-                                  src={getAvatarUrl(otherUser.avatar) || ''}
-                                  alt={otherUser.username || 'User'}
-                                  className="w-10 h-10 rounded-full object-cover"
-                                />
-                              ) : (
-                                <span className="text-white font-semibold">
-                                  {otherUser?.firstName?.[0] || '?'}
-                                  {otherUser?.lastName?.[0] || '?'}
-                                </span>
-                              );
-                            })()}
-                          </div>
+                            </div>
+                          ) : (() => {
+                            const otherUser = getOtherParticipant(selectedConversation);
+                            return (
+                              <button
+                                onClick={() => {
+                                  if (otherUser?._id) {
+                                    window.location.href = `/profile/${otherUser._id}`;
+                                  }
+                                }}
+                                className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center hover:ring-2 hover:ring-blue-300 transition-all cursor-pointer"
+                                title={`View ${otherUser?.firstName || otherUser?.username}'s profile`}
+                              >
+                                {otherUser?.avatar ? (
+                                  <img
+                                    src={getAvatarUrl(otherUser.avatar) || ''}
+                                    alt={otherUser.username || 'User'}
+                                    className="w-10 h-10 rounded-full object-cover"
+                                  />
+                                ) : (
+                                  <span className="text-white font-semibold">
+                                    {otherUser?.firstName?.[0] || '?'}
+                                    {otherUser?.lastName?.[0] || '?'}
+                                  </span>
+                                )}
+                              </button>
+                            );
+                          })()}
                         </div>
                         <div>
                           <h3 className="text-slate-900 font-medium">

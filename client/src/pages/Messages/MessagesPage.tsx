@@ -13,7 +13,6 @@ import {
   NotificationItem,
   MessageSearch,
   VoiceRecorder,
-  OnlineStatus,
   DateSeparator
 } from '../../components/Messages';
 import ConfirmationModal from '../../components/UI/ConfirmationModal';
@@ -42,7 +41,6 @@ const MessagesPage: React.FC = () => {
   const [showVoiceRecorder, setShowVoiceRecorder] = useState(false);
   const [showMessageSearch, setShowMessageSearch] = useState(false);
   const [typingUsers, setTypingUsers] = useState<Array<{ id: string; name: string }>>([]);
-  const [onlineUsers, setOnlineUsers] = useState<Set<string>>(new Set());
   
   // Confirmation modal state
   const [confirmModal, setConfirmModal] = useState<{
@@ -132,18 +130,6 @@ const MessagesPage: React.FC = () => {
         }
       });
 
-      // Listen for user status changes
-      socketService.onUserStatusChange((data) => {
-        setOnlineUsers(prev => {
-          const newSet = new Set(prev);
-          if (data.isOnline) {
-            newSet.add(data.userId);
-          } else {
-            newSet.delete(data.userId);
-          }
-          return newSet;
-        });
-      });
 
       // Listen for message read status updates
       socketService.onMessageRead((data) => {
@@ -713,14 +699,6 @@ const MessagesPage: React.FC = () => {
                               </span>
                             )}
                           </div>
-                          {!isGroup && otherUser && (
-                            <div className="absolute -bottom-1 -right-1">
-                              <OnlineStatus 
-                                isOnline={onlineUsers.has(otherUser._id)}
-                                size="small"
-                              />
-                            </div>
-                          )}
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center space-x-2">
@@ -792,17 +770,6 @@ const MessagesPage: React.FC = () => {
                               );
                             })()}
                           </div>
-                          {!selectedConversation.isGroup && (() => {
-                            const otherUser = getOtherParticipant(selectedConversation);
-                            return otherUser && (
-                              <div className="absolute -bottom-1 -right-1">
-                                <OnlineStatus 
-                                  isOnline={onlineUsers.has(otherUser._id)}
-                                  size="small"
-                                />
-                              </div>
-                            );
-                          })()}
                         </div>
                         <div>
                           <h3 className="text-slate-900 font-medium">

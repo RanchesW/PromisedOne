@@ -109,7 +109,23 @@ const BecomeGM: React.FC = () => {
     switch (stepIndex) {
       case 0: // Personal Details
         if (!formData.name.trim()) newErrors.name = 'Name is required';
-        if (!formData.birthdate) newErrors.birthdate = 'Birthdate is required';
+        if (!formData.birthdate) {
+          newErrors.birthdate = 'Birthdate is required';
+        } else {
+          const birthDate = new Date(formData.birthdate);
+          const today = new Date();
+          const age = today.getFullYear() - birthDate.getFullYear() - 
+            (today.getMonth() < birthDate.getMonth() || 
+             (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate()) ? 1 : 0);
+          
+          if (age < 18) {
+            newErrors.birthdate = 'You must be at least 18 years old to become a GM';
+          }
+          
+          if (age > 100) {
+            newErrors.birthdate = 'Please enter a valid birthdate';
+          }
+        }
         if (!formData.country.trim()) newErrors.country = 'Country is required';
         if (!formData.city.trim()) newErrors.city = 'City is required';
         if (!formData.timezone) newErrors.timezone = 'Timezone is required';
@@ -448,6 +464,8 @@ const BecomeGM: React.FC = () => {
           name="birthdate"
           value={formData.birthdate}
           onChange={handleChange}
+          min="1924-01-01"
+          max={new Date(Date.now() - 18 * 365.25 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]}
           className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
             errors.birthdate ? 'border-red-300' : 'border-gray-300'
           }`}

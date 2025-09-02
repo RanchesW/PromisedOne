@@ -69,6 +69,7 @@ function App() {
             <Route path="games" element={<GamesPage />} />
             <Route path="games/:id" element={<GameDetailPage />} />
             <Route path="games/:id/join" element={<JoinCampaignPage />} />
+            <Route path="games/:id/edit" element={<CreateGamePage />} />
             <Route path="find-game-masters" element={<GameMastersPage />} />
             <Route path="profile/:userId" element={<PublicProfilePage />} />
             

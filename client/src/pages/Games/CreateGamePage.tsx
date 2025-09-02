@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { GameSystem, Platform, SessionType, ExperienceLevel, BookingType, UserRole } from '../../types/shared';
 import LoadingSpinner from '../../components/UI/LoadingSpinner';
@@ -54,6 +54,8 @@ interface GameFormData {
 const CreateGamePage: React.FC = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { id: gameId } = useParams();
+  const isEditing = Boolean(gameId);
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -101,6 +103,70 @@ const CreateGamePage: React.FC = () => {
     isEarlyBird: false,
     earlyBirdDiscount: 0
   });
+
+  // Load game data if editing
+  useEffect(() => {
+    if (isEditing && gameId) {
+      loadGameData();
+    }
+  }, [isEditing, gameId]);
+
+  const loadGameData = async () => {
+    try {
+      setIsLoading(true);
+      const game = await gameService.getGame(gameId!);
+      
+      // Populate form with existing game data
+      setFormData({
+        title: game.title,
+        description: game.description,
+        partyNotes: game.partyNotes || '',
+        system: game.system,
+        customSystem: game.customSystem || '',
+        platform: game.platform,
+        sessionType: game.sessionType,
+        experienceLevel: game.experienceLevel,
+        price: game.price,
+        currency: game.currency,
+        capacity: game.capacity,
+        schedule: {
+          startTime: new Date(game.schedule.startTime).toISOString().slice(0, 16),
+          endTime: new Date(game.schedule.endTime).toISOString().slice(0, 16),
+          timezone: game.schedule.timezone,
+          recurring: game.schedule.recurring ? {
+            frequency: game.schedule.recurring.frequency,
+            endDate: game.schedule.recurring.endDate ? new Date(game.schedule.recurring.endDate).toISOString().slice(0, 10) : undefined
+          } : undefined
+        },
+        location: game.location || {
+          address: '',
+          city: '',
+          state: '',
+          country: ''
+        },
+        onlineDetails: game.onlineDetails || {
+          platform: '',
+          inviteLink: ''
+        },
+        tags: game.tags || [],
+        ageRestriction: game.ageRestriction || {
+          minAge: 13
+        },
+        bookingType: game.bookingType || BookingType.INSTANT,
+        cancellationPolicy: game.cancellationPolicy || {
+          cutoffHours: 24,
+          refundPercentage: 100
+        },
+        isEarlyBird: game.isEarlyBird || false,
+        earlyBirdDiscount: game.earlyBirdDiscount || 0
+      });
+    } catch (error) {
+      console.error('Error loading game data:', error);
+      setError('Failed to load game data');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   // Check if user can create games
   if (user?.role !== UserRole.APPROVED_GM && user?.role !== UserRole.ADMIN) {
@@ -179,7 +245,7 @@ const CreateGamePage: React.FC = () => {
         });
       }
 
-      // Create game
+      // Prepare game data
       const gameData = {
         ...formData,
         ...imageUrls,
@@ -192,19 +258,25 @@ const CreateGamePage: React.FC = () => {
             endDate: formData.schedule.recurring.endDate ? new Date(formData.schedule.recurring.endDate) : undefined
           } : undefined
         },
-        // Only include location if it's in-person
-        ...(formData.platform === Platform.IN_PERSON ? {
+        // Only include location if it's in-person or hybrid
+        ...(formData.platform === Platform.IN_PERSON || formData.platform === Platform.HYBRID ? {
           location: formData.location
         } : {
           location: undefined
         })
       };
 
-      const createdGame = await gameService.createGame(gameData);
-      navigate(`/games/${createdGame._id}`);
+      let result;
+      if (isEditing) {
+        result = await gameService.updateGame(gameId!, gameData);
+      } else {
+        result = await gameService.createGame(gameData);
+      }
+      
+      navigate(`/games/${result._id}`);
     } catch (error) {
-      console.error('Create game error:', error);
-      setError(error instanceof Error ? error.message : 'Failed to create game');
+      console.error(`${isEditing ? 'Update' : 'Create'} game error:`, error);
+      setError(error instanceof Error ? error.message : `Failed to ${isEditing ? 'update' : 'create'} game`);
     } finally {
       setIsLoading(false);
     }
@@ -213,7 +285,9 @@ const CreateGamePage: React.FC = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-fantasy font-bold text-slate-900 mb-8">Create New Game</h1>
+        <h1 className="text-3xl font-fantasy font-bold text-slate-900 mb-8">
+          {isEditing ? 'Edit Game' : 'Create New Game'}
+        </h1>
         
         <form onSubmit={handleSubmit} className="space-y-8">
           {/* Basic Information */}
@@ -798,7 +872,12 @@ const CreateGamePage: React.FC = () => {
               className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center space-x-2"
             >
               {isLoading && <LoadingSpinner />}
-              <span>{isLoading ? 'Creating...' : 'Create Game'}</span>
+              <span>
+                {isLoading 
+                  ? (isEditing ? 'Updating...' : 'Creating...') 
+                  : (isEditing ? 'Update Game' : 'Create Game')
+                }
+              </span>
             </button>
           </div>
         </form>

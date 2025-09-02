@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { formatTime } from '../../utils/dateUtils';
 import { getAvatarUrl } from '../../services/api';
 
@@ -19,6 +20,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({
   onDelete,
   onReact
 }) => {
+  const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [editContent, setEditContent] = useState(message.content);
   const [showReactions, setShowReactions] = useState(false);
@@ -39,11 +41,21 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({
     setShowReactions(false);
   };
 
+  const handleProfileClick = () => {
+    if (message.sender?._id) {
+      navigate(`/profile/${message.sender._id}`);
+    }
+  };
+
   return (
     <div className={`flex ${isOwn ? 'justify-end' : 'justify-start'} group`}>
       <div className={`flex items-end space-x-2 max-w-xs lg:max-w-md ${isOwn ? 'flex-row-reverse space-x-reverse' : ''}`}>
         {showAvatar && !isOwn && (
-          <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+          <button
+            onClick={handleProfileClick}
+            className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0 hover:ring-2 hover:ring-blue-300 transition-all cursor-pointer"
+            title={`View ${message.sender.firstName || message.sender.username}'s profile`}
+          >
             {message.sender.avatar ? (
               <img
                 src={getAvatarUrl(message.sender.avatar) || ''}
@@ -52,10 +64,10 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({
               />
             ) : (
               <span className="text-white text-sm font-semibold">
-                {message.sender.firstName[0]}{message.sender.lastName[0]}
+                {message.sender.firstName?.[0]}{message.sender.lastName?.[0]}
               </span>
             )}
-          </div>
+          </button>
         )}
         
         <div className="relative">

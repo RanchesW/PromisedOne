@@ -230,7 +230,7 @@ const Users: React.FC = () => {
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6 rounded-lg shadow-sm border border-gray-200">
+        <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6 rounded-lg shadow-sm border">
           <div className="flex-1 flex justify-between sm:hidden">
             <button
               onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}

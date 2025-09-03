@@ -67,14 +67,14 @@ const DiceLoading: React.FC<DiceLoadingProps> = ({
   };
 
   const getDiceClass = () => {
-    let baseClass = "text-8xl transition-all duration-200 transform";
+    let baseClass = "transition-all duration-200 transform";
     
     if (isRolling) {
-      return `${baseClass} animate-spin scale-110`;
+      return `${baseClass} animate-spin scale-110 text-slate-400`;
     }
     
     if (finalResult === 20) {
-      return `${baseClass} text-yellow-400 animate-pulse scale-125 drop-shadow-lg`;
+      return `${baseClass} text-yellow-400 animate-pulse scale-125`;
     }
     
     if (finalResult === 1) {
@@ -90,7 +90,27 @@ const DiceLoading: React.FC<DiceLoadingProps> = ({
         {/* Dice Animation */}
         <div className="mb-8">
           <div className={getDiceClass()}>
-            🎲
+            <svg 
+              viewBox="0 0 100 100" 
+              className="w-20 h-20 mx-auto fill-current"
+              style={{ filter: finalResult === 20 ? 'drop-shadow(0 0 10px #fbbf24)' : finalResult === 1 ? 'drop-shadow(0 0 10px #f87171)' : 'none' }}
+            >
+              {/* D20 shape */}
+              <polygon 
+                points="50,5 20,25 30,60 70,60 80,25" 
+                className="stroke-current stroke-2"
+                style={{ strokeWidth: 2 }}
+              />
+              <polygon 
+                points="50,5 80,25 70,60 50,80 30,60 20,25" 
+                className="fill-current opacity-80"
+              />
+              {/* Triangular faces to make it look more 3D */}
+              <polygon points="50,5 20,25 35,35" className="fill-current opacity-90" />
+              <polygon points="50,5 80,25 65,35" className="fill-current opacity-90" />
+              <polygon points="20,25 30,60 35,35" className="fill-current opacity-70" />
+              <polygon points="80,25 70,60 65,35" className="fill-current opacity-70" />
+            </svg>
           </div>
           <div className="text-4xl font-bold mt-4 font-mono">
             {isRolling ? (

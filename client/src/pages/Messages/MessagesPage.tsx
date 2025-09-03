@@ -9,10 +9,8 @@ import {
   MessageBubble, 
   ChatInput, 
   TypingIndicator,
-  CreateGroupChat,
   NotificationItem,
   MessageSearch,
-  VoiceRecorder,
   DateSeparator
 } from '../../components/Messages';
 import ConfirmationModal from '../../components/UI/ConfirmationModal';
@@ -37,8 +35,6 @@ const MessagesPage: React.FC = () => {
   
   // Enhanced messaging states
   const [showSearch, setShowSearch] = useState(false);
-  const [showCreateGroup, setShowCreateGroup] = useState(false);
-  const [showVoiceRecorder, setShowVoiceRecorder] = useState(false);
   const [showMessageSearch, setShowMessageSearch] = useState(false);
   const [typingUsers, setTypingUsers] = useState<Array<{ id: string; name: string }>>([]);
   
@@ -216,7 +212,9 @@ const MessagesPage: React.FC = () => {
   const loadConversations = async () => {
     try {
       const response = await messageService.getConversations();
-      setConversations(response.data.data || []);
+      // Filter out group conversations - only show direct (1-on-1) conversations
+      const directConversations = (response.data.data || []).filter((conv: any) => !conv.isGroup);
+      setConversations(directConversations);
     } catch (error) {
       console.error('Error loading conversations:', error);
     }
@@ -422,35 +420,7 @@ const MessagesPage: React.FC = () => {
     }
   };
 
-  const handleCreateGroup = async (name: string, description: string, memberIds: string[]) => {
-    try {
-      const response = await messageService.createGroupConversation(name, description, memberIds);
-      showToast(`Group "${name}" created successfully!`, 'success');
-      setShowCreateGroup(false);
-      await loadConversations();
-      
-      // Auto-select the new group conversation
-      const newConversation = response.data.data;
-      setSelectedConversation(newConversation);
-      setMessages([]);
-      setActiveTab('conversations');
-    } catch (error: any) {
-      console.error('Error creating group:', error);
-      const errorMessage = error?.response?.data?.error || 'Failed to create group';
-      showToast(errorMessage, 'error');
-    }
-  };
 
-  const handleSendVoiceMessage = async (audioBlob: Blob, duration: number) => {
-    try {
-      const voiceMessage = `🎤 Voice message (${Math.floor(duration)}s)`;
-      await handleSendMessage(voiceMessage, 'voice');
-      setShowVoiceRecorder(false);
-    } catch (error) {
-      console.error('Error sending voice message:', error);
-      showToast('Failed to send voice message', 'error');
-    }
-  };
 
   const scrollToMessage = (messageId: string) => {
     const messageElement = document.getElementById(`message-${messageId}`);
@@ -702,16 +672,15 @@ const MessagesPage: React.FC = () => {
               </div>
               <div className="flex-1 overflow-y-auto">
                 {conversations.map((conversation) => {
-                  const isGroup = conversation.isGroup;
-                  const otherUser = !isGroup ? getOtherParticipant(conversation) : null;
+                  const otherUser = getOtherParticipant(conversation);
                   
-                  // Skip rendering if we can't get the other user for non-group conversations
-                  if (!isGroup && !otherUser) {
+                  // Skip rendering if we can't get the other user
+                  if (!otherUser) {
                     return null;
                   }
                   
-                  const displayName = isGroup ? (conversation.groupName || 'Unnamed Group') : `${otherUser?.firstName || 'Unknown'} ${otherUser?.lastName || 'User'}`;
-                  const displaySubtext = isGroup ? `${conversation.participants?.length || 0} members` : `@${otherUser?.username || 'unknown'}`;
+                  const displayName = `${otherUser?.firstName || 'Unknown'} ${otherUser?.lastName || 'User'}`;
+                  const displaySubtext = `@${otherUser?.username || 'unknown'}`;
                   
                   return (
                     <div
@@ -723,22 +692,17 @@ const MessagesPage: React.FC = () => {
                     >
                       <div className="flex items-center space-x-3">
                         <div className="relative flex-shrink-0">
-                          {isGroup ? (
-                            <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
-                              <span className="text-white font-semibold text-lg">👥</span>
-                            </div>
-                          ) : (
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                if (otherUser?._id) {
-                                  window.location.href = `/profile/${otherUser._id}`;
-                                }
-                              }}
-                              className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center hover:ring-2 hover:ring-blue-300 transition-all cursor-pointer"
-                              title={`View ${otherUser?.firstName || otherUser?.username}'s profile`}
-                            >
-                              {otherUser?.avatar ? (
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              if (otherUser?._id) {
+                                window.location.href = `/profile/${otherUser._id}`;
+                              }
+                            }}
+                            className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center hover:ring-2 hover:ring-blue-300 transition-all cursor-pointer"
+                            title={`View ${otherUser?.firstName || otherUser?.username}'s profile`}
+                          >
+                            {otherUser?.avatar ? (
                                 <img
                                   src={getAvatarUrl(otherUser.avatar) || ''}
                                   alt={otherUser.username || 'User'}
@@ -750,18 +714,12 @@ const MessagesPage: React.FC = () => {
                                 </span>
                               )}
                             </button>
-                          )}
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center space-x-2">
                             <h3 className="text-slate-900 font-medium truncate">
                               {displayName}
                             </h3>
-                            {isGroup && (
-                              <span className="text-xs bg-green-600 text-white px-2 py-1 rounded-full">
-                                GROUP
-                              </span>
-                            )}
                           </div>
                           <p className="text-slate-600 text-sm truncate">{displaySubtext}</p>
                           {conversation.lastMessage && (
@@ -803,11 +761,7 @@ const MessagesPage: React.FC = () => {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
                         <div className="relative">
-                          {selectedConversation.isGroup ? (
-                            <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
-                              <span className="text-white font-semibold text-lg">👥</span>
-                            </div>
-                          ) : (() => {
+                          {(() => {
                             const otherUser = getOtherParticipant(selectedConversation);
                             return (
                               <button
@@ -837,22 +791,16 @@ const MessagesPage: React.FC = () => {
                         </div>
                         <div>
                           <h3 className="text-slate-900 font-medium">
-                            {selectedConversation.isGroup 
-                              ? (selectedConversation.groupName || 'Unnamed Group')
-                              : (() => {
-                                  const otherUser = getOtherParticipant(selectedConversation);
-                                  return `${otherUser?.firstName || 'Unknown'} ${otherUser?.lastName || 'User'}`;
-                                })()
-                            }
+                            {(() => {
+                              const otherUser = getOtherParticipant(selectedConversation);
+                              return `${otherUser?.firstName || 'Unknown'} ${otherUser?.lastName || 'User'}`;
+                            })()}
                           </h3>
                           <p className="text-slate-600 text-sm">
-                            {selectedConversation.isGroup 
-                              ? `${selectedConversation.participants?.length || 0} members`
-                              : (() => {
-                                  const otherUser = getOtherParticipant(selectedConversation);
-                                  return `@${otherUser?.username || 'unknown'}`;
-                                })()
-                            }
+                            {(() => {
+                              const otherUser = getOtherParticipant(selectedConversation);
+                              return `@${otherUser?.username || 'unknown'}`;
+                            })()}
                           </p>
                         </div>
                       </div>
@@ -892,7 +840,6 @@ const MessagesPage: React.FC = () => {
                             onEdit={handleEditMessage}
                             onDelete={handleDeleteMessage}
                             showAvatar={
-                              selectedConversation?.isGroup && 
                               !isOwn && 
                               (index === 0 || messages[index - 1].sender._id !== message.sender._id)
                             }
@@ -933,18 +880,9 @@ const MessagesPage: React.FC = () => {
         {activeTab === 'friends' && (
           <div className="flex-1 p-6 bg-white">
             <div className="space-y-6">
-              {/* Header with Create Group Button */}
+              {/* Header */}
               <div className="flex justify-between items-center">
                 <h2 className="text-xl font-semibold text-slate-900">Add Friends</h2>
-                <button
-                  onClick={() => setShowCreateGroup(true)}
-                  className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 py-2.5 rounded-xl transition-all duration-200 flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:scale-105"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                  </svg>
-                  <span className="font-medium">Create Group</span>
-                </button>
               </div>
               
               {/* Search Users */}
@@ -1261,29 +1199,12 @@ const MessagesPage: React.FC = () => {
         </div>
       )}
 
-      {/* Create Group Chat Modal */}
-      {showCreateGroup && (
-        <CreateGroupChat
-          friends={friends}
-          onCreateGroup={handleCreateGroup}
-          onCancel={() => setShowCreateGroup(false)}
-        />
-      )}
-
       {/* Message Search Modal */}
       {showMessageSearch && selectedConversation && (
         <MessageSearch
           conversationId={selectedConversation._id}
           onMessageSelect={scrollToMessage}
           onClose={() => setShowMessageSearch(false)}
-        />
-      )}
-
-      {/* Voice Recorder Modal */}
-      {showVoiceRecorder && (
-        <VoiceRecorder
-          onSendVoiceMessage={handleSendVoiceMessage}
-          onCancel={() => setShowVoiceRecorder(false)}
         />
       )}
 

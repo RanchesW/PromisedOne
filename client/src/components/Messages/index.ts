@@ -1,9 +1,6 @@
 export { default as MessageBubble } from './MessageBubble';
 export { default as ChatInput } from './ChatInput';
 export { default as TypingIndicator } from './TypingIndicator';
-export { default as CreateGroupChat } from './CreateGroupChat';
 export { default as NotificationItem } from './NotificationItem';
 export { default as MessageSearch } from './MessageSearch';
-export { default as VoiceRecorder } from './VoiceRecorder';
-export { default as OnlineStatus } from './OnlineStatus';
 export { default as DateSeparator } from './DateSeparator';

@@ -67,21 +67,22 @@ const GameSystemsPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header Section */}
-      <section className="bg-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-blue-50 rounded-lg flex items-center" style={{ height: '618px' }}>
-            <div className="flex-shrink-0 flex items-center justify-center" style={{ width: '388px', height: '462px' }}>
+      <section className="bg-gradient-to-br from-blue-50 to-blue-100 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
+            <div className="flex-shrink-0">
               <img 
                 src="/images/game-systems-circle-desktop.webp" 
                 alt="Game Systems"
-                className="object-contain"
-                style={{ width: '300px', height: '300px' }}
+                className="w-48 h-48 md:w-64 md:h-64 object-contain mx-auto"
               />
             </div>
-            <div className="flex-1 px-12 py-8">
-              <h1 className="text-6xl font-bold text-slate-900 mb-8">Game Systems</h1>
-              <p className="text-xl text-slate-600 leading-relaxed">
-                Browse all tabletop roleplaying games on StartPlaying. Are you searching for your next game of 5e D&D? Looking to face off against eldritch horrors in Call of Cthulhu? Find popular tabletop roleplaying game systems from Pathfinder, Lancer, City of Mist, and more!
+            <div className="flex-1 max-w-3xl">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-slate-900 mb-6" style={{ fontFamily: 'Firlest, serif' }}>
+                Game Systems
+              </h1>
+              <p className="text-lg md:text-xl text-slate-700 leading-relaxed">
+                Browse all tabletop roleplaying games on KazRPG. Are you searching for your next game of 5e D&D? Looking to face off against eldritch horrors in Call of Cthulhu? Find popular tabletop roleplaying game systems from Pathfinder, Lancer, City of Mist, and more!
               </p>
             </div>
           </div>

@@ -18,7 +18,7 @@ const HomePage: React.FC = () => {
         
         {/* Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl sm:text-6xl lg:text-8xl font-fantasy font-bold text-white mb-6">
+          <h1 className="text-5xl sm:text-6xl lg:text-8xl font-bold text-white mb-6" style={{ fontFamily: 'Firlest, serif' }}>
             KazRPG
           </h1>
           <p className="text-2xl sm:text-3xl lg:text-4xl font-normal text-slate-300 mb-12">
@@ -44,12 +44,19 @@ const HomePage: React.FC = () => {
       {/* What is KazRPG Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-6">
+          <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-6" style={{ fontFamily: 'Firlest, serif' }}>
             What is <span className="text-blue-600">KazRPG</span>?
           </h2>
-          <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed mb-8">
             KazRPG is the largest online platform for players to find tabletop roleplaying games and 
             professional GMs for any game system and any virtual tabletop!
+          </p>
+          <p className="text-lg text-slate-600 max-w-4xl mx-auto leading-relaxed">
+            Are you looking to play D&D Online or find a virtual Pathfinder 2e group? We're part D&D Group finder (amongst other games) and part games finder.
+          </p>
+          <br />
+          <p className="text-lg text-slate-600 max-w-4xl mx-auto leading-relaxed">
+            Our professional dungeon masters and Game Masters are running games all over the world. Find a game that works for you and your schedule.
           </p>
         </div>
       </section>

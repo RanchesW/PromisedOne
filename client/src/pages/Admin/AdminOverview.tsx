@@ -11,6 +11,10 @@ interface AdminStats {
   totalGames: number;
   pendingApplications: number;
   activeUsers: number;
+  userGrowthRate?: number;
+  gameGrowthRate?: number;
+  applicationChange?: number;
+  activeUserGrowthRate?: number;
 }
 
 const AdminOverview: React.FC = () => {
@@ -43,7 +47,12 @@ const AdminOverview: React.FC = () => {
           totalUsers: statsData.totalUsers || 0,
           totalGames: statsData.activeGames || 0,
           pendingApplications: statsData.pendingGMApplications || 0,
-          activeUsers: statsData.totalPlayers + statsData.totalGMs || 0
+          activeUsers: statsData.totalPlayers + statsData.totalGMs || 0,
+          // Use data from API if available, otherwise show neutral
+          userGrowthRate: statsData.userGrowthRate || 0,
+          gameGrowthRate: statsData.gameGrowthRate || 0,
+          applicationChange: statsData.applicationChange || 0,
+          activeUserGrowthRate: statsData.activeUserGrowthRate || 0
         });
       } else {
         console.error('Failed to load stats:', response.status);
@@ -55,38 +64,51 @@ const AdminOverview: React.FC = () => {
     }
   };
 
+  const formatChange = (value: number, isPercentage: boolean = true) => {
+    if (value === 0) return 'No change';
+    const prefix = value > 0 ? '+' : '';
+    const suffix = isPercentage ? '%' : '';
+    return `${prefix}${value}${suffix}`;
+  };
+
+  const getChangeType = (value: number) => {
+    if (value > 0) return 'positive';
+    if (value < 0) return 'negative';
+    return 'neutral';
+  };
+
   const statCards = [
     {
       name: 'Total Users',
       value: stats.totalUsers,
       icon: UsersIcon,
       color: 'bg-blue-500',
-      change: '+12%',
-      changeType: 'positive'
+      change: formatChange(stats.userGrowthRate || 0),
+      changeType: getChangeType(stats.userGrowthRate || 0)
     },
     {
       name: 'Active Games',
       value: stats.totalGames,
       icon: RectangleStackIcon,
       color: 'bg-green-500',
-      change: '+5%',
-      changeType: 'positive'
+      change: formatChange(stats.gameGrowthRate || 0),
+      changeType: getChangeType(stats.gameGrowthRate || 0)
     },
     {
       name: 'Pending GM Applications',
       value: stats.pendingApplications,
       icon: ClipboardDocumentListIcon,
       color: 'bg-yellow-500',
-      change: '+3',
-      changeType: 'neutral'
+      change: formatChange(stats.applicationChange || 0, false),
+      changeType: getChangeType(stats.applicationChange || 0)
     },
     {
       name: 'Active Users',
       value: stats.activeUsers,
       icon: ChartBarIcon,
       color: 'bg-purple-500',
-      change: '+8%',
-      changeType: 'positive'
+      change: formatChange(stats.activeUserGrowthRate || 0),
+      changeType: getChangeType(stats.activeUserGrowthRate || 0)
     }
   ];
 

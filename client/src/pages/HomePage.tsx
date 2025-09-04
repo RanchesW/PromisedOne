@@ -73,7 +73,7 @@ const HomePage: React.FC = () => {
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8 max-w-5xl mx-auto">
             {/* Game System */}
             <div className="flex flex-col items-center group cursor-pointer">
-              <div className="w-20 h-20 mb-4 transition-transform group-hover:scale-105">
+              <div className="w-46 h-46 mb-4 transition-transform group-hover:scale-105">
                 <img 
                   src="/images/game-systems-circle-desktop.webp" 
                   alt="Game System"
@@ -85,7 +85,7 @@ const HomePage: React.FC = () => {
 
             {/* Platform */}
             <div className="flex flex-col items-center group cursor-pointer">
-              <div className="w-20 h-20 mb-4 transition-transform group-hover:scale-105">
+              <div className="w-46 h-46 mb-4 transition-transform group-hover:scale-105">
                 <img 
                   src="/images/platforms-circle-desktop.webp" 
                   alt="Platform"
@@ -97,7 +97,7 @@ const HomePage: React.FC = () => {
 
             {/* Genre */}
             <div className="flex flex-col items-center group cursor-pointer">
-              <div className="w-20 h-20 mb-4 transition-transform group-hover:scale-105">
+              <div className="w-46 h-46 mb-4 transition-transform group-hover:scale-105">
                 <img 
                   src="/images/genres-circle-desktop.webp" 
                   alt="Genre"
@@ -109,7 +109,7 @@ const HomePage: React.FC = () => {
 
             {/* Style */}
             <div className="flex flex-col items-center group cursor-pointer">
-              <div className="w-20 h-20 mb-4 transition-transform group-hover:scale-105">
+              <div className="w-46 h-46 mb-4 transition-transform group-hover:scale-105">
                 <img 
                   src="/images/styles-circle-desktop.webp" 
                   alt="Style"
@@ -121,7 +121,7 @@ const HomePage: React.FC = () => {
 
             {/* Mechanic */}
             <div className="flex flex-col items-center group cursor-pointer">
-              <div className="w-20 h-20 mb-4 transition-transform group-hover:scale-105">
+              <div className="w-46 h-46 mb-4 transition-transform group-hover:scale-105">
                 <img 
                   src="/images/mechanics-circle-desktop.webp" 
                   alt="Mechanic"

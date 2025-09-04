@@ -81,8 +81,14 @@ const GameSystemsPage: React.FC = () => {
               <img 
                 src="/images/game-systems-desktop.webp" 
                 alt="Game Systems"
-                className="object-contain"
-                style={{ width: '320px', height: '344px', maxWidth: '320px', maxHeight: '344px' }}
+                className="flex-shrink-0"
+                style={{ 
+                  width: '320px', 
+                  height: '344px', 
+                  maxWidth: '320px', 
+                  maxHeight: '344px',
+                  objectFit: 'contain'
+                }}
               />
             </div>
             

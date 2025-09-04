@@ -82,16 +82,16 @@ const GameSystemsPage: React.FC = () => {
                 width: '320px', 
                 height: '344px',
                 objectFit: 'contain',
-                margin: '5px 0 0 5px'
+                margin: '0px 0 0 0px'
               }}
             />
             
             {/* Title positioned middle-right of image */}
             <div 
               className="absolute"
-              style={{ left: '420px', top: '200px' }}
+              style={{ left: '420px', top: '150' }}
             >
-              <h1 className="text-5xl font-bold text-slate-900" style={{ fontFamily: 'Firlest, serif' }}>
+              <h1 className="text-5xl font-bold text-slate-900">
               Game Systems
               </h1>
             </div>

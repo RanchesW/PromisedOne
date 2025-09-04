@@ -72,13 +72,13 @@ const GameSystemsPage: React.FC = () => {
           <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
             <div className="flex-shrink-0">
               <img 
-                src="/images/game-systems-circle-desktop.webp" 
+                src="/images/game-systems-desktop.webp" 
                 alt="Game Systems"
                 className="w-48 h-48 md:w-64 md:h-64 object-contain mx-auto"
               />
             </div>
             <div className="flex-1 max-w-3xl">
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-slate-900 mb-6" style={{ fontFamily: 'Firlest, serif' }}>
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-slate-900 mb-6">
                 Game Systems
               </h1>
               <p className="text-lg md:text-xl text-slate-700 leading-relaxed">
@@ -97,223 +97,28 @@ const GameSystemsPage: React.FC = () => {
             Browse 100's of tabletop roleplaying games run by professional Dungeon Masters. Find your favorite TTRPG system and start playing online today!
           </p>
 
-          {/* Masonry-style Grid like StartPlaying */}
-          <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
-            {/* D&D 5e - Large card (390px × 429px from reference) */}
-            <div className="break-inside-avoid mb-6">
-              <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer">
-                <a href="/play/dungeons-and-dragons-5e" className="block">
+          {/* Game Systems Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {gameSystems.map((system) => (
+              <div key={system.id} className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer">
+                <a href={`/play/${system.id}`} className="block">
                   <div 
-                    className="bg-cover bg-center" 
+                    className="bg-cover bg-center h-48" 
                     style={{ 
-                      backgroundImage: `url(${gameSystems[0].image})`, 
-                      width: '100%',
-                      aspectRatio: '390/214'
+                      backgroundImage: `url(${system.image})`
                     }}
                   />
                   <div className="p-4">
                     <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
-                      {gameSystems[0].name}
+                      {system.name}
                     </h3>
-                    <p className="text-slate-600 text-sm leading-relaxed">
-                      As the world's most popular roleplaying game, Dungeons & Dragons leads the way in RPG enjoyment.
+                    <p className="text-slate-600 text-sm leading-relaxed line-clamp-3">
+                      {system.description}
                     </p>
                   </div>
                 </a>
               </div>
-            </div>
-
-            {/* Pathfinder 2e - Wide card (604px × 429px from reference) */}
-            <div className="break-inside-avoid mb-6">
-              <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer">
-                <a href="/play/pathfinder-2e" className="block">
-                  <div 
-                    className="bg-cover bg-center" 
-                    style={{ 
-                      backgroundImage: `url(${gameSystems[1].image})`, 
-                      width: '100%',
-                      aspectRatio: '604/214'
-                    }}
-                  />
-                  <div className="p-4">
-                    <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
-                      {gameSystems[1].name}
-                    </h3>
-                    <p className="text-slate-600 text-sm leading-relaxed">
-                      Pathfinder 2nd Edition updates the beloved maximalist fantasy RPG for a new generation.
-                    </p>
-                  </div>
-                </a>
-              </div>
-            </div>
-
-            {/* Daggerheart - Extra wide card (1130px × 254px from reference) */}
-            <div className="break-inside-avoid mb-6 lg:col-span-2">
-              <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer">
-                <a href="/play/daggerheart" className="block">
-                  <div 
-                    className="bg-cover bg-center" 
-                    style={{ 
-                      backgroundImage: `url(${gameSystems[2].image})`, 
-                      width: '100%',
-                      aspectRatio: '1130/214'
-                    }}
-                  />
-                  <div className="p-4">
-                    <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
-                      {gameSystems[2].name}
-                    </h3>
-                    <p className="text-slate-600 text-sm leading-relaxed">
-                      Daggerheart is a fantasy tabletop roleplaying game of brave heroics and vibrant worlds.
-                    </p>
-                  </div>
-                </a>
-              </div>
-            </div>
-
-            {/* Call of Cthulhu - Medium card (1518px × 688px from reference) */}
-            <div className="break-inside-avoid mb-6">
-              <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer">
-                <a href="/play/call-of-cthulhu" className="block">
-                  <div 
-                    className="bg-cover bg-center" 
-                    style={{ 
-                      backgroundImage: `url(${gameSystems[3].image})`, 
-                      width: '100%',
-                      aspectRatio: '390/180'
-                    }}
-                  />
-                  <div className="p-4">
-                    <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
-                      {gameSystems[3].name}
-                    </h3>
-                    <p className="text-slate-600 text-sm leading-relaxed">
-                      The original RPG of eldritch horror sets your team of investigators against cosmic terror.
-                    </p>
-                  </div>
-                </a>
-              </div>
-            </div>
-
-            {/* Vampire - Tall card (1518px × 688px from reference) */}
-            <div className="break-inside-avoid mb-6">
-              <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer">
-                <a href="/play/vampire-the-masquerade-5e" className="block">
-                  <div 
-                    className="bg-cover bg-center" 
-                    style={{ 
-                      backgroundImage: `url(${gameSystems[4].image})`, 
-                      width: '100%',
-                      aspectRatio: '390/300'
-                    }}
-                  />
-                  <div className="p-4">
-                    <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
-                      Vampire: The Masquerade 5th Edition
-                    </h3>
-                    <p className="text-slate-600 text-sm leading-relaxed">
-                      Vampire: The Masquerade presents a more dramatic, personal, and political take on vampires.
-                    </p>
-                  </div>
-                </a>
-              </div>
-            </div>
-
-            {/* Monster of the Week - Square card (683px × 616px from reference) */}
-            <div className="break-inside-avoid mb-6">
-              <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer">
-                <a href="/play/monster-of-the-week" className="block">
-                  <div 
-                    className="bg-cover bg-center" 
-                    style={{ 
-                      backgroundImage: `url(${gameSystems[6].image})`, 
-                      width: '100%',
-                      aspectRatio: '390/350'
-                    }}
-                  />
-                  <div className="p-4">
-                    <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
-                      {gameSystems[6].name}
-                    </h3>
-                    <p className="text-slate-600 text-sm leading-relaxed">
-                      Hunt monsters in the modern world with this Powered by the Apocalypse system.
-                    </p>
-                  </div>
-                </a>
-              </div>
-            </div>
-
-            {/* Cyberpunk Red - Medium card (390px × 254px from reference) */}
-            <div className="break-inside-avoid mb-6">
-              <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer">
-                <a href="/play/cyberpunk-red" className="block">
-                  <div 
-                    className="bg-cover bg-center" 
-                    style={{ 
-                      backgroundImage: `url(${gameSystems[7].image})`, 
-                      width: '100%',
-                      aspectRatio: '390/180'
-                    }}
-                  />
-                  <div className="p-4">
-                    <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
-                      {gameSystems[7].name}
-                    </h3>
-                    <p className="text-slate-600 text-sm leading-relaxed">
-                      The latest edition of the classic cyberpunk RPG in the dark future of 2045.
-                    </p>
-                  </div>
-                </a>
-              </div>
-            </div>
-
-            {/* Shadowdark RPG */}
-            <div className="break-inside-avoid mb-6">
-              <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer">
-                <a href="/play/shadowdark-rpg" className="block">
-                  <div 
-                    className="bg-cover bg-center" 
-                    style={{ 
-                      backgroundImage: `url(${gameSystems[8].image})`, 
-                      width: '100%',
-                      aspectRatio: '390/214'
-                    }}
-                  />
-                  <div className="p-4">
-                    <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
-                      {gameSystems[8].name}
-                    </h3>
-                    <p className="text-slate-600 text-sm leading-relaxed">
-                      Old-school sword-and-sorcery dungeon delving with modern sensibilities.
-                    </p>
-                  </div>
-                </a>
-              </div>
-            </div>
-
-            {/* Lancer */}
-            <div className="break-inside-avoid mb-6">
-              <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer">
-                <a href="/play/lancer" className="block">
-                  <div 
-                    className="bg-cover bg-center" 
-                    style={{ 
-                      backgroundImage: `url(${gameSystems[9].image})`, 
-                      width: '100%',
-                      aspectRatio: '390/214'
-                    }}
-                  />
-                  <div className="p-4">
-                    <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
-                      {gameSystems[9].name}
-                    </h3>
-                    <p className="text-slate-600 text-sm leading-relaxed">
-                      Elite mech pilot fighting for the future of Union in tactical combat RPG.
-                    </p>
-                  </div>
-                </a>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>

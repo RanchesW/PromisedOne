@@ -83,11 +83,11 @@ const Games: React.FC = () => {
   const handleGameAction = async (gameId: string, action: string) => {
     try {
       setActionLoading(true);
-      const response = await fetch(`${process.env.REACT_APP_API_URL || 'https://promisedone.onrender.com'}/api/admin/games/${gameId}/${action}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'https://promisedone.onrender.com/api'}/admin/games/${gameId}/${action}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${localStorage.getItem('authToken')}`,
         },
       });
 
@@ -107,11 +107,16 @@ const Games: React.FC = () => {
   const handleDeleteGame = async (gameId: string) => {
     try {
       setActionLoading(true);
-      const response = await fetch(`${process.env.REACT_APP_API_URL || 'https://promisedone.onrender.com'}/api/admin/games/${gameId}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'https://promisedone.onrender.com/api'}/admin/games/${gameId}`, {
         method: 'DELETE',
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('authToken')}`,
         },
+        body: JSON.stringify({
+          reason: 'Deleted by admin',
+          adminNotes: 'Game deleted from admin panel'
+        }),
       });
 
       if (response.ok) {
@@ -131,11 +136,11 @@ const Games: React.FC = () => {
   const handleBulkAction = async (action: string) => {
     try {
       setActionLoading(true);
-      const response = await fetch(`${process.env.REACT_APP_API_URL || 'https://promisedone.onrender.com'}/api/admin/games/bulk/${action}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'https://promisedone.onrender.com/api'}/admin/games/bulk/${action}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${localStorage.getItem('authToken')}`,
         },
         body: JSON.stringify({ gameIds: Array.from(selectedGames) }),
       });

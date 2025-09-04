@@ -91,44 +91,80 @@ const DiceLoading: React.FC<DiceLoadingProps> = ({
         <div className="mb-8">
           <div className={getDiceClass()}>
             <svg 
-              viewBox="0 0 120 120" 
+              viewBox="0 0 100 100" 
               className="w-20 h-20 mx-auto fill-current"
               style={{ filter: finalResult === 20 ? 'drop-shadow(0 0 10px #fbbf24)' : finalResult === 1 ? 'drop-shadow(0 0 10px #f87171)' : 'none' }}
             >
-              {/* Proper D20 icosahedron shape */}
-              {/* Top pyramid faces */}
-              <polygon points="60,10 40,35 60,30" className="fill-current opacity-95 stroke-current stroke-1" />
-              <polygon points="60,10 80,35 60,30" className="fill-current opacity-90 stroke-current stroke-1" />
-              <polygon points="60,10 80,35 85,20" className="fill-current opacity-85 stroke-current stroke-1" />
-              <polygon points="60,10 40,35 35,20" className="fill-current opacity-85 stroke-current stroke-1" />
+              {/* D20 icosahedron - simplified but recognizable shape */}
+              <defs>
+                <linearGradient id="faceGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="currentColor" stopOpacity="0.9" />
+                  <stop offset="100%" stopColor="currentColor" stopOpacity="0.6" />
+                </linearGradient>
+                <linearGradient id="faceGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="currentColor" stopOpacity="0.8" />
+                  <stop offset="100%" stopColor="currentColor" stopOpacity="0.5" />
+                </linearGradient>
+                <linearGradient id="faceGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="currentColor" stopOpacity="0.7" />
+                  <stop offset="100%" stopColor="currentColor" stopOpacity="0.4" />
+                </linearGradient>
+              </defs>
               
-              {/* Upper middle faces */}
-              <polygon points="40,35 60,30 45,50" className="fill-current opacity-80 stroke-current stroke-1" />
-              <polygon points="60,30 80,35 75,50" className="fill-current opacity-75 stroke-current stroke-1" />
-              <polygon points="80,35 85,20 95,40" className="fill-current opacity-70 stroke-current stroke-1" />
-              <polygon points="40,35 35,20 25,40" className="fill-current opacity-70 stroke-current stroke-1" />
+              {/* Main visible faces of the D20 */}
+              {/* Top face */}
+              <polygon 
+                points="50,8 25,35 75,35" 
+                fill="url(#faceGradient1)" 
+                stroke="currentColor" 
+                strokeWidth="1.5" 
+                opacity="0.9"
+              />
               
-              {/* Center belt faces */}
-              <polygon points="45,50 60,55 60,70" className="fill-current opacity-75 stroke-current stroke-1" />
-              <polygon points="60,55 75,50 60,70" className="fill-current opacity-65 stroke-current stroke-1" />
-              <polygon points="25,40 40,35 45,50" className="fill-current opacity-60 stroke-current stroke-1" />
-              <polygon points="95,40 80,35 75,50" className="fill-current opacity-60 stroke-current stroke-1" />
+              {/* Left face */}
+              <polygon 
+                points="25,35 50,65 15,65" 
+                fill="url(#faceGradient2)" 
+                stroke="currentColor" 
+                strokeWidth="1.5" 
+                opacity="0.7"
+              />
               
-              {/* Lower middle faces */}
-              <polygon points="45,50 60,70 40,80" className="fill-current opacity-65 stroke-current stroke-1" />
-              <polygon points="75,50 60,70 80,80" className="fill-current opacity-55 stroke-current stroke-1" />
-              <polygon points="25,40 45,50 40,80" className="fill-current opacity-50 stroke-current stroke-1" />
-              <polygon points="95,40 75,50 80,80" className="fill-current opacity-50 stroke-current stroke-1" />
+              {/* Right face */}
+              <polygon 
+                points="75,35 85,65 50,65" 
+                fill="url(#faceGradient3)" 
+                stroke="currentColor" 
+                strokeWidth="1.5" 
+                opacity="0.5"
+              />
               
-              {/* Bottom pyramid faces */}
-              <polygon points="40,80 60,70 60,105" className="fill-current opacity-55 stroke-current stroke-1" />
-              <polygon points="60,70 80,80 60,105" className="fill-current opacity-45 stroke-current stroke-1" />
-              <polygon points="25,40 40,80 35,95" className="fill-current opacity-40 stroke-current stroke-1" />
-              <polygon points="95,40 80,80 85,95" className="fill-current opacity-40 stroke-current stroke-1" />
+              {/* Bottom left face */}
+              <polygon 
+                points="15,65 50,65 30,85" 
+                fill="url(#faceGradient2)" 
+                stroke="currentColor" 
+                strokeWidth="1.5" 
+                opacity="0.6"
+              />
               
-              {/* Bottom tip faces */}
-              <polygon points="40,80 60,105 35,95" className="fill-current opacity-45 stroke-current stroke-1" />
-              <polygon points="80,80 60,105 85,95" className="fill-current opacity-35 stroke-current stroke-1" />
+              {/* Bottom right face */}
+              <polygon 
+                points="50,65 85,65 70,85" 
+                fill="url(#faceGradient3)" 
+                stroke="currentColor" 
+                strokeWidth="1.5" 
+                opacity="0.4"
+              />
+              
+              {/* Bottom center face */}
+              <polygon 
+                points="30,85 70,85 50,92" 
+                fill="url(#faceGradient2)" 
+                stroke="currentColor" 
+                strokeWidth="1.5" 
+                opacity="0.5"
+              />
             </svg>
           </div>
           <div className="text-4xl font-bold mt-4 font-mono">

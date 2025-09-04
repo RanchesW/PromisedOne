@@ -51,11 +51,11 @@ const HomePage: React.FC = () => {
             KazRPG is the largest online platform for players to find tabletop roleplaying games and 
             professional GMs for any game system and any virtual tabletop!
           </p>
-          <p className="text-lg text-slate-600 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed mb-8">
             Are you looking to play D&D Online or find a virtual Pathfinder 2e group? We're part D&D Group finder (amongst other games) and part games finder.
           </p>
           <br />
-          <p className="text-lg text-slate-600 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed mb-8">
             Our professional dungeon masters and Game Masters are running games all over the world. Find a game that works for you and your schedule.
           </p>
         </div>

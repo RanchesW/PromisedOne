@@ -98,21 +98,27 @@ const GameSystemsPage: React.FC = () => {
           </p>
 
           {/* Game Systems Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="flex flex-wrap gap-6 justify-center">
             {gameSystems.map((system) => (
-              <div key={system.id} className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer">
-                <a href={`/play/${system.id}`} className="block">
+              <div 
+                key={system.id} 
+                className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer"
+                style={{ width: '212px', height: '430px' }}
+              >
+                <a href={`/play/${system.id}`} className="block h-full">
                   <div 
-                    className="bg-cover bg-center h-48" 
+                    className="bg-cover bg-center" 
                     style={{ 
-                      backgroundImage: `url(${system.image})`
+                      backgroundImage: `url(${system.image})`,
+                      height: '310px',
+                      width: '212px'
                     }}
                   />
-                  <div className="p-4">
+                  <div className="p-4" style={{ height: '120px' }}>
                     <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
                       {system.name}
                     </h3>
-                    <p className="text-slate-600 text-sm leading-relaxed line-clamp-3">
+                    <p className="text-slate-600 text-sm leading-relaxed line-clamp-4">
                       {system.description}
                     </p>
                   </div>

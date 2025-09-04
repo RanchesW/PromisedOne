@@ -91,80 +91,137 @@ const DiceLoading: React.FC<DiceLoadingProps> = ({
         <div className="mb-8">
           <div className={getDiceClass()}>
             <svg 
-              viewBox="0 0 100 100" 
+              viewBox="0 0 120 120" 
               className="w-20 h-20 mx-auto fill-current"
               style={{ filter: finalResult === 20 ? 'drop-shadow(0 0 10px #fbbf24)' : finalResult === 1 ? 'drop-shadow(0 0 10px #f87171)' : 'none' }}
             >
-              {/* D20 icosahedron - simplified but recognizable shape */}
+              {/* Proper D20 icosahedron with correct geometry */}
               <defs>
-                <linearGradient id="faceGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="currentColor" stopOpacity="0.9" />
-                  <stop offset="100%" stopColor="currentColor" stopOpacity="0.6" />
+                <linearGradient id="topFace" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="currentColor" stopOpacity="0.95" />
+                  <stop offset="100%" stopColor="currentColor" stopOpacity="0.8" />
                 </linearGradient>
-                <linearGradient id="faceGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="currentColor" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="currentColor" stopOpacity="0.5" />
+                <linearGradient id="brightFace" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="currentColor" stopOpacity="0.85" />
+                  <stop offset="100%" stopColor="currentColor" stopOpacity="0.7" />
                 </linearGradient>
-                <linearGradient id="faceGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="currentColor" stopOpacity="0.7" />
+                <linearGradient id="mediumFace" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="currentColor" stopOpacity="0.75" />
+                  <stop offset="100%" stopColor="currentColor" stopOpacity="0.55" />
+                </linearGradient>
+                <linearGradient id="darkFace" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="currentColor" stopOpacity="0.65" />
                   <stop offset="100%" stopColor="currentColor" stopOpacity="0.4" />
                 </linearGradient>
               </defs>
               
-              {/* Main visible faces of the D20 */}
-              {/* Top face */}
+              {/* Icosahedron structure - 20 triangular faces, showing 7-9 visible faces */}
+              
+              {/* Top face - brightest */}
               <polygon 
-                points="50,8 25,35 75,35" 
-                fill="url(#faceGradient1)" 
+                points="60,15 35,40 85,40" 
+                fill="url(#topFace)" 
                 stroke="currentColor" 
-                strokeWidth="1.5" 
+                strokeWidth="1.2" 
+                opacity="1"
+              />
+              
+              {/* Top ring - 5 faces around the top face */}
+              {/* Top-left face */}
+              <polygon 
+                points="35,40 60,15 20,50" 
+                fill="url(#brightFace)" 
+                stroke="currentColor" 
+                strokeWidth="1.2" 
                 opacity="0.9"
+              />
+              
+              {/* Top-right face */}
+              <polygon 
+                points="85,40 60,15 100,50" 
+                fill="url(#brightFace)" 
+                stroke="currentColor" 
+                strokeWidth="1.2" 
+                opacity="0.8"
               />
               
               {/* Left face */}
               <polygon 
-                points="25,35 50,65 15,65" 
-                fill="url(#faceGradient2)" 
+                points="20,50 35,40 25,70" 
+                fill="url(#mediumFace)" 
                 stroke="currentColor" 
-                strokeWidth="1.5" 
-                opacity="0.7"
+                strokeWidth="1.2" 
+                opacity="0.75"
               />
               
               {/* Right face */}
               <polygon 
-                points="75,35 85,65 50,65" 
-                fill="url(#faceGradient3)" 
+                points="100,50 85,40 95,70" 
+                fill="url(#darkFace)" 
                 stroke="currentColor" 
-                strokeWidth="1.5" 
-                opacity="0.5"
-              />
-              
-              {/* Bottom left face */}
-              <polygon 
-                points="15,65 50,65 30,85" 
-                fill="url(#faceGradient2)" 
-                stroke="currentColor" 
-                strokeWidth="1.5" 
+                strokeWidth="1.2" 
                 opacity="0.6"
               />
               
-              {/* Bottom right face */}
+              {/* Center face */}
               <polygon 
-                points="50,65 85,65 70,85" 
-                fill="url(#faceGradient3)" 
+                points="35,40 85,40 60,65" 
+                fill="url(#mediumFace)" 
                 stroke="currentColor" 
-                strokeWidth="1.5" 
-                opacity="0.4"
+                strokeWidth="1.2" 
+                opacity="0.8"
               />
               
-              {/* Bottom center face */}
+              {/* Bottom ring - faces tapering to bottom point */}
+              {/* Bottom-left face */}
               <polygon 
-                points="30,85 70,85 50,92" 
-                fill="url(#faceGradient2)" 
+                points="25,70 35,40 60,65" 
+                fill="url(#mediumFace)" 
                 stroke="currentColor" 
-                strokeWidth="1.5" 
+                strokeWidth="1.2" 
+                opacity="0.7"
+              />
+              
+              {/* Bottom-right face */}
+              <polygon 
+                points="95,70 85,40 60,65" 
+                fill="url(#darkFace)" 
+                stroke="currentColor" 
+                strokeWidth="1.2" 
+                opacity="0.55"
+              />
+              
+              {/* Bottom faces converging to point */}
+              <polygon 
+                points="25,70 60,65 40,95" 
+                fill="url(#darkFace)" 
+                stroke="currentColor" 
+                strokeWidth="1.2" 
+                opacity="0.65"
+              />
+              
+              <polygon 
+                points="60,65 95,70 80,95" 
+                fill="url(#darkFace)" 
+                stroke="currentColor" 
+                strokeWidth="1.2" 
                 opacity="0.5"
               />
+              
+              {/* Bottom tip face */}
+              <polygon 
+                points="40,95 80,95 60,105" 
+                fill="url(#darkFace)" 
+                stroke="currentColor" 
+                strokeWidth="1.2" 
+                opacity="0.45"
+              />
+              
+              {/* Add numbers on visible faces to make it clearly a dice */}
+              <text x="60" y="30" textAnchor="middle" fontSize="8" fill="currentColor" opacity="0.9" fontWeight="bold">20</text>
+              <text x="45" y="50" textAnchor="middle" fontSize="6" fill="currentColor" opacity="0.8" fontWeight="bold">15</text>
+              <text x="75" y="50" textAnchor="middle" fontSize="6" fill="currentColor" opacity="0.7" fontWeight="bold">8</text>
+              <text x="60" y="70" textAnchor="middle" fontSize="6" fill="currentColor" opacity="0.7" fontWeight="bold">12</text>
             </svg>
           </div>
           <div className="text-4xl font-bold mt-4 font-mono">

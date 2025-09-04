@@ -91,25 +91,44 @@ const DiceLoading: React.FC<DiceLoadingProps> = ({
         <div className="mb-8">
           <div className={getDiceClass()}>
             <svg 
-              viewBox="0 0 100 100" 
+              viewBox="0 0 120 120" 
               className="w-20 h-20 mx-auto fill-current"
               style={{ filter: finalResult === 20 ? 'drop-shadow(0 0 10px #fbbf24)' : finalResult === 1 ? 'drop-shadow(0 0 10px #f87171)' : 'none' }}
             >
-              {/* D20 shape */}
-              <polygon 
-                points="50,5 20,25 30,60 70,60 80,25" 
-                className="stroke-current stroke-2"
-                style={{ strokeWidth: 2 }}
-              />
-              <polygon 
-                points="50,5 80,25 70,60 50,80 30,60 20,25" 
-                className="fill-current opacity-80"
-              />
-              {/* Triangular faces to make it look more 3D */}
-              <polygon points="50,5 20,25 35,35" className="fill-current opacity-90" />
-              <polygon points="50,5 80,25 65,35" className="fill-current opacity-90" />
-              <polygon points="20,25 30,60 35,35" className="fill-current opacity-70" />
-              <polygon points="80,25 70,60 65,35" className="fill-current opacity-70" />
+              {/* Proper D20 icosahedron shape */}
+              {/* Top pyramid faces */}
+              <polygon points="60,10 40,35 60,30" className="fill-current opacity-95 stroke-current stroke-1" />
+              <polygon points="60,10 80,35 60,30" className="fill-current opacity-90 stroke-current stroke-1" />
+              <polygon points="60,10 80,35 85,20" className="fill-current opacity-85 stroke-current stroke-1" />
+              <polygon points="60,10 40,35 35,20" className="fill-current opacity-85 stroke-current stroke-1" />
+              
+              {/* Upper middle faces */}
+              <polygon points="40,35 60,30 45,50" className="fill-current opacity-80 stroke-current stroke-1" />
+              <polygon points="60,30 80,35 75,50" className="fill-current opacity-75 stroke-current stroke-1" />
+              <polygon points="80,35 85,20 95,40" className="fill-current opacity-70 stroke-current stroke-1" />
+              <polygon points="40,35 35,20 25,40" className="fill-current opacity-70 stroke-current stroke-1" />
+              
+              {/* Center belt faces */}
+              <polygon points="45,50 60,55 60,70" className="fill-current opacity-75 stroke-current stroke-1" />
+              <polygon points="60,55 75,50 60,70" className="fill-current opacity-65 stroke-current stroke-1" />
+              <polygon points="25,40 40,35 45,50" className="fill-current opacity-60 stroke-current stroke-1" />
+              <polygon points="95,40 80,35 75,50" className="fill-current opacity-60 stroke-current stroke-1" />
+              
+              {/* Lower middle faces */}
+              <polygon points="45,50 60,70 40,80" className="fill-current opacity-65 stroke-current stroke-1" />
+              <polygon points="75,50 60,70 80,80" className="fill-current opacity-55 stroke-current stroke-1" />
+              <polygon points="25,40 45,50 40,80" className="fill-current opacity-50 stroke-current stroke-1" />
+              <polygon points="95,40 75,50 80,80" className="fill-current opacity-50 stroke-current stroke-1" />
+              
+              {/* Bottom pyramid faces */}
+              <polygon points="40,80 60,70 60,105" className="fill-current opacity-55 stroke-current stroke-1" />
+              <polygon points="60,70 80,80 60,105" className="fill-current opacity-45 stroke-current stroke-1" />
+              <polygon points="25,40 40,80 35,95" className="fill-current opacity-40 stroke-current stroke-1" />
+              <polygon points="95,40 80,80 85,95" className="fill-current opacity-40 stroke-current stroke-1" />
+              
+              {/* Bottom tip faces */}
+              <polygon points="40,80 60,105 35,95" className="fill-current opacity-45 stroke-current stroke-1" />
+              <polygon points="80,80 60,105 85,95" className="fill-current opacity-35 stroke-current stroke-1" />
             </svg>
           </div>
           <div className="text-4xl font-bold mt-4 font-mono">

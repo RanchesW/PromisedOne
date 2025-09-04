@@ -239,27 +239,6 @@ const Games: React.FC = () => {
               </div>
               <div className="flex items-center space-x-2">
                 <button
-                  onClick={() => handleBulkAction('activate')}
-                  disabled={actionLoading}
-                  className="px-3 py-1 text-sm font-medium text-green-700 bg-green-100 border border-green-300 rounded hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-green-500 disabled:opacity-50"
-                >
-                  Activate
-                </button>
-                <button
-                  onClick={() => handleBulkAction('suspend')}
-                  disabled={actionLoading}
-                  className="px-3 py-1 text-sm font-medium text-yellow-700 bg-yellow-100 border border-yellow-300 rounded hover:bg-yellow-200 focus:outline-none focus:ring-2 focus:ring-yellow-500 disabled:opacity-50"
-                >
-                  Suspend
-                </button>
-                <button
-                  onClick={() => handleBulkAction('cancel')}
-                  disabled={actionLoading}
-                  className="px-3 py-1 text-sm font-medium text-red-700 bg-red-100 border border-red-300 rounded hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-500 disabled:opacity-50"
-                >
-                  Cancel
-                </button>
-                <button
                   onClick={() => setSelectedGames(new Set())}
                   className="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500"
                 >
@@ -356,32 +335,8 @@ const Games: React.FC = () => {
                     >
                       View Details
                     </button>
-                    {game.status === 'active' ? (
-                      <button
-                        onClick={() => handleGameAction(game._id, 'suspend')}
-                        disabled={actionLoading}
-                        className="px-3 py-1 text-xs font-medium text-yellow-700 bg-yellow-100 border border-yellow-300 rounded hover:bg-yellow-200 focus:outline-none focus:ring-2 focus:ring-yellow-500 disabled:opacity-50"
-                      >
-                        Suspend
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => handleGameAction(game._id, 'activate')}
-                        disabled={actionLoading}
-                        className="px-3 py-1 text-xs font-medium text-green-700 bg-green-100 border border-green-300 rounded hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-green-500 disabled:opacity-50"
-                      >
-                        Activate
-                      </button>
-                    )}
                   </div>
                   <div className="flex space-x-1">
-                    <button
-                      onClick={() => handleGameAction(game._id, 'cancel')}
-                      disabled={actionLoading}
-                      className="px-2 py-1 text-xs font-medium text-red-700 bg-red-100 border border-red-300 rounded hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-500 disabled:opacity-50"
-                    >
-                      Cancel
-                    </button>
                     <button
                       onClick={() => {
                         setGameToDelete(game);
@@ -497,35 +452,7 @@ const Games: React.FC = () => {
               <div className="space-y-4">
                 <h4 className="text-lg font-semibold text-gray-900 border-b pb-2">Admin Actions</h4>
                 
-                <div className="grid grid-cols-2 gap-2">
-                  {selectedGame.status === 'active' ? (
-                    <button
-                      onClick={() => handleGameAction(selectedGame._id, 'suspend')}
-                      disabled={actionLoading}
-                      className="w-full px-4 py-2 text-sm font-medium text-yellow-700 bg-yellow-100 border border-yellow-300 rounded-md hover:bg-yellow-200 focus:outline-none focus:ring-2 focus:ring-yellow-500 disabled:opacity-50"
-                    >
-                      Suspend Game
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => handleGameAction(selectedGame._id, 'activate')}
-                      disabled={actionLoading}
-                      className="w-full px-4 py-2 text-sm font-medium text-green-700 bg-green-100 border border-green-300 rounded-md hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-green-500 disabled:opacity-50"
-                    >
-                      Activate Game
-                    </button>
-                  )}
-                  
-                  <button
-                    onClick={() => handleGameAction(selectedGame._id, 'cancel')}
-                    disabled={actionLoading}
-                    className="w-full px-4 py-2 text-sm font-medium text-red-700 bg-red-100 border border-red-300 rounded-md hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-500 disabled:opacity-50"
-                  >
-                    Cancel Game
-                  </button>
-                </div>
-
-                <div className="pt-4 border-t">
+                <div className="pt-4">
                   <button
                     onClick={() => {
                       setGameToDelete(selectedGame);

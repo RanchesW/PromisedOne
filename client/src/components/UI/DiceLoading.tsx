@@ -91,11 +91,11 @@ const DiceLoading: React.FC<DiceLoadingProps> = ({
         <div className="mb-8">
           <div className={getDiceClass()}>
             <svg 
-              viewBox="0 0 120 120" 
+              viewBox="0 0 120 130" 
               className="w-20 h-20 mx-auto fill-current"
               style={{ filter: finalResult === 20 ? 'drop-shadow(0 0 10px #fbbf24)' : finalResult === 1 ? 'drop-shadow(0 0 10px #f87171)' : 'none' }}
             >
-              {/* Proper D20 icosahedron with correct geometry */}
+              {/* Improved D20 icosahedron with better geometry and effects */}
               <defs>
                 <linearGradient id="topFace" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stopColor="currentColor" stopOpacity="0.95" />
@@ -113,115 +113,131 @@ const DiceLoading: React.FC<DiceLoadingProps> = ({
                   <stop offset="0%" stopColor="currentColor" stopOpacity="0.65" />
                   <stop offset="100%" stopColor="currentColor" stopOpacity="0.4" />
                 </linearGradient>
+                <radialGradient id="highlight" cx="30%" cy="30%" r="40%">
+                  <stop offset="0%" stopColor="#ffffff" stopOpacity="0.4" />
+                  <stop offset="50%" stopColor="#ffffff" stopOpacity="0.2" />
+                  <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+                </radialGradient>
               </defs>
               
-              {/* Icosahedron structure - 20 triangular faces, showing 7-9 visible faces */}
+              {/* Balanced icosahedron structure with extended bottom */}
               
               {/* Top face - brightest */}
               <polygon 
-                points="60,15 35,40 85,40" 
+                points="60,12 35,38 85,38" 
                 fill="url(#topFace)" 
-                stroke="currentColor" 
-                strokeWidth="1.2" 
+                stroke="rgba(0,0,0,0.3)" 
+                strokeWidth="1" 
                 opacity="1"
               />
               
               {/* Top ring - 5 faces around the top face */}
               {/* Top-left face */}
               <polygon 
-                points="35,40 60,15 20,50" 
+                points="35,38 60,12 18,52" 
                 fill="url(#brightFace)" 
-                stroke="currentColor" 
-                strokeWidth="1.2" 
+                stroke="rgba(0,0,0,0.3)" 
+                strokeWidth="1" 
                 opacity="0.9"
               />
               
               {/* Top-right face */}
               <polygon 
-                points="85,40 60,15 100,50" 
+                points="85,38 60,12 102,52" 
                 fill="url(#brightFace)" 
-                stroke="currentColor" 
-                strokeWidth="1.2" 
+                stroke="rgba(0,0,0,0.3)" 
+                strokeWidth="1" 
                 opacity="0.8"
               />
               
               {/* Left face */}
               <polygon 
-                points="20,50 35,40 25,70" 
+                points="18,52 35,38 22,75" 
                 fill="url(#mediumFace)" 
-                stroke="currentColor" 
-                strokeWidth="1.2" 
+                stroke="rgba(0,0,0,0.3)" 
+                strokeWidth="1" 
                 opacity="0.75"
               />
               
               {/* Right face */}
               <polygon 
-                points="100,50 85,40 95,70" 
+                points="102,52 85,38 98,75" 
                 fill="url(#darkFace)" 
-                stroke="currentColor" 
-                strokeWidth="1.2" 
+                stroke="rgba(0,0,0,0.3)" 
+                strokeWidth="1" 
                 opacity="0.6"
               />
               
               {/* Center face */}
               <polygon 
-                points="35,40 85,40 60,65" 
+                points="35,38 85,38 60,68" 
                 fill="url(#mediumFace)" 
-                stroke="currentColor" 
-                strokeWidth="1.2" 
+                stroke="rgba(0,0,0,0.3)" 
+                strokeWidth="1" 
                 opacity="0.8"
               />
               
-              {/* Bottom ring - faces tapering to bottom point */}
+              {/* Bottom ring - faces tapering to bottom point (extended) */}
               {/* Bottom-left face */}
               <polygon 
-                points="25,70 35,40 60,65" 
+                points="22,75 35,38 60,68" 
                 fill="url(#mediumFace)" 
-                stroke="currentColor" 
-                strokeWidth="1.2" 
+                stroke="rgba(0,0,0,0.3)" 
+                strokeWidth="1" 
                 opacity="0.7"
               />
               
               {/* Bottom-right face */}
               <polygon 
-                points="95,70 85,40 60,65" 
+                points="98,75 85,38 60,68" 
                 fill="url(#darkFace)" 
-                stroke="currentColor" 
-                strokeWidth="1.2" 
+                stroke="rgba(0,0,0,0.3)" 
+                strokeWidth="1" 
                 opacity="0.55"
               />
               
-              {/* Bottom faces converging to point */}
+              {/* Bottom faces converging to point (extended for better balance) */}
               <polygon 
-                points="25,70 60,65 40,95" 
+                points="22,75 60,68 38,105" 
                 fill="url(#darkFace)" 
-                stroke="currentColor" 
-                strokeWidth="1.2" 
+                stroke="rgba(0,0,0,0.3)" 
+                strokeWidth="1" 
                 opacity="0.65"
               />
               
               <polygon 
-                points="60,65 95,70 80,95" 
+                points="60,68 98,75 82,105" 
                 fill="url(#darkFace)" 
-                stroke="currentColor" 
-                strokeWidth="1.2" 
+                stroke="rgba(0,0,0,0.3)" 
+                strokeWidth="1" 
                 opacity="0.5"
               />
               
-              {/* Bottom tip face */}
+              {/* Bottom tip face (extended further down) */}
               <polygon 
-                points="40,95 80,95 60,105" 
+                points="38,105 82,105 60,118" 
                 fill="url(#darkFace)" 
-                stroke="currentColor" 
-                strokeWidth="1.2" 
+                stroke="rgba(0,0,0,0.3)" 
+                strokeWidth="1" 
                 opacity="0.45"
               />
               
-              {/* Add numbers on visible faces to make it clearly a dice */}
-              <text x="60" y="30" textAnchor="middle" fontSize="8" fill="currentColor" opacity="0.9" fontWeight="bold">20</text>
-              <text x="45" y="50" textAnchor="middle" fontSize="6" fill="currentColor" opacity="0.8" fontWeight="bold">15</text>
-              <text x="75" y="50" textAnchor="middle" fontSize="6" fill="currentColor" opacity="0.7" fontWeight="bold">8</text>
-              <text x="60" y="70" textAnchor="middle" fontSize="6" fill="currentColor" opacity="0.7" fontWeight="bold">12</text>
+              {/* Add larger, more visible numbers on faces */}
+              <text x="60" y="28" textAnchor="middle" fontSize="9" fill="rgba(0,0,0,0.8)" fontWeight="bold">20</text>
+              <text x="42" y="48" textAnchor="middle" fontSize="8" fill="rgba(0,0,0,0.7)" fontWeight="bold" transform="rotate(-15 42 48)">15</text>
+              <text x="78" y="48" textAnchor="middle" fontSize="8" fill="rgba(0,0,0,0.7)" fontWeight="bold" transform="rotate(15 78 48)">8</text>
+              <text x="60" y="72" textAnchor="middle" fontSize="8" fill="rgba(0,0,0,0.7)" fontWeight="bold">12</text>
+              <text x="30" y="85" textAnchor="middle" fontSize="7" fill="rgba(0,0,0,0.6)" fontWeight="bold" transform="rotate(-25 30 85)">3</text>
+              
+              {/* Light reflection/highlight */}
+              <ellipse 
+                cx="50" 
+                cy="30" 
+                rx="15" 
+                ry="10" 
+                fill="url(#highlight)" 
+                opacity="0.6"
+              />
             </svg>
           </div>
           <div className="text-4xl font-bold mt-4 font-mono">

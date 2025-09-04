@@ -100,17 +100,17 @@ const GameSystemsPage: React.FC = () => {
           </p>
 
           {/* Game Systems Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
             {gameSystems.map((system) => (
-              <div key={system.id} className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer">
-                <a href={`/play/${system.id}`} className="block">
-                  <div className="aspect-video bg-cover bg-center" style={{ backgroundImage: `url(${system.image})` }}>
+              <div key={system.id} className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer" style={{ width: '390px', height: '431px' }}>
+                <a href={`/play/${system.id}`} className="h-full flex flex-col">
+                  <div className="bg-cover bg-center flex-shrink-0" style={{ backgroundImage: `url(${system.image})`, height: '214px' }}>
                   </div>
-                  <div className="p-6">
+                  <div className="p-6 flex-1 flex flex-col">
                     <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">
                       {system.name}
                     </h3>
-                    <p className="text-slate-600 text-sm leading-relaxed line-clamp-4">
+                    <p className="text-slate-600 text-sm leading-relaxed line-clamp-4 flex-1">
                       {system.description}
                     </p>
                   </div>

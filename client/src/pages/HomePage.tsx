@@ -42,7 +42,7 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* What is KazRPG Section */}
-      <section className="py-20 bg-white">
+      <section className="bg-white" style={{ paddingTop: '80px', paddingBottom: '0px' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-6" style={{ fontFamily: 'Firlest, serif' }}>
             What is <span className="text-blue-600">KazRPG</span>?

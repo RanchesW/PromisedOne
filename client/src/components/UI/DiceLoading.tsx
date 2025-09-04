@@ -100,10 +100,10 @@ const DiceLoading: React.FC<DiceLoadingProps> = ({
               }}
             >
               <g fill="none" stroke="currentColor" strokeWidth="3">
-                <!-- Outer d20 shape -->
+                {/* Outer d20 shape */}
                 <polygon points="60,5 105,25 115,60 95,105 60,115 25,105 5,60 15,25" />
 
-                <!-- Inner lines to suggest triangular faces -->
+                {/* Inner lines to suggest triangular faces */}
                 <line x1="60" y1="5" x2="60" y2="115" />
                 <line x1="60" y1="5" x2="115" y2="60" />
                 <line x1="60" y1="5" x2="5" y2="60" />

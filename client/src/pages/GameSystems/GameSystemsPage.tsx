@@ -81,10 +81,10 @@ const GameSystemsPage: React.FC = () => {
               style={{ 
                 left: '40px', 
                 top: '40px',
-                width: '200px', 
-                height: '215px', 
-                maxWidth: '200px', 
-                maxHeight: '215px',
+                width: '320px', 
+                height: '344px', 
+                maxWidth: '320px', 
+                maxHeight: '344px',
                 objectFit: 'contain'
               }}
             />

@@ -99,23 +99,63 @@ const DiceLoading: React.FC<DiceLoadingProps> = ({
                   : 'none' 
               }}
             >
-              <g fill="none" stroke="currentColor" strokeWidth="3">
-                {/* Outer d20 shape */}
-                <polygon points="60,5 105,25 115,60 95,105 60,115 25,105 5,60 15,25" />
+              <g
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                vectorEffect="non-scaling-stroke"
+                shapeRendering="geometricPrecision"
+              >
+                {/* === OUTER SILHOUETTE (decagon) === */}
+                <polygon points="
+                  60,8
+                  88,18
+                  106,40
+                  106,80
+                  88,102
+                  60,112
+                  32,102
+                  14,80
+                  14,40
+                  32,18
+                " />
 
-                {/* Inner lines to suggest triangular faces */}
-                <line x1="60" y1="5" x2="60" y2="115" />
-                <line x1="60" y1="5" x2="115" y2="60" />
-                <line x1="60" y1="5" x2="5" y2="60" />
-                <line x1="60" y1="115" x2="115" y2="60" />
-                <line x1="60" y1="115" x2="5" y2="60" />
-                <line x1="25" y1="105" x2="95" y2="105" />
+                {/* === PRIMARY SEAMS (recognizable d20 wiring) === */}
+                {/* vertical spine */}
+                <line x1="60" y1="8"  x2="60" y2="112" />
+
+                {/* top fan from apex */}
+                <line x1="60" y1="8"  x2="88" y2="18" />
+                <line x1="60" y1="8"  x2="32" y2="18" />
+                <line x1="60" y1="8"  x2="106" y2="40" />
+                <line x1="60" y1="8"  x2="14"  y2="40" />
+
+                {/* bottom fan into nadir */}
+                <line x1="60" y1="112" x2="88" y2="102" />
+                <line x1="60" y1="112" x2="32" y2="102" />
+                <line x1="60" y1="112" x2="106" y2="80" />
+                <line x1="60" y1="112" x2="14"  y2="80" />
+
+                {/* equator & belts */}
+                <line x1="20" y1="60" x2="100" y2="60" />
+                <line x1="32" y1="18" x2="88"  y2="18" />
+                <line x1="14" y1="40" x2="106" y2="40" />
+                <line x1="32" y1="102" x2="88"  y2="102" />
+                <line x1="14" y1="80" x2="106" y2="80" />
+
+                {/* short edge connectors (adds the classic triangular tiling) */}
+                <line x1="32" y1="18" x2="14"  y2="40" />
+                <line x1="88" y1="18" x2="106" y2="40" />
+                <line x1="14" y1="80" x2="32"  y2="102" />
+                <line x1="106" y1="80" x2="88" y2="102" />
               </g>
 
               {/* Roll result number inside dice */}
               <text
                 x="60"
-                y="70"
+                y="64"
                 fontSize="24"
                 fontWeight="bold"
                 textAnchor="middle"

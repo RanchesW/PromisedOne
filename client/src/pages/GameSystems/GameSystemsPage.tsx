@@ -89,7 +89,7 @@ const GameSystemsPage: React.FC = () => {
             {/* Title positioned middle-right of image */}
             <div 
               className="absolute"
-              style={{ left: '380px', top: '250px' }}
+              style={{ left: '380px', top: '225px' }}
             >
               <h1 className="text-5xl font-bold text-slate-900">
               Game Systems
@@ -99,7 +99,7 @@ const GameSystemsPage: React.FC = () => {
             {/* Separation line */}
             <div 
               className="absolute"
-              style={{ left: '40px', right: '40px', top: '370px' }}
+              style={{ left: '0px', right: '0px', top: '400' }}
             >
               <hr className="border-gray-300" />
             </div>

@@ -67,21 +67,24 @@ const GameSystemsPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header Section */}
-      <section className="bg-gradient-to-br from-blue-50 to-blue-100 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
-            <div className="flex-shrink-0">
+      <section className="bg-white py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-center">
+          <div 
+            className="bg-gray-50 rounded-lg flex items-center p-8"
+            style={{ width: '1125px', height: '460px' }}
+          >
+            <div className="flex-shrink-0 mr-16">
               <img 
                 src="/images/game-systems-desktop.webp" 
                 alt="Game Systems"
-                className="w-48 h-48 md:w-64 md:h-64 object-contain mx-auto"
+                className="w-80 h-80 object-contain"
               />
             </div>
-            <div className="flex-1 max-w-3xl">
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-slate-900 mb-6">
+            <div className="flex-1">
+              <h1 className="text-6xl font-bold text-slate-900 mb-8" style={{ fontFamily: 'Firlest, serif' }}>
                 Game Systems
               </h1>
-              <p className="text-lg md:text-xl text-slate-700 leading-relaxed">
+              <p className="text-lg text-slate-700 leading-relaxed">
                 Browse all tabletop roleplaying games on KazRPG. Are you searching for your next game of 5e D&D? Looking to face off against eldritch horrors in Call of Cthulhu? Find popular tabletop roleplaying game systems from Pathfinder, Lancer, City of Mist, and more!
               </p>
             </div>
@@ -102,7 +105,7 @@ const GameSystemsPage: React.FC = () => {
             {gameSystems.map((system) => (
               <div 
                 key={system.id} 
-                className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer"
+                className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer border border-gray-200"
                 style={{ width: '212px', height: '430px' }}
               >
                 <a href={`/play/${system.id}`} className="block h-full">
@@ -115,10 +118,10 @@ const GameSystemsPage: React.FC = () => {
                     }}
                   />
                   <div className="p-4" style={{ height: '120px' }}>
-                    <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                    <h3 className="font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors" style={{ fontSize: '16px', fontFamily: 'Inter, sans-serif' }}>
                       {system.name}
                     </h3>
-                    <p className="text-slate-600 text-sm leading-relaxed line-clamp-4">
+                    <p className="text-slate-600 leading-relaxed line-clamp-4" style={{ fontSize: '12px', fontFamily: 'Inter, sans-serif' }}>
                       {system.description}
                     </p>
                   </div>

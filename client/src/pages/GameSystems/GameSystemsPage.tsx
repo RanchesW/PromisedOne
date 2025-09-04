@@ -73,29 +73,26 @@ const GameSystemsPage: React.FC = () => {
             className="bg-white rounded-lg border border-gray-200"
             style={{ width: '1125px', height: '460px', margin: '0 auto', position: 'relative' }}
           >
-            {/* Left section with image on blue background */}
-            <div 
-              className="bg-blue-50 rounded-l-lg flex items-center justify-center"
-              style={{ width: '400px', height: '100%', position: 'absolute', left: '0', top: '0' }}
-            >
-              <img 
-                src="/images/game-systems-desktop.webp" 
-                alt="Game Systems"
-                className="flex-shrink-0"
-                style={{ 
-                  width: '320px', 
-                  height: '344px', 
-                  maxWidth: '320px', 
-                  maxHeight: '344px',
-                  objectFit: 'contain'
-                }}
-              />
-            </div>
+            {/* Image positioned in upper left */}
+            <img 
+              src="/images/game-systems-desktop.webp" 
+              alt="Game Systems"
+              className="absolute"
+              style={{ 
+                left: '40px', 
+                top: '40px',
+                width: '200px', 
+                height: '215px', 
+                maxWidth: '200px', 
+                maxHeight: '215px',
+                objectFit: 'contain'
+              }}
+            />
             
             {/* Right section with title */}
             <div 
-              className="flex flex-col justify-start p-8"
-              style={{ marginLeft: '400px', height: '100%' }}
+              className="absolute"
+              style={{ left: '420px', top: '30px' }}
             >
               <h1 className="text-5xl font-bold text-slate-900 mb-8">
               Game Systems
@@ -105,7 +102,6 @@ const GameSystemsPage: React.FC = () => {
             {/* Description text at bottom */}
             <div 
               className="absolute bottom-8 left-8 right-8"
-              style={{ marginLeft: '400px' }}
             >
               <p className="text-lg  text-slate-500 mb-12" style={{ fontFamily: 'Inter, sans-serif' }}>
                 Browse all tabletop roleplaying games on KazRPG. Are you searching for your next game of 5e D&D? Looking to face off against eldritch horrors in Call of Cthulhu? Find popular tabletop roleplaying game systems from Pathfinder, Lancer, City of Mist, and more!

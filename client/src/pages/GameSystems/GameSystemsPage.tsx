@@ -130,7 +130,7 @@ const GameSystemsPage: React.FC = () => {
             {gameSystems.map((system) => (
               <div 
                 key={system.id} 
-                className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer border border-gray-200"
+                className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer border border-white"
                 style={{ width: '212px', height: '430px' }}
               >
                 <a href={`/play/${system.id}`} className="block h-full">

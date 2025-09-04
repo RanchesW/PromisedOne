@@ -91,153 +91,65 @@ const DiceLoading: React.FC<DiceLoadingProps> = ({
         <div className="mb-8">
           <div className={getDiceClass()}>
             <svg 
-              viewBox="0 0 120 130" 
-              className="w-20 h-20 mx-auto fill-current"
+              viewBox="0 0 120 120" 
+              className="w-20 h-20 mx-auto"
               style={{ filter: finalResult === 20 ? 'drop-shadow(0 0 10px #fbbf24)' : finalResult === 1 ? 'drop-shadow(0 0 10px #f87171)' : 'none' }}
             >
-              {/* Improved D20 icosahedron with better geometry and effects */}
-              <defs>
-                <linearGradient id="topFace" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="currentColor" stopOpacity="0.95" />
-                  <stop offset="100%" stopColor="currentColor" stopOpacity="0.8" />
-                </linearGradient>
-                <linearGradient id="brightFace" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="currentColor" stopOpacity="0.85" />
-                  <stop offset="100%" stopColor="currentColor" stopOpacity="0.7" />
-                </linearGradient>
-                <linearGradient id="mediumFace" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="currentColor" stopOpacity="0.75" />
-                  <stop offset="100%" stopColor="currentColor" stopOpacity="0.55" />
-                </linearGradient>
-                <linearGradient id="darkFace" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="currentColor" stopOpacity="0.65" />
-                  <stop offset="100%" stopColor="currentColor" stopOpacity="0.4" />
-                </linearGradient>
-                <radialGradient id="highlight" cx="30%" cy="30%" r="40%">
-                  <stop offset="0%" stopColor="#ffffff" stopOpacity="0.4" />
-                  <stop offset="50%" stopColor="#ffffff" stopOpacity="0.2" />
-                  <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
-                </radialGradient>
-              </defs>
+              {/* D20 Icosahedron Wireframe - matching reference geometry */}
               
-              {/* Balanced icosahedron structure with extended bottom */}
+              {/* Top point */}
+              <circle cx="60" cy="15" r="1" fill="currentColor" />
               
-              {/* Top face - brightest */}
-              <polygon 
-                points="60,12 35,38 85,38" 
-                fill="url(#topFace)" 
-                stroke="rgba(0,0,0,0.3)" 
-                strokeWidth="1" 
-                opacity="1"
-              />
+              {/* Bottom point */}
+              <circle cx="60" cy="105" r="1" fill="currentColor" />
               
-              {/* Top ring - 5 faces around the top face */}
-              {/* Top-left face */}
-              <polygon 
-                points="35,38 60,12 18,52" 
-                fill="url(#brightFace)" 
-                stroke="rgba(0,0,0,0.3)" 
-                strokeWidth="1" 
-                opacity="0.9"
-              />
+              {/* Top pentagon ring coordinates */}
+              {/* Top ring: 5 points in a pentagon around the top */}
+              <line x1="60" y1="15" x2="60" y2="45" stroke="currentColor" strokeWidth="2" />
+              <line x1="60" y1="15" x2="30" y2="35" stroke="currentColor" strokeWidth="2" />
+              <line x1="60" y1="15" x2="90" y2="35" stroke="currentColor" strokeWidth="2" />
+              <line x1="60" y1="15" x2="20" y2="60" stroke="currentColor" strokeWidth="2" />
+              <line x1="60" y1="15" x2="100" y2="60" stroke="currentColor" strokeWidth="2" />
               
-              {/* Top-right face */}
-              <polygon 
-                points="85,38 60,12 102,52" 
-                fill="url(#brightFace)" 
-                stroke="rgba(0,0,0,0.3)" 
-                strokeWidth="1" 
-                opacity="0.8"
-              />
+              {/* Bottom pentagon ring - mirror of top */}
+              <line x1="60" y1="105" x2="60" y2="75" stroke="currentColor" strokeWidth="2" />
+              <line x1="60" y1="105" x2="30" y2="85" stroke="currentColor" strokeWidth="2" />
+              <line x1="60" y1="105" x2="90" y2="85" stroke="currentColor" strokeWidth="2" />
+              <line x1="60" y1="105" x2="20" y2="60" stroke="currentColor" strokeWidth="2" />
+              <line x1="60" y1="105" x2="100" y2="60" stroke="currentColor" strokeWidth="2" />
               
-              {/* Left face */}
-              <polygon 
-                points="18,52 35,38 22,75" 
-                fill="url(#mediumFace)" 
-                stroke="rgba(0,0,0,0.3)" 
-                strokeWidth="1" 
-                opacity="0.75"
-              />
+              {/* Top pentagon edges */}
+              <line x1="60" y1="45" x2="30" y2="35" stroke="currentColor" strokeWidth="2" />
+              <line x1="30" y1="35" x2="20" y2="60" stroke="currentColor" strokeWidth="2" />
+              <line x1="20" y1="60" x2="60" y2="75" stroke="currentColor" strokeWidth="2" />
+              <line x1="60" y1="75" x2="100" y2="60" stroke="currentColor" strokeWidth="2" />
+              <line x1="100" y1="60" x2="90" y2="35" stroke="currentColor" strokeWidth="2" />
+              <line x1="90" y1="35" x2="60" y2="45" stroke="currentColor" strokeWidth="2" />
               
-              {/* Right face */}
-              <polygon 
-                points="102,52 85,38 98,75" 
-                fill="url(#darkFace)" 
-                stroke="rgba(0,0,0,0.3)" 
-                strokeWidth="1" 
-                opacity="0.6"
-              />
+              {/* Bottom pentagon edges */}
+              <line x1="60" y1="75" x2="30" y2="85" stroke="currentColor" strokeWidth="2" />
+              <line x1="30" y1="85" x2="20" y2="60" stroke="currentColor" strokeWidth="2" />
+              <line x1="100" y1="60" x2="90" y2="85" stroke="currentColor" strokeWidth="2" />
+              <line x1="90" y1="85" x2="60" y2="75" stroke="currentColor" strokeWidth="2" />
               
-              {/* Center face */}
-              <polygon 
-                points="35,38 85,38 60,68" 
-                fill="url(#mediumFace)" 
-                stroke="rgba(0,0,0,0.3)" 
-                strokeWidth="1" 
-                opacity="0.8"
-              />
+              {/* Middle belt connecting top and bottom pentagons */}
+              <line x1="60" y1="45" x2="60" y2="75" stroke="currentColor" strokeWidth="2" />
+              <line x1="30" y1="35" x2="30" y2="85" stroke="currentColor" strokeWidth="2" />
+              <line x1="90" y1="35" x2="90" y2="85" stroke="currentColor" strokeWidth="2" />
               
-              {/* Bottom ring - faces tapering to bottom point (extended) */}
-              {/* Bottom-left face */}
-              <polygon 
-                points="22,75 35,38 60,68" 
-                fill="url(#mediumFace)" 
-                stroke="rgba(0,0,0,0.3)" 
-                strokeWidth="1" 
-                opacity="0.7"
-              />
+              {/* Cross triangulation for proper icosahedron structure */}
+              <line x1="30" y1="35" x2="100" y2="60" stroke="currentColor" strokeWidth="2" />
+              <line x1="90" y1="35" x2="20" y2="60" stroke="currentColor" strokeWidth="2" />
+              <line x1="30" y1="85" x2="100" y2="60" stroke="currentColor" strokeWidth="2" />
+              <line x1="90" y1="85" x2="20" y2="60" stroke="currentColor" strokeWidth="2" />
               
-              {/* Bottom-right face */}
-              <polygon 
-                points="98,75 85,38 60,68" 
-                fill="url(#darkFace)" 
-                stroke="rgba(0,0,0,0.3)" 
-                strokeWidth="1" 
-                opacity="0.55"
-              />
-              
-              {/* Bottom faces converging to point (extended for better balance) */}
-              <polygon 
-                points="22,75 60,68 38,105" 
-                fill="url(#darkFace)" 
-                stroke="rgba(0,0,0,0.3)" 
-                strokeWidth="1" 
-                opacity="0.65"
-              />
-              
-              <polygon 
-                points="60,68 98,75 82,105" 
-                fill="url(#darkFace)" 
-                stroke="rgba(0,0,0,0.3)" 
-                strokeWidth="1" 
-                opacity="0.5"
-              />
-              
-              {/* Bottom tip face (extended further down) */}
-              <polygon 
-                points="38,105 82,105 60,118" 
-                fill="url(#darkFace)" 
-                stroke="rgba(0,0,0,0.3)" 
-                strokeWidth="1" 
-                opacity="0.45"
-              />
-              
-              {/* Add larger, more visible numbers on faces */}
-              <text x="60" y="28" textAnchor="middle" fontSize="9" fill="rgba(0,0,0,0.8)" fontWeight="bold">20</text>
-              <text x="42" y="48" textAnchor="middle" fontSize="8" fill="rgba(0,0,0,0.7)" fontWeight="bold" transform="rotate(-15 42 48)">15</text>
-              <text x="78" y="48" textAnchor="middle" fontSize="8" fill="rgba(0,0,0,0.7)" fontWeight="bold" transform="rotate(15 78 48)">8</text>
-              <text x="60" y="72" textAnchor="middle" fontSize="8" fill="rgba(0,0,0,0.7)" fontWeight="bold">12</text>
-              <text x="30" y="85" textAnchor="middle" fontSize="7" fill="rgba(0,0,0,0.6)" fontWeight="bold" transform="rotate(-25 30 85)">3</text>
-              
-              {/* Light reflection/highlight */}
-              <ellipse 
-                cx="50" 
-                cy="30" 
-                rx="15" 
-                ry="10" 
-                fill="url(#highlight)" 
-                opacity="0.6"
-              />
+              {/* Add dice numbers on visible faces */}
+              <text x="60" y="25" textAnchor="middle" fontSize="8" fill="currentColor" fontWeight="bold">20</text>
+              <text x="45" y="40" textAnchor="middle" fontSize="7" fill="currentColor" fontWeight="bold">15</text>
+              <text x="75" y="40" textAnchor="middle" fontSize="7" fill="currentColor" fontWeight="bold">8</text>
+              <text x="35" y="60" textAnchor="middle" fontSize="7" fill="currentColor" fontWeight="bold">12</text>
+              <text x="85" y="60" textAnchor="middle" fontSize="7" fill="currentColor" fontWeight="bold">3</text>
+              <text x="60" y="90" textAnchor="middle" fontSize="7" fill="currentColor" fontWeight="bold">7</text>
             </svg>
           </div>
           <div className="text-4xl font-bold mt-4 font-mono">

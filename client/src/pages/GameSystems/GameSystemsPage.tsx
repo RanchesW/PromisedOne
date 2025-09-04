@@ -70,21 +70,17 @@ const GameSystemsPage: React.FC = () => {
       <section className="bg-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div 
-            className="bg-white rounded-lg border border-gray-200"
-            style={{ width: '1125px', height: '460px', margin: '0 auto', position: 'relative' }}
+            className="bg-white rounded-lg border border-gray-200 relative"
+            style={{ width: '1125px', height: '460px', margin: '0 auto' }}
           >
-            {/* Image positioned in upper left */}
+            {/* Image positioned in upper left corner */}
             <img 
               src="/images/game-systems-desktop.webp" 
               alt="Game Systems"
-              className="absolute"
+              className="absolute top-10 left-10"
               style={{ 
-                left: '40px', 
-                top: '40px',
                 width: '320px', 
-                height: '344px', 
-                maxWidth: '320px', 
-                maxHeight: '344px',
+                height: '344px',
                 objectFit: 'contain'
               }}
             />

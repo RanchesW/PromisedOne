@@ -99,7 +99,7 @@ const GameSystemsPage: React.FC = () => {
             {/* Separation line */}
             <div 
               className="absolute"
-              style={{ left: '0px', right: '0px', top: '400' }}
+              style={{ left: '0px', right: '0px', top: '400px' }}
             >
               <hr className="border-gray-300" />
             </div>

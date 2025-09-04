@@ -95,61 +95,51 @@ const DiceLoading: React.FC<DiceLoadingProps> = ({
               className="w-20 h-20 mx-auto"
               style={{ filter: finalResult === 20 ? 'drop-shadow(0 0 10px #fbbf24)' : finalResult === 1 ? 'drop-shadow(0 0 10px #f87171)' : 'none' }}
             >
-              {/* D20 Icosahedron Wireframe - matching reference geometry */}
+              {/* D20 Icosahedron Wireframe - proper geometry */}
               
-              {/* Top point */}
-              <circle cx="60" cy="15" r="1" fill="currentColor" />
+              {/* Center vertical line */}
+              <line x1="60" y1="5" x2="60" y2="115" stroke="currentColor" strokeWidth="2" />
               
-              {/* Bottom point */}
-              <circle cx="60" cy="105" r="1" fill="currentColor" />
+              {/* Top triangle edges from tip */}
+              <line x1="60" y1="5" x2="15" y2="35" stroke="currentColor" strokeWidth="2" />
+              <line x1="60" y1="5" x2="105" y2="35" stroke="currentColor" strokeWidth="2" />
               
-              {/* Top pentagon ring coordinates */}
-              {/* Top ring: 5 points in a pentagon around the top */}
-              <line x1="60" y1="15" x2="60" y2="45" stroke="currentColor" strokeWidth="2" />
-              <line x1="60" y1="15" x2="30" y2="35" stroke="currentColor" strokeWidth="2" />
-              <line x1="60" y1="15" x2="90" y2="35" stroke="currentColor" strokeWidth="2" />
-              <line x1="60" y1="15" x2="20" y2="60" stroke="currentColor" strokeWidth="2" />
-              <line x1="60" y1="15" x2="100" y2="60" stroke="currentColor" strokeWidth="2" />
+              {/* Bottom triangle edges to tip */}
+              <line x1="60" y1="115" x2="15" y2="85" stroke="currentColor" strokeWidth="2" />
+              <line x1="60" y1="115" x2="105" y2="85" stroke="currentColor" strokeWidth="2" />
               
-              {/* Bottom pentagon ring - mirror of top */}
-              <line x1="60" y1="105" x2="60" y2="75" stroke="currentColor" strokeWidth="2" />
-              <line x1="60" y1="105" x2="30" y2="85" stroke="currentColor" strokeWidth="2" />
-              <line x1="60" y1="105" x2="90" y2="85" stroke="currentColor" strokeWidth="2" />
-              <line x1="60" y1="105" x2="20" y2="60" stroke="currentColor" strokeWidth="2" />
-              <line x1="60" y1="105" x2="100" y2="60" stroke="currentColor" strokeWidth="2" />
+              {/* Top hexagon ring */}
+              <line x1="15" y1="35" x2="105" y2="35" stroke="currentColor" strokeWidth="2" />
               
-              {/* Top pentagon edges */}
-              <line x1="60" y1="45" x2="30" y2="35" stroke="currentColor" strokeWidth="2" />
-              <line x1="30" y1="35" x2="20" y2="60" stroke="currentColor" strokeWidth="2" />
-              <line x1="20" y1="60" x2="60" y2="75" stroke="currentColor" strokeWidth="2" />
-              <line x1="60" y1="75" x2="100" y2="60" stroke="currentColor" strokeWidth="2" />
-              <line x1="100" y1="60" x2="90" y2="35" stroke="currentColor" strokeWidth="2" />
-              <line x1="90" y1="35" x2="60" y2="45" stroke="currentColor" strokeWidth="2" />
+              {/* Bottom hexagon ring */}
+              <line x1="15" y1="85" x2="105" y2="85" stroke="currentColor" strokeWidth="2" />
               
-              {/* Bottom pentagon edges */}
-              <line x1="60" y1="75" x2="30" y2="85" stroke="currentColor" strokeWidth="2" />
-              <line x1="30" y1="85" x2="20" y2="60" stroke="currentColor" strokeWidth="2" />
-              <line x1="100" y1="60" x2="90" y2="85" stroke="currentColor" strokeWidth="2" />
-              <line x1="90" y1="85" x2="60" y2="75" stroke="currentColor" strokeWidth="2" />
+              {/* Vertical edges of hexagon */}
+              <line x1="15" y1="35" x2="15" y2="85" stroke="currentColor" strokeWidth="2" />
+              <line x1="105" y1="35" x2="105" y2="85" stroke="currentColor" strokeWidth="2" />
               
-              {/* Middle belt connecting top and bottom pentagons */}
-              <line x1="60" y1="45" x2="60" y2="75" stroke="currentColor" strokeWidth="2" />
-              <line x1="30" y1="35" x2="30" y2="85" stroke="currentColor" strokeWidth="2" />
-              <line x1="90" y1="35" x2="90" y2="85" stroke="currentColor" strokeWidth="2" />
+              {/* Middle belt triangulation */}
+              <line x1="15" y1="35" x2="60" y2="60" stroke="currentColor" strokeWidth="2" />
+              <line x1="105" y1="35" x2="60" y2="60" stroke="currentColor" strokeWidth="2" />
+              <line x1="15" y1="85" x2="60" y2="60" stroke="currentColor" strokeWidth="2" />
+              <line x1="105" y1="85" x2="60" y2="60" stroke="currentColor" strokeWidth="2" />
               
-              {/* Cross triangulation for proper icosahedron structure */}
-              <line x1="30" y1="35" x2="100" y2="60" stroke="currentColor" strokeWidth="2" />
-              <line x1="90" y1="35" x2="20" y2="60" stroke="currentColor" strokeWidth="2" />
-              <line x1="30" y1="85" x2="100" y2="60" stroke="currentColor" strokeWidth="2" />
-              <line x1="90" y1="85" x2="20" y2="60" stroke="currentColor" strokeWidth="2" />
+              {/* Additional triangulation for icosahedron structure */}
+              <line x1="15" y1="35" x2="37" y2="20" stroke="currentColor" strokeWidth="2" />
+              <line x1="105" y1="35" x2="83" y2="20" stroke="currentColor" strokeWidth="2" />
+              <line x1="37" y1="20" x2="83" y2="20" stroke="currentColor" strokeWidth="2" />
               
-              {/* Add dice numbers on visible faces */}
-              <text x="60" y="25" textAnchor="middle" fontSize="8" fill="currentColor" fontWeight="bold">20</text>
-              <text x="45" y="40" textAnchor="middle" fontSize="7" fill="currentColor" fontWeight="bold">15</text>
-              <text x="75" y="40" textAnchor="middle" fontSize="7" fill="currentColor" fontWeight="bold">8</text>
-              <text x="35" y="60" textAnchor="middle" fontSize="7" fill="currentColor" fontWeight="bold">12</text>
-              <text x="85" y="60" textAnchor="middle" fontSize="7" fill="currentColor" fontWeight="bold">3</text>
-              <text x="60" y="90" textAnchor="middle" fontSize="7" fill="currentColor" fontWeight="bold">7</text>
+              <line x1="15" y1="85" x2="37" y2="100" stroke="currentColor" strokeWidth="2" />
+              <line x1="105" y1="85" x2="83" y2="100" stroke="currentColor" strokeWidth="2" />
+              <line x1="37" y1="100" x2="83" y2="100" stroke="currentColor" strokeWidth="2" />
+              
+              {/* Add dice numbers on key faces */}
+              <text x="60" y="25" textAnchor="middle" fontSize="10" fill="currentColor" fontWeight="bold">20</text>
+              <text x="35" y="45" textAnchor="middle" fontSize="8" fill="currentColor" fontWeight="bold">15</text>
+              <text x="85" y="45" textAnchor="middle" fontSize="8" fill="currentColor" fontWeight="bold">8</text>
+              <text x="60" y="67" textAnchor="middle" fontSize="8" fill="currentColor" fontWeight="bold">12</text>
+              <text x="35" y="95" textAnchor="middle" fontSize="8" fill="currentColor" fontWeight="bold">3</text>
+              <text x="85" y="95" textAnchor="middle" fontSize="8" fill="currentColor" fontWeight="bold">7</text>
             </svg>
           </div>
           <div className="text-4xl font-bold mt-4 font-mono">

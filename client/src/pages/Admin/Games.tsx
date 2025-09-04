@@ -159,6 +159,46 @@ const Games: React.FC = () => {
     }
   };
 
+  const handleDeleteSelectedGames = async () => {
+    if (selectedGames.size === 0) return;
+    
+    const confirmDelete = window.confirm(
+      `Are you sure you want to delete ${selectedGames.size} selected game${selectedGames.size !== 1 ? 's' : ''}? This action cannot be undone.`
+    );
+    
+    if (!confirmDelete) return;
+
+    try {
+      setActionLoading(true);
+      
+      // Delete games one by one
+      const deletePromises = Array.from(selectedGames).map(gameId =>
+        fetch(`${process.env.REACT_APP_API_URL || 'https://promisedone.onrender.com/api'}/admin/games/${gameId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+          },
+          body: JSON.stringify({
+            reason: 'Bulk deletion by admin',
+            adminNotes: 'Games deleted via admin panel bulk action'
+          }),
+        })
+      );
+
+      await Promise.all(deletePromises);
+      
+      await loadGames(); // Refresh games list
+      setSelectedGames(new Set()); // Clear selection
+      
+    } catch (error) {
+      console.error('Error deleting selected games:', error);
+      alert('Failed to delete some games. Please try again.');
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
   const toggleGameSelection = (gameId: string) => {
     const newSelection = new Set(selectedGames);
     if (newSelection.has(gameId)) {
@@ -243,6 +283,13 @@ const Games: React.FC = () => {
                 </span>
               </div>
               <div className="flex items-center space-x-2">
+                <button
+                  onClick={handleDeleteSelectedGames}
+                  disabled={actionLoading}
+                  className="px-3 py-1 text-sm font-medium text-white bg-red-600 border border-red-600 rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 disabled:opacity-50"
+                >
+                  Delete All Selected
+                </button>
                 <button
                   onClick={() => setSelectedGames(new Set())}
                   className="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500"

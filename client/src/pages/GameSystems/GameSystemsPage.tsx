@@ -77,11 +77,12 @@ const GameSystemsPage: React.FC = () => {
             <img 
               src="/images/game-systems-desktop.webp" 
               alt="Game Systems"
-              className="absolute top-10 left-10"
+              className="absolute top-0 left-0"
               style={{ 
                 width: '320px', 
                 height: '344px',
-                objectFit: 'contain'
+                objectFit: 'contain',
+                margin: '20px 0 0 20px'
               }}
             />
             

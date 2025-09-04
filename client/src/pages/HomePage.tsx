@@ -61,7 +61,7 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Browse by Categories Section */}
-      <section className="py-20 bg-white">
+      <section className="pt-8 pb-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-4">
             Browse by categories
@@ -72,7 +72,7 @@ const HomePage: React.FC = () => {
           
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8 max-w-5xl mx-auto">
             {/* Game System */}
-            <div className="flex flex-col items-center group cursor-pointer">
+            <a href="/game-systems" className="flex flex-col items-center group cursor-pointer">
               <div className="w-46 h-46 mb-4 transition-transform group-hover:scale-105">
                 <img 
                   src="/images/game-systems-circle-desktop.webp" 
@@ -81,10 +81,10 @@ const HomePage: React.FC = () => {
                 />
               </div>
               <span className="text-slate-700 font-semibold">Game System</span>
-            </div>
+            </a>
 
             {/* Platform */}
-            <div className="flex flex-col items-center group cursor-pointer">
+            <a href="/platforms" className="flex flex-col items-center group cursor-pointer">
               <div className="w-46 h-46 mb-4 transition-transform group-hover:scale-105">
                 <img 
                   src="/images/platforms-circle-desktop.webp" 
@@ -93,10 +93,10 @@ const HomePage: React.FC = () => {
                 />
               </div>
               <span className="text-slate-700 font-semibold">Platform</span>
-            </div>
+            </a>
 
             {/* Genre */}
-            <div className="flex flex-col items-center group cursor-pointer">
+            <a href="/genres" className="flex flex-col items-center group cursor-pointer">
               <div className="w-46 h-46 mb-4 transition-transform group-hover:scale-105">
                 <img 
                   src="/images/genres-circle-desktop.webp" 
@@ -105,10 +105,10 @@ const HomePage: React.FC = () => {
                 />
               </div>
               <span className="text-slate-700 font-semibold">Genre</span>
-            </div>
+            </a>
 
             {/* Style */}
-            <div className="flex flex-col items-center group cursor-pointer">
+            <a href="/styles" className="flex flex-col items-center group cursor-pointer">
               <div className="w-46 h-46 mb-4 transition-transform group-hover:scale-105">
                 <img 
                   src="/images/styles-circle-desktop.webp" 
@@ -117,10 +117,10 @@ const HomePage: React.FC = () => {
                 />
               </div>
               <span className="text-slate-700 font-semibold">Style</span>
-            </div>
+            </a>
 
             {/* Mechanic */}
-            <div className="flex flex-col items-center group cursor-pointer">
+            <a href="/mechanics" className="flex flex-col items-center group cursor-pointer">
               <div className="w-46 h-46 mb-4 transition-transform group-hover:scale-105">
                 <img 
                   src="/images/mechanics-circle-desktop.webp" 
@@ -129,7 +129,7 @@ const HomePage: React.FC = () => {
                 />
               </div>
               <span className="text-slate-700 font-semibold">Mechanic</span>
-            </div>
+            </a>
           </div>
 
           <div className="mt-12">

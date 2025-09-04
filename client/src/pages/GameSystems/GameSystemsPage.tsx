@@ -70,28 +70,37 @@ const GameSystemsPage: React.FC = () => {
       <section className="bg-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div 
-            className="bg-white rounded-lg border border-gray-200 p-8"
-            style={{ width: '1125px', height: '460px', margin: '0 auto' }}
+            className="bg-white rounded-lg border border-gray-200"
+            style={{ width: '1125px', height: '460px', margin: '0 auto', position: 'relative' }}
           >
-            {/* Top section with image and title */}
-            <div className="flex items-start mb-8">
-              <div className="flex-shrink-0 mr-8">
-                <img 
-                  src="/images/game-systems-desktop.webp" 
-                  alt="Game Systems"
-                  className="object-contain"
-                  style={{ width: '320px', height: '343px' }}
-                />
-              </div>
-              <div className="flex-1">
-                <h1 className="text-4xl font-bold text-slate-900" style={{ fontFamily: 'Firlest, serif' }}>
-                  Game Systems
-                </h1>
-              </div>
+            {/* Left section with image on blue background */}
+            <div 
+              className="bg-blue-50 rounded-l-lg flex items-center justify-center"
+              style={{ width: '400px', height: '100%', position: 'absolute', left: '0', top: '0' }}
+            >
+              <img 
+                src="/images/game-systems-desktop.webp" 
+                alt="Game Systems"
+                className="object-contain"
+                style={{ width: '320px', height: '343px' }}
+              />
             </div>
             
-            {/* Separate description block */}
-            <div className="bg-blue-50 rounded-lg p-6">
+            {/* Right section with title */}
+            <div 
+              className="flex flex-col justify-start p-8"
+              style={{ marginLeft: '400px', height: '100%' }}
+            >
+              <h1 className="text-6xl font-bold text-slate-900 mb-8" style={{ fontFamily: 'Firlest, serif' }}>
+                Game Systems
+              </h1>
+            </div>
+            
+            {/* Description text at bottom */}
+            <div 
+              className="absolute bottom-8 left-8 right-8"
+              style={{ marginLeft: '400px' }}
+            >
               <p className="text-lg text-slate-700 leading-relaxed">
                 Browse all tabletop roleplaying games on KazRPG. Are you searching for your next game of 5e D&D? Looking to face off against eldritch horrors in Call of Cthulhu? Find popular tabletop roleplaying game systems from Pathfinder, Lancer, City of Mist, and more!
               </p>

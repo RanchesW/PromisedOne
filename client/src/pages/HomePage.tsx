@@ -54,14 +54,14 @@ const HomePage: React.FC = () => {
           <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed mb-8">
             Are you looking to play D&D Online or find a virtual Pathfinder 2e group? We're part D&D Group finder (amongst other games) and part games finder.
           </p>
-          <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed mb-8">
+          <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
             Our professional dungeon masters and Game Masters are running games all over the world. Find a game that works for you and your schedule.
           </p>
         </div>
       </section>
 
       {/* Browse by Categories Section */}
-      <section className="pt-8 pb-20 bg-white">
+      <section className="bg-white" style={{ paddingTop: '30px', paddingBottom: '80px' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-4">
             Browse by categories

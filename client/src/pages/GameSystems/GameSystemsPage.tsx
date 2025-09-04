@@ -82,7 +82,7 @@ const GameSystemsPage: React.FC = () => {
                 width: '320px', 
                 height: '344px',
                 objectFit: 'contain',
-                margin: '20px 0 0 20px'
+                margin: '5px 0 0 5px'
               }}
             />
             

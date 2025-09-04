@@ -89,7 +89,7 @@ const GameSystemsPage: React.FC = () => {
             {/* Title positioned middle-right of image */}
             <div 
               className="absolute"
-              style={{ left: '380px', top: '185px' }}
+              style={{ left: '380px', top: '165px' }}
             >
               <h1 className="text-5xl font-bold text-slate-900">
               Game Systems
@@ -101,13 +101,13 @@ const GameSystemsPage: React.FC = () => {
               className="absolute"
               style={{ left: '0px', right: '0px', top: '343px' }}
             >
-              <hr className="border-gray-300" />
+              <hr className="border-gray-200" />
             </div>
             
             {/* Description text below image */}
             <div 
               className="absolute"
-              style={{ left: '40px', top: '400px', right: '40px' }}
+              style={{ left: '40px', top: '425px', right: '40px' }}
             >
               <p className="text-base text-slate-500" style={{ fontFamily: 'Inter, sans-serif' }}>
                 Browse all tabletop roleplaying games on KazRPG. Are you searching for your next game of 5e D&D? Looking to face off against eldritch horrors in Call of Cthulhu? Find popular tabletop roleplaying game systems from Pathfinder, Lancer, City of Mist, and more!

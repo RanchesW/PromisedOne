@@ -69,21 +69,18 @@ const GameSystemsPage: React.FC = () => {
       {/* Header Section */}
       <section className="bg-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8">
-            <div className="flex items-center justify-center mb-6">
-              <div className="w-32 h-32 bg-blue-100 rounded-lg flex items-center justify-center mr-8">
-                <img 
-                  src="/images/game-systems-circle-desktop.webp" 
-                  alt="Game Systems"
-                  className="w-24 h-24 object-contain"
-                />
-              </div>
-              <div className="text-left">
-                <h1 className="text-5xl font-bold text-slate-900 mb-4">Game Systems</h1>
-              </div>
+          <div className="bg-blue-50 rounded-lg flex items-center" style={{ height: '618px' }}>
+            <div className="flex-shrink-0 flex items-center justify-center" style={{ width: '388px', height: '462px' }}>
+              <img 
+                src="/images/game-systems-circle-desktop.webp" 
+                alt="Game Systems"
+                className="object-contain"
+                style={{ width: '300px', height: '300px' }}
+              />
             </div>
-            <div className="bg-blue-50 rounded-lg p-8 max-w-4xl mx-auto">
-              <p className="text-lg text-slate-600 leading-relaxed">
+            <div className="flex-1 px-12 py-8">
+              <h1 className="text-6xl font-bold text-slate-900 mb-8">Game Systems</h1>
+              <p className="text-xl text-slate-600 leading-relaxed">
                 Browse all tabletop roleplaying games on StartPlaying. Are you searching for your next game of 5e D&D? Looking to face off against eldritch horrors in Call of Cthulhu? Find popular tabletop roleplaying game systems from Pathfinder, Lancer, City of Mist, and more!
               </p>
             </div>
@@ -100,9 +97,9 @@ const GameSystemsPage: React.FC = () => {
           </p>
 
           {/* Game Systems Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+          <div className="flex flex-wrap justify-center gap-8">
             {gameSystems.map((system) => (
-              <div key={system.id} className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer" style={{ width: '390px', height: '431px' }}>
+              <div key={system.id} className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer flex-shrink-0" style={{ width: '390px', height: '431px' }}>
                 <a href={`/play/${system.id}`} className="h-full flex flex-col">
                   <div className="bg-cover bg-center flex-shrink-0" style={{ backgroundImage: `url(${system.image})`, height: '214px' }}>
                   </div>

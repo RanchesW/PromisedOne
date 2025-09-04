@@ -91,55 +91,51 @@ const DiceLoading: React.FC<DiceLoadingProps> = ({
         <div className="mb-8">
           <div className={getDiceClass()}>
             <svg 
-              viewBox="0 0 120 120" 
+              viewBox="0 0 100 140" 
               className="w-20 h-20 mx-auto"
               style={{ filter: finalResult === 20 ? 'drop-shadow(0 0 10px #fbbf24)' : finalResult === 1 ? 'drop-shadow(0 0 10px #f87171)' : 'none' }}
             >
-              {/* D20 Icosahedron Wireframe - proper geometry */}
+              {/* D20 Icosahedron - proper diamond proportions like reference */}
+              
+              {/* Outer hexagon shape */}
+              <line x1="50" y1="10" x2="25" y2="40" stroke="currentColor" strokeWidth="2.5" />
+              <line x1="50" y1="10" x2="75" y2="40" stroke="currentColor" strokeWidth="2.5" />
+              <line x1="25" y1="40" x2="15" y2="70" stroke="currentColor" strokeWidth="2.5" />
+              <line x1="75" y1="40" x2="85" y2="70" stroke="currentColor" strokeWidth="2.5" />
+              <line x1="15" y1="70" x2="25" y2="100" stroke="currentColor" strokeWidth="2.5" />
+              <line x1="85" y1="70" x2="75" y2="100" stroke="currentColor" strokeWidth="2.5" />
+              <line x1="25" y1="100" x2="50" y2="130" stroke="currentColor" strokeWidth="2.5" />
+              <line x1="75" y1="100" x2="50" y2="130" stroke="currentColor" strokeWidth="2.5" />
+              
+              {/* Main diagonal lines from top tip to edges */}
+              <line x1="50" y1="10" x2="15" y2="70" stroke="currentColor" strokeWidth="2.5" />
+              <line x1="50" y1="10" x2="85" y2="70" stroke="currentColor" strokeWidth="2.5" />
+              
+              {/* Main diagonal lines from bottom tip to edges */}
+              <line x1="50" y1="130" x2="15" y2="70" stroke="currentColor" strokeWidth="2.5" />
+              <line x1="50" y1="130" x2="85" y2="70" stroke="currentColor" strokeWidth="2.5" />
               
               {/* Center vertical line */}
-              <line x1="60" y1="5" x2="60" y2="115" stroke="currentColor" strokeWidth="2" />
+              <line x1="50" y1="10" x2="50" y2="130" stroke="currentColor" strokeWidth="2.5" />
               
-              {/* Top triangle edges from tip */}
-              <line x1="60" y1="5" x2="15" y2="35" stroke="currentColor" strokeWidth="2" />
-              <line x1="60" y1="5" x2="105" y2="35" stroke="currentColor" strokeWidth="2" />
+              {/* Horizontal center line */}
+              <line x1="15" y1="70" x2="85" y2="70" stroke="currentColor" strokeWidth="2.5" />
               
-              {/* Bottom triangle edges to tip */}
-              <line x1="60" y1="115" x2="15" y2="85" stroke="currentColor" strokeWidth="2" />
-              <line x1="60" y1="115" x2="105" y2="85" stroke="currentColor" strokeWidth="2" />
+              {/* Internal triangulation */}
+              <line x1="25" y1="40" x2="75" y2="100" stroke="currentColor" strokeWidth="2.5" />
+              <line x1="75" y1="40" x2="25" y2="100" stroke="currentColor" strokeWidth="2.5" />
+              <line x1="25" y1="40" x2="50" y2="70" stroke="currentColor" strokeWidth="2.5" />
+              <line x1="75" y1="40" x2="50" y2="70" stroke="currentColor" strokeWidth="2.5" />
+              <line x1="25" y1="100" x2="50" y2="70" stroke="currentColor" strokeWidth="2.5" />
+              <line x1="75" y1="100" x2="50" y2="70" stroke="currentColor" strokeWidth="2.5" />
               
-              {/* Top hexagon ring */}
-              <line x1="15" y1="35" x2="105" y2="35" stroke="currentColor" strokeWidth="2" />
-              
-              {/* Bottom hexagon ring */}
-              <line x1="15" y1="85" x2="105" y2="85" stroke="currentColor" strokeWidth="2" />
-              
-              {/* Vertical edges of hexagon */}
-              <line x1="15" y1="35" x2="15" y2="85" stroke="currentColor" strokeWidth="2" />
-              <line x1="105" y1="35" x2="105" y2="85" stroke="currentColor" strokeWidth="2" />
-              
-              {/* Middle belt triangulation */}
-              <line x1="15" y1="35" x2="60" y2="60" stroke="currentColor" strokeWidth="2" />
-              <line x1="105" y1="35" x2="60" y2="60" stroke="currentColor" strokeWidth="2" />
-              <line x1="15" y1="85" x2="60" y2="60" stroke="currentColor" strokeWidth="2" />
-              <line x1="105" y1="85" x2="60" y2="60" stroke="currentColor" strokeWidth="2" />
-              
-              {/* Additional triangulation for icosahedron structure */}
-              <line x1="15" y1="35" x2="37" y2="20" stroke="currentColor" strokeWidth="2" />
-              <line x1="105" y1="35" x2="83" y2="20" stroke="currentColor" strokeWidth="2" />
-              <line x1="37" y1="20" x2="83" y2="20" stroke="currentColor" strokeWidth="2" />
-              
-              <line x1="15" y1="85" x2="37" y2="100" stroke="currentColor" strokeWidth="2" />
-              <line x1="105" y1="85" x2="83" y2="100" stroke="currentColor" strokeWidth="2" />
-              <line x1="37" y1="100" x2="83" y2="100" stroke="currentColor" strokeWidth="2" />
-              
-              {/* Add dice numbers on key faces */}
-              <text x="60" y="25" textAnchor="middle" fontSize="10" fill="currentColor" fontWeight="bold">20</text>
-              <text x="35" y="45" textAnchor="middle" fontSize="8" fill="currentColor" fontWeight="bold">15</text>
-              <text x="85" y="45" textAnchor="middle" fontSize="8" fill="currentColor" fontWeight="bold">8</text>
-              <text x="60" y="67" textAnchor="middle" fontSize="8" fill="currentColor" fontWeight="bold">12</text>
-              <text x="35" y="95" textAnchor="middle" fontSize="8" fill="currentColor" fontWeight="bold">3</text>
-              <text x="85" y="95" textAnchor="middle" fontSize="8" fill="currentColor" fontWeight="bold">7</text>
+              {/* Add dice numbers on main faces */}
+              <text x="50" y="35" textAnchor="middle" fontSize="12" fill="currentColor" fontWeight="bold">20</text>
+              <text x="35" y="55" textAnchor="middle" fontSize="8" fill="currentColor" fontWeight="bold">15</text>
+              <text x="65" y="55" textAnchor="middle" fontSize="8" fill="currentColor" fontWeight="bold">8</text>
+              <text x="30" y="85" textAnchor="middle" fontSize="8" fill="currentColor" fontWeight="bold">12</text>
+              <text x="70" y="85" textAnchor="middle" fontSize="8" fill="currentColor" fontWeight="bold">3</text>
+              <text x="50" y="115" textAnchor="middle" fontSize="10" fill="currentColor" fontWeight="bold">7</text>
             </svg>
           </div>
           <div className="text-4xl font-bold mt-4 font-mono">

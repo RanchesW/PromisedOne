@@ -79,10 +79,10 @@ const GameSystemsPage: React.FC = () => {
               style={{ width: '400px', height: '100%', position: 'absolute', left: '0', top: '0' }}
             >
               <img 
-                src="/images/game-systems-desktop.jpg" 
+                src="/images/game-systems-desktop.webp" 
                 alt="Game Systems"
                 className="object-contain"
-                style={{ width: '320px', height: '343px' }}
+                style={{ width: '320px', height: '344px', maxWidth: '320px', maxHeight: '344px' }}
               />
             </div>
             
@@ -91,8 +91,8 @@ const GameSystemsPage: React.FC = () => {
               className="flex flex-col justify-start p-8"
               style={{ marginLeft: '400px', height: '100%' }}
             >
-              <h1 className="text-6xl font-bold text-slate-900 mb-8">
-                Game Systems
+              <h1 className="text-5xl font-bold text-slate-900 mb-8">
+              Game Systems
               </h1>
             </div>
             

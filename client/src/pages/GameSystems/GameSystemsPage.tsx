@@ -65,7 +65,7 @@ const GameSystemsPage: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       {/* Header Section */}
       <section className="bg-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -118,19 +118,20 @@ const GameSystemsPage: React.FC = () => {
       </section>
 
       {/* Browse Popular TTRPG Game Systems */}
-      <section className="py-16">
+      <section className="bg-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-slate-900 mb-4">Browse Popular TTRPG Game Systems</h2>
-          <p className="text-base text-slate-500 mb-12">
-            Browse 100's of tabletop roleplaying games run by professional Dungeon Masters. Find your favorite TTRPG system and start playing online today!
-          </p>
+          <div className="max-w-[1125px] mx-auto">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Browse Popular TTRPG Game Systems</h2>
+            <p className="text-base text-slate-500 mb-12">
+              Browse 100's of tabletop roleplaying games run by professional Dungeon Masters. Find your favorite TTRPG system and start playing online today!
+            </p>
 
-          {/* Game Systems Grid */}
-          <div className="flex flex-wrap gap-6 justify-center">
-            {gameSystems.map((system) => (
+            {/* Game Systems Grid */}
+            <div className="flex flex-wrap gap-6 justify-center">
+              {gameSystems.map((system) => (
               <div 
                 key={system.id} 
-                className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer border border-white"
+                className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer border border-gray-200"
                 style={{ width: '212px', height: '430px' }}
               >
                 <a href={`/play/${system.id}`} className="block h-full">
@@ -153,6 +154,7 @@ const GameSystemsPage: React.FC = () => {
                 </a>
               </div>
             ))}
+            </div>
           </div>
         </div>
       </section>

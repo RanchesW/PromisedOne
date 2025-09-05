@@ -120,14 +120,13 @@ const GameSystemsPage: React.FC = () => {
       {/* Browse Popular TTRPG Game Systems */}
       <section className="bg-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-[1125px] mx-auto">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Browse Popular TTRPG Game Systems</h2>
-            <p className="text-base text-slate-500 mb-12">
-              Browse 100's of tabletop roleplaying games run by professional Dungeon Masters. Find your favorite TTRPG system and start playing online today!
-            </p>
+          <h2 className="text-3xl font-bold text-slate-900 mb-4">Browse Popular TTRPG Game Systems</h2>
+          <p className="text-base text-slate-500 mb-12">
+            Browse 100's of tabletop roleplaying games run by professional Dungeon Masters. Find your favorite TTRPG system and start playing online today!
+          </p>
 
-            {/* Game Systems Grid */}
-            <div className="flex flex-wrap gap-6 justify-center">
+          {/* Game Systems Grid */}
+          <div className="flex flex-wrap gap-6 justify-center">
               {gameSystems.map((system) => (
               <div 
                 key={system.id} 
@@ -154,7 +153,6 @@ const GameSystemsPage: React.FC = () => {
                 </a>
               </div>
             ))}
-            </div>
           </div>
         </div>
       </section>

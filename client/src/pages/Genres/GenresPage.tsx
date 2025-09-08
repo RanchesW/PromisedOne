@@ -299,7 +299,7 @@ const GenresPage: React.FC = () => {
 
       {/* Browse popular genres & themes */}
       <section className="bg-white" style={{ paddingTop: '55px', paddingBottom: '64px' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style={{ paddingLeft: '55px' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style={{ paddingLeft: '61px' }}>
           <h2 className="font-bold text-slate-900 mb-4" style={{ fontSize: '30px', fontFamily: 'Inter, sans-serif' }}>Browse popular genres & themes</h2>
 
           {/* Genres Grid */}

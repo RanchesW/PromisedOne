@@ -109,11 +109,8 @@ const StylesPage: React.FC = () => {
 
       {/* Browse Popular styles */}
       <section className="bg-white" style={{ paddingTop: '55px', paddingBottom: '64px' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style={{ paddingLeft: '62px' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style={{ paddingLeft: '95px' }}>
           <h2 className="font-bold text-slate-900 mb-4" style={{ fontSize: '30px', fontFamily: 'Inter, sans-serif' }}>Browse Popular styles</h2>
-          <p className="text-slate-500 mb-8" style={{ fontSize: '16px', fontFamily: 'Inter, sans-serif' }}>
-            Browse games by your favorite playstyles. Are you seeking a roleplay heavy adventure? Looking for treasure in a Dungeon Crawl? Search through everything from play by post games to organized play. Find all the different game styles that suit the way you want to play.
-          </p>
 
           {/* Styles Grid */}
         </div>

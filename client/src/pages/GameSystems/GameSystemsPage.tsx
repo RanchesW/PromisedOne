@@ -67,7 +67,7 @@ const GameSystemsPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Header Section */}
-      <section className="bg-white py-16">
+      <section className="bg-white" style={{ paddingTop: '64px', paddingBottom: '0px' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div 
             className="bg-white rounded-lg border border-gray-200 relative"
@@ -118,7 +118,7 @@ const GameSystemsPage: React.FC = () => {
       </section>
 
       {/* Browse Popular TTRPG Game Systems */}
-      <section className="bg-white py-16">
+      <section className="bg-white" style={{ paddingTop: '55px', paddingBottom: '64px' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style={{ paddingLeft: '62px' }}>
           <h2 className="font-bold text-slate-900 mb-4" style={{ fontSize: '30px', fontFamily: 'Inter, sans-serif' }}>Browse Popular TTRPG Game Systems</h2>
           <p className="text-slate-500 mb-8" style={{ fontSize: '16px', fontFamily: 'Inter, sans-serif' }}>

@@ -126,7 +126,7 @@ const StylesPage: React.FC = () => {
                 style={{ minWidth: '212px', minHeight: '150px' }}
               >
                 <a href={`/play/${style.id}`} className="block h-full p-4">
-                  <div className="h-full flex flex-col">
+                  <div className="h-full flex flex-col text-center">
                     <h3 className="font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors" style={{ fontSize: '16px', fontFamily: 'Inter, sans-serif' }}>
                       {style.name}
                     </h3>

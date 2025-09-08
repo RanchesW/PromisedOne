@@ -79,7 +79,7 @@ const MechanicsPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div 
             className="bg-white rounded-lg border border-gray-200 relative"
-            style={{ width: '1125px', height: '460px', margin: '0 auto' }}
+            style={{ width: '1125px', height: '520px', margin: '0 auto' }}
           >
             {/* Image positioned in upper left corner */}
             <img 
@@ -107,7 +107,7 @@ const MechanicsPage: React.FC = () => {
             {/* Separation line */}
             <div 
               className="absolute"
-              style={{ left: '0px', right: '0px', top: '343px' }}
+              style={{ left: '0px', right: '0px', top: '403px' }}
             >
               <hr className="border-gray-200" />
             </div>
@@ -115,7 +115,7 @@ const MechanicsPage: React.FC = () => {
             {/* Description text below image */}
             <div 
               className="absolute"
-              style={{ left: '40px', top: '365px', right: '40px' }}
+              style={{ left: '40px', top: '425px', right: '40px' }}
             >
               <p className="text-base text-slate-500" style={{ fontFamily: 'Inter, sans-serif' }}>
                 Looking for a tabletop RPG that fits your playstyle? Browse TTRPGs organized by game mechanics—from d20 systems and dice pools to narrative-focused rulesets and unique storytelling engines. If you love Monster of the Week, browse other games that use the Powered by the Apocalypse system. Whether you prefer tactical combat, collaborative storytelling, or lightweight rules, you can find the games that match how you love to play.
@@ -127,11 +127,8 @@ const MechanicsPage: React.FC = () => {
 
       {/* Browse popular mechanics */}
       <section className="bg-white" style={{ paddingTop: '55px', paddingBottom: '64px' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style={{ paddingLeft: '62px' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style={{ paddingLeft: '95px' }}>
           <h2 className="font-bold text-slate-900 mb-4" style={{ fontSize: '30px', fontFamily: 'Inter, sans-serif' }}>Browse popular mechanics</h2>
-          <p className="text-slate-500 mb-8" style={{ fontSize: '16px', fontFamily: 'Inter, sans-serif' }}>
-            Looking for a tabletop RPG that fits your playstyle? Browse TTRPGs organized by game mechanics—from d20 systems and dice pools to narrative-focused rulesets and unique storytelling engines. If you love Monster of the Week, browse other games that use the Powered by the Apocalypse system. Whether you prefer tactical combat, collaborative storytelling, or lightweight rules, you can find the games that match how you love to play.
-          </p>
 
           {/* Mechanics Grid */}
         </div>

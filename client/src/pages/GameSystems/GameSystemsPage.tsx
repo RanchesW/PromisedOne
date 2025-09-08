@@ -119,7 +119,7 @@ const GameSystemsPage: React.FC = () => {
 
       {/* Browse Popular TTRPG Game Systems */}
       <section className="bg-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style={{ paddingLeft: '80px' }}>
           <h2 className="font-bold text-slate-900 mb-4" style={{ fontSize: '30px', fontFamily: 'Inter, sans-serif' }}>Browse Popular TTRPG Game Systems</h2>
           <p className="text-slate-500 mb-8" style={{ fontSize: '16px', fontFamily: 'Inter, sans-serif' }}>
             Browse 100's of tabletop roleplaying games run by professional Dungeon Masters. Find your favorite TTRPG system and start playing online today!
@@ -146,7 +146,7 @@ const GameSystemsPage: React.FC = () => {
                     <h3 className="font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors" style={{ fontSize: '16px', fontFamily: 'Inter, sans-serif' }}>
                       {system.name}
                     </h3>
-                    <p className="text-slate-600 leading-relaxed line-clamp-4" style={{ fontSize: '12px', fontFamily: 'Inter, sans-serif' }}>
+                    <p className="text-slate-600 leading-relaxed" style={{ fontSize: '12px', fontFamily: 'Inter, sans-serif', overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' }}>
                       {system.description}
                     </p>
                   </div>

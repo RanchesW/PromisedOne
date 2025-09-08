@@ -68,10 +68,10 @@ const GameSystemsPage: React.FC = () => {
     <div className="min-h-screen bg-white">
       {/* Header Section */}
       <section className="bg-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style={{ paddingLeft: '120px' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div 
             className="bg-white rounded-lg border border-gray-200 relative"
-            style={{ width: '1125px', height: '460px', margin: '0' }}
+            style={{ width: '1125px', height: '460px', margin: '0 0 0 116px' }}
           >
             {/* Image positioned in upper left corner */}
             <img 

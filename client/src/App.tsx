@@ -19,6 +19,7 @@ import GameDetailPage from './pages/Games/GameDetailPage';
 import JoinCampaignPage from './pages/Games/JoinCampaignPage';
 import GameMastersPage from './pages/GameMasters/GameMastersPage';
 import GameSystemsPage from './pages/GameSystems/GameSystemsPage';
+import PlatformsPage from './pages/Platforms/PlatformsPage';
 
 // Protected Pages
 import DashboardPage from './pages/Dashboard/DashboardPage';
@@ -73,6 +74,7 @@ function App() {
             <Route path="games/:id/edit" element={<CreateGamePage />} />
             <Route path="find-game-masters" element={<GameMastersPage />} />
             <Route path="game-systems" element={<GameSystemsPage />} />
+            <Route path="platforms" element={<PlatformsPage />} />
             <Route path="profile/:userId" element={<PublicProfilePage />} />
             
             {/* Protected Routes */}

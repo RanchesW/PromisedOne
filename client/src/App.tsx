@@ -21,6 +21,7 @@ import GameMastersPage from './pages/GameMasters/GameMastersPage';
 import GameSystemsPage from './pages/GameSystems/GameSystemsPage';
 import PlatformsPage from './pages/Platforms/PlatformsPage';
 import GenresPage from './pages/Genres/GenresPage';
+import StylesPage from './pages/Styles/StylesPage';
 
 // Protected Pages
 import DashboardPage from './pages/Dashboard/DashboardPage';
@@ -77,6 +78,7 @@ function App() {
             <Route path="game-systems" element={<GameSystemsPage />} />
             <Route path="platforms" element={<PlatformsPage />} />
             <Route path="genres" element={<GenresPage />} />
+            <Route path="styles" element={<StylesPage />} />
             <Route path="profile/:userId" element={<PublicProfilePage />} />
             
             {/* Protected Routes */}

@@ -287,7 +287,7 @@ const GenresPage: React.FC = () => {
             {/* Description text below image */}
             <div 
               className="absolute"
-              style={{ left: '40px', top: '380px', right: '40px' }}
+              style={{ left: '40px', top: '365px', right: '40px' }}
             >
               <p className="text-base text-slate-500" style={{ fontFamily: 'Inter, sans-serif' }}>
                 Not sure what you want to play, but you know it needs to involve Pirates? Looking for something spooky? Maybe you just want to find that perfect cozy fantasy game or a battle royal TTRPG. Browse all tabletop roleplaying games on StartPlaying by genre. Everything from Sci-fi to Westerns. Find the perfect game and start playing today.

@@ -67,7 +67,7 @@ const PlatformsPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Header Section */}
-      <section className="bg-white py-16">
+      <section className="bg-white" style={{ paddingTop: '64px', paddingBottom: '0px' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div 
             className="bg-white rounded-lg border border-gray-200 relative"

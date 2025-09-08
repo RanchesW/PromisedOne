@@ -126,6 +126,8 @@ const GameSystemsPage: React.FC = () => {
           </p>
 
           {/* Game Systems Grid */}
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap gap-6 justify-center">
               {gameSystems.map((system) => (
               <div 

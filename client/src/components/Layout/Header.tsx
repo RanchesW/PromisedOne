@@ -131,8 +131,8 @@ const Header: React.FC = () => {
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
       <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Left side - Logo + Navigation */}
-          <div className="flex items-center space-x-8">
+          {/* Left side - Logo only */}
+          <div className="flex items-center">
             {/* Logo */}
             <Link 
               to="/" 
@@ -141,9 +141,12 @@ const Header: React.FC = () => {
               <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
               </svg>
-              <span>StartPlaying</span>
+              <span>KazRPG</span>
             </Link>
+          </div>
 
+          {/* Right side - Navigation + Actions */}
+          <div className="flex items-center space-x-6">
             {/* Navigation */}
             <nav className="hidden md:flex items-center space-x-6">
               {/* Navigation Links */}
@@ -171,10 +174,6 @@ const Header: React.FC = () => {
                 </>
               )}
             </nav>
-          </div>
-
-          {/* Right side actions */}
-          <div className="flex items-center">
             {/* Auth buttons */}
             {isAuthenticated ? (
               <div className="flex items-center">

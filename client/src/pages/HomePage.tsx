@@ -106,7 +106,7 @@ const HomePage: React.FC = () => {
       {/* Browse by Categories Section */}
       <section className="bg-white" style={{ paddingTop: '80px', paddingBottom: '0px' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-bold text-slate-900 mb-4" style={{ fontSize: '30px' }}>
+          <h2 className="font-bold text-slate-900 mb-2" style={{ fontSize: '30px' }}>
             Browse by categories
           </h2>
           <p className="text-slate-500 mb-12" style={{ fontSize: '16px' }}>
@@ -187,7 +187,7 @@ const HomePage: React.FC = () => {
       <section className="bg-white" style={{ paddingTop: '40px', paddingBottom: '0px' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="font-bold text-slate-900 mb-4" style={{ fontSize: '30px' }}>
+            <h2 className="font-bold text-slate-900 mb-4" style={{ fontSize: '36px', fontFamily: 'Inter, sans-serif' }}>
               Browse Popular Dungeons & Dragons Adventures
             </h2>
             <p className="text-slate-500" style={{ fontSize: '16px' }}>
@@ -400,7 +400,7 @@ const HomePage: React.FC = () => {
       {/* Our Benefits Section */}
       <section className="bg-white" style={{ paddingTop: '40px', paddingBottom: '80px' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-bold text-slate-900 mb-12" style={{ fontSize: '30px' }}>
+          <h2 className="font-bold text-slate-900 mb-12" style={{ fontSize: '36px', fontFamily: 'Inter, sans-serif' }}>
             Our Benefits
           </h2>
           

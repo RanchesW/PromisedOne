@@ -129,48 +129,49 @@ const Header: React.FC = () => {
 
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link 
-            to="/" 
-            className="flex items-center space-x-4 text-3xl font-fantasy font-bold text-blue-600 hover:text-blue-700 transition-colors"
-          >
-            <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-            </svg>
-            <span>KazRPG</span>
-          </Link>
+          {/* Left side - Logo + Navigation */}
+          <div className="flex items-center space-x-8">
+            {/* Logo */}
+            <Link 
+              to="/" 
+              className="flex items-center space-x-4 text-3xl font-fantasy font-bold text-blue-600 hover:text-blue-700 transition-colors"
+            >
+              <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+              <span>StartPlaying</span>
+            </Link>
 
-          {/* Right side - Navigation + Icons */}
-          <div className="flex items-center space-x-2">
             {/* Navigation */}
-            <nav className="hidden md:flex items-center space-x-3">
-            {/* Navigation Links */}
-            {navLinks.map(link => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={isActivePath(link.path) ? 'nav-link-active text-lg' : 'nav-link text-lg'}
-              >
-                {link.label}
-              </Link>
-            ))}
+            <nav className="hidden md:flex items-center space-x-6">
+              {/* Navigation Links */}
+              {navLinks.map(link => (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className={isActivePath(link.path) ? 'nav-link-active text-lg' : 'nav-link text-lg'}
+                >
+                  {link.label}
+                </Link>
+              ))}
 
-            {isAuthenticated && (
-              <>
-                {user?.role === 'approved_gm' && gmLinks.map(link => (
-                  <button
-                    key={link.path}
-                    onClick={() => handleSpecialNavigation(link.path, '🎲 Rolling into ' + link.label + '...')}
-                    className={isActivePath(link.path) ? 'nav-link-active text-lg' : 'nav-link text-lg'}
-                  >
-                    {link.label}
-                  </button>
-                ))}
-              </>
-            )}
-          </nav>
+              {isAuthenticated && (
+                <>
+                  {user?.role === 'approved_gm' && gmLinks.map(link => (
+                    <button
+                      key={link.path}
+                      onClick={() => handleSpecialNavigation(link.path, '🎲 Rolling into ' + link.label + '...')}
+                      className={isActivePath(link.path) ? 'nav-link-active text-lg' : 'nav-link text-lg'}
+                    >
+                      {link.label}
+                    </button>
+                  ))}
+                </>
+              )}
+            </nav>
+          </div>
 
           {/* Right side actions */}
           <div className="flex items-center">

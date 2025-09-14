@@ -506,7 +506,6 @@ const Header: React.FC = () => {
                 </div>
               </div>
             )}
-          </div>
 
             {/* Mobile menu button */}
             <button

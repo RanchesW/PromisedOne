@@ -146,7 +146,7 @@ const Header: React.FC = () => {
           </div>
 
           {/* Right side - Navigation + Actions */}
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center space-x-3">
             {/* Navigation */}
             <nav className="hidden md:flex items-center space-x-6">
               {/* Navigation Links */}

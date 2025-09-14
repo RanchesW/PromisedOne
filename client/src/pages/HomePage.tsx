@@ -61,7 +61,7 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Browse by Categories Section */}
-      <section className="bg-white" style={{ paddingTop: '80px', paddingBottom: '80px' }}>
+      <section className="bg-white" style={{ paddingTop: '80px', paddingBottom: '0px' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-bold text-slate-900 mb-4" style={{ fontSize: '30px' }}>
             Browse by categories
@@ -141,7 +141,7 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Browse Popular D&D Adventures Section */}
-      <section className="bg-white" style={{ paddingTop: '80px', paddingBottom: '80px' }}>
+      <section className="bg-white" style={{ paddingTop: '40px', paddingBottom: '0px' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="font-bold text-slate-900 mb-4" style={{ fontSize: '30px' }}>
@@ -153,182 +153,194 @@ const HomePage: React.FC = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+            {/* First Row */}
             {/* Curse of Strahd */}
-            <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer border border-gray-200">
-              <a href="/play/dungeons-and-dragons-5e/curse-of-strahd" className="block">
+            <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer border border-gray-200 relative">
+              <a href="/play/dungeons-and-dragons-5e/curse-of-strahd" className="block h-full">
                 <div 
-                  className="h-48 bg-cover bg-center"
+                  className="h-96 bg-cover bg-center relative"
                   style={{ backgroundImage: 'url("https://spg-images.s3.us-west-1.amazonaws.com/66197b47-5e2b-426b-8feb-f6823c47b772")' }}
-                ></div>
-                <div className="p-4">
-                  <h3 className="font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors" style={{ fontSize: '16px' }}>
-                    Curse of Strahd
-                  </h3>
-                  <p className="text-slate-600 text-sm leading-relaxed" style={{ fontSize: '12px', display: '-webkit-box', WebkitLineClamp: 4, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                    The vampire Count Strahd von Zarovich, one of D&D's most iconic villains, is the undisputed master of his hidden domain of Barovia. While his reign of terror breaks the spirits of his subjects, he himself is a prisoner; Barovia is a demiplane, a pocket dimension which traps both the vampire and his victims, to Strahd to possess, enthrall, or dispose of as he sees fit.
-                  </p>
+                >
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-6">
+                    <h3 className="font-bold text-white mb-2 group-hover:text-blue-300 transition-colors" style={{ fontSize: '18px' }}>
+                      Curse of Strahd
+                    </h3>
+                    <p className="text-white/90 text-sm leading-relaxed" style={{ fontSize: '12px', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                      The vampire Count Strahd von Zarovich, one of D&D's most iconic villains, is the undisputed master of his hidden domain of Barovia.
+                    </p>
+                  </div>
                 </div>
               </a>
             </div>
 
             {/* Lost Mine of Phandelver */}
-            <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer border border-gray-200">
-              <a href="/play/dungeons-and-dragons-5e/lost-mine-of-phandelver" className="block">
+            <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer border border-gray-200 relative">
+              <a href="/play/dungeons-and-dragons-5e/lost-mine-of-phandelver" className="block h-full">
                 <div 
-                  className="h-48 bg-cover bg-center"
+                  className="h-96 bg-cover bg-center relative"
                   style={{ backgroundImage: 'url("https://spg-images.s3.us-west-1.amazonaws.com/10d36ac1-ee47-49ee-be0b-f1d2029a2b98")' }}
-                ></div>
-                <div className="p-4">
-                  <h3 className="font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors" style={{ fontSize: '16px' }}>
-                    Lost Mine of Phandelver
-                  </h3>
-                  <p className="text-slate-600 text-sm leading-relaxed" style={{ fontSize: '12px', display: '-webkit-box', WebkitLineClamp: 4, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                    Legends long have spoken of the lost mine, rich in ore and magic, in the hills outside the frontier town of Phandalin, but no one has ever found it… until now. The Rockseeker brothers, a trio of dwarven prospectors, have unearthed the entrance to the near-mythical mine, and they're hiring rough-and-tumble adventurers to help them reopen it.
-                  </p>
+                >
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-6">
+                    <h3 className="font-bold text-white mb-2 group-hover:text-blue-300 transition-colors" style={{ fontSize: '18px' }}>
+                      Lost Mine of Phandelver
+                    </h3>
+                    <p className="text-white/90 text-sm leading-relaxed" style={{ fontSize: '12px', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                      Legends long have spoken of the lost mine, rich in ore and magic, in the hills outside the frontier town of Phandalin, but no one has ever found it… until now.
+                    </p>
+                  </div>
                 </div>
               </a>
             </div>
 
             {/* Phandelver and Below */}
-            <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer border border-gray-200">
-              <a href="/play/dungeons-and-dragons-5e/phandelver-and-below-the-shattered-obelisk" className="block">
+            <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer border border-gray-200 relative">
+              <a href="/play/dungeons-and-dragons-5e/phandelver-and-below-the-shattered-obelisk" className="block h-full">
                 <div 
-                  className="h-48 bg-cover bg-center"
+                  className="h-96 bg-cover bg-center relative"
                   style={{ backgroundImage: 'url("https://spg-images.s3.us-west-1.amazonaws.com/b7fb53c6-99f1-49c6-b4e1-45c90e0fdac8")' }}
-                ></div>
-                <div className="p-4">
-                  <h3 className="font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors" style={{ fontSize: '16px' }}>
-                    Phandelver and Below: The Shattered Obelisk
-                  </h3>
-                  <p className="text-slate-600 text-sm leading-relaxed" style={{ fontSize: '12px', display: '-webkit-box', WebkitLineClamp: 4, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                    Evil is lurking in the beloved town of Phandalin, and you and your party are the only ones who can stop it. Solve mysteries and stamp out growing corruption as you uncover more about the malevolent cult plaguing the town.
-                  </p>
+                >
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-6">
+                    <h3 className="font-bold text-white mb-2 group-hover:text-blue-300 transition-colors" style={{ fontSize: '18px' }}>
+                      Phandelver and Below: The Shattered Obelisk
+                    </h3>
+                    <p className="text-white/90 text-sm leading-relaxed" style={{ fontSize: '12px', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                      Evil is lurking in the beloved town of Phandalin, and you and your party are the only ones who can stop it.
+                    </p>
+                  </div>
                 </div>
               </a>
             </div>
 
             {/* Baldur's Gate: Descent into Avernus */}
-            <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer border border-gray-200">
-              <a href="/play/dungeons-and-dragons-5e/baldurs-gate-descent-into-avernus" className="block">
+            <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer border border-gray-200 relative">
+              <a href="/play/dungeons-and-dragons-5e/baldurs-gate-descent-into-avernus" className="block h-full">
                 <div 
-                  className="h-48 bg-cover bg-center"
+                  className="h-96 bg-cover bg-center relative"
                   style={{ backgroundImage: 'url("https://spg-images.s3.us-west-1.amazonaws.com/10691ec3-f311-46ad-a187-46450f9c520f")' }}
-                ></div>
-                <div className="p-4">
-                  <h3 className="font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors" style={{ fontSize: '16px' }}>
-                    Baldur's Gate: Descent into Avernus
-                  </h3>
-                  <p className="text-slate-600 text-sm leading-relaxed" style={{ fontSize: '12px', display: '-webkit-box', WebkitLineClamp: 4, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                    Welcome to Baldur's Gate, a city of ambition and corruption situated at the crossroads of the Sword Coast. You've just started your adventuring career, but already find yourself embroiled in a plot that sprawls from the shadows of Baldur's Gate to the front lines of the planes-spanning Blood War!
-                  </p>
+                >
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-6">
+                    <h3 className="font-bold text-white mb-2 group-hover:text-blue-300 transition-colors" style={{ fontSize: '18px' }}>
+                      Baldur's Gate: Descent into Avernus
+                    </h3>
+                    <p className="text-white/90 text-sm leading-relaxed" style={{ fontSize: '12px', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                      Welcome to Baldur's Gate, a city of ambition and corruption situated at the crossroads of the Sword Coast.
+                    </p>
+                  </div>
                 </div>
               </a>
             </div>
 
-            {/* Vampire: The Masquerade 5th Edition */}
-            <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer border border-gray-200">
-              <a href="/play/vampire-the-masquerade-5th-edition" className="block">
+            {/* Vecna: Eve of Ruin */}
+            <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer border border-gray-200 relative">
+              <a href="/play/dungeons-and-dragons-5e/vecna-eve-of-ruin" className="block h-full">
                 <div 
-                  className="h-48 bg-cover bg-center"
+                  className="h-96 bg-cover bg-center relative"
                   style={{ backgroundImage: 'url("https://spg-images.s3.us-west-1.amazonaws.com/93b152b8-799b-44ee-a30e-e1246c7f5692")' }}
-                ></div>
-                <div className="p-4">
-                  <h3 className="font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors" style={{ fontSize: '16px' }}>
-                    Vampire: The Masquerade 5th Edition
-                  </h3>
-                  <p className="text-slate-600 text-sm leading-relaxed" style={{ fontSize: '12px', display: '-webkit-box', WebkitLineClamp: 4, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                    Vampire: The Masquerade presents a more dramatic, personal horror experience than typical tabletop RPGs. You are a vampire, struggling to survive in a modern world that doesn't know your kind exists.
-                  </p>
+                >
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-6">
+                    <h3 className="font-bold text-white mb-2 group-hover:text-blue-300 transition-colors" style={{ fontSize: '18px' }}>
+                      Vecna: Eve of Ruin
+                    </h3>
+                    <p className="text-white/90 text-sm leading-relaxed" style={{ fontSize: '12px', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                      The notorious lich Vecna is weaving a ritual to eliminate good, obliterate the gods, and subjugate all worlds.
+                    </p>
+                  </div>
                 </div>
               </a>
             </div>
 
+            {/* Second Row */}
             {/* Icewind Dale: Rime of the Frostmaiden */}
-            <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer border border-gray-200">
-              <a href="/play/dungeons-and-dragons-5e/icewind-dale-rime-of-the-frostmaiden" className="block">
+            <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer border border-gray-200 relative">
+              <a href="/play/dungeons-and-dragons-5e/icewind-dale-rime-of-the-frostmaiden" className="block h-full">
                 <div 
-                  className="h-48 bg-cover bg-center"
+                  className="h-96 bg-cover bg-center relative"
                   style={{ backgroundImage: 'url("https://spg-images.s3.us-west-1.amazonaws.com/e89f6382-2800-4dad-98bc-b40063168c08")' }}
-                ></div>
-                <div className="p-4">
-                  <h3 className="font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors" style={{ fontSize: '16px' }}>
-                    Icewind Dale: Rime of the Frostmaiden
-                  </h3>
-                  <p className="text-slate-600 text-sm leading-relaxed" style={{ fontSize: '12px', display: '-webkit-box', WebkitLineClamp: 4, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                    North of the Spine of the World and west of the towering Reghed Glacier is a frigid expanse few dare to explore, let alone inhabit. For two long years, the god of winter's wrath has kept the sun from rising in Icewind Dale.
-                  </p>
+                >
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-6">
+                    <h3 className="font-bold text-white mb-2 group-hover:text-blue-300 transition-colors" style={{ fontSize: '18px' }}>
+                      Icewind Dale: Rime of the Frostmaiden
+                    </h3>
+                    <p className="text-white/90 text-sm leading-relaxed" style={{ fontSize: '12px', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                      North of the Spine of the World and west of the towering Reghed Glacier is a frigid expanse few dare to explore, let alone inhabit.
+                    </p>
+                  </div>
                 </div>
               </a>
             </div>
 
             {/* Waterdeep: Dragon Heist */}
-            <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer border border-gray-200">
-              <a href="/play/dungeons-and-dragons-5e/waterdeep-dragon-heist" className="block">
+            <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer border border-gray-200 relative">
+              <a href="/play/dungeons-and-dragons-5e/waterdeep-dragon-heist" className="block h-full">
                 <div 
-                  className="h-48 bg-cover bg-center"
+                  className="h-96 bg-cover bg-center relative"
                   style={{ backgroundImage: 'url("https://spg-images.s3.us-west-1.amazonaws.com/6268c712-8453-4f3b-9520-8e0a10714647")' }}
-                ></div>
-                <div className="p-4">
-                  <h3 className="font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors" style={{ fontSize: '16px' }}>
-                    Waterdeep: Dragon Heist
-                  </h3>
-                  <p className="text-slate-600 text-sm leading-relaxed" style={{ fontSize: '12px', display: '-webkit-box', WebkitLineClamp: 4, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                    Welcome to Waterdeep, the Crown of the North, where a wondrous tale of urban adventure is about to unfold. Adventurers gather at the Yawning Portal Inn and Tavern. Volothamp Geddarm, the famous explorer, has a quest for them.
-                  </p>
+                >
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-6">
+                    <h3 className="font-bold text-white mb-2 group-hover:text-blue-300 transition-colors" style={{ fontSize: '18px' }}>
+                      Waterdeep: Dragon Heist
+                    </h3>
+                    <p className="text-white/90 text-sm leading-relaxed" style={{ fontSize: '12px', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                      Welcome to Waterdeep, the Crown of the North, where a wondrous tale of urban adventure is about to unfold.
+                    </p>
+                  </div>
                 </div>
               </a>
             </div>
 
             {/* The Wild Beyond the Witchlight */}
-            <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer border border-gray-200">
-              <a href="/play/dungeons-and-dragons-5e/the-wild-beyond-the-witchlight" className="block">
+            <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer border border-gray-200 relative">
+              <a href="/play/dungeons-and-dragons-5e/the-wild-beyond-the-witchlight" className="block h-full">
                 <div 
-                  className="h-48 bg-cover bg-center"
+                  className="h-96 bg-cover bg-center relative"
                   style={{ backgroundImage: 'url("https://spg-images.s3.us-west-1.amazonaws.com/697784e6-c557-4c82-ab98-dd059eef53f3")' }}
-                ></div>
-                <div className="p-4">
-                  <h3 className="font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors" style={{ fontSize: '16px' }}>
-                    The Wild Beyond the Witchlight
-                  </h3>
-                  <p className="text-slate-600 text-sm leading-relaxed" style={{ fontSize: '12px', display: '-webkit-box', WebkitLineClamp: 4, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                    Pass through the silvery mist and into the Feywild—a place of wonder and whimsy ruled by unfettered emotion. With strange customs, fantastical creatures, uncanny bends in time and space, and colorful characters as capricious as they are charming.
-                  </p>
+                >
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-6">
+                    <h3 className="font-bold text-white mb-2 group-hover:text-blue-300 transition-colors" style={{ fontSize: '18px' }}>
+                      The Wild Beyond the Witchlight
+                    </h3>
+                    <p className="text-white/90 text-sm leading-relaxed" style={{ fontSize: '12px', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                      Pass through the silvery mist and into the Feywild—a place of wonder and whimsy ruled by unfettered emotion.
+                    </p>
+                  </div>
                 </div>
               </a>
             </div>
 
             {/* Keys from the Golden Vault */}
-            <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer border border-gray-200">
-              <a href="/play/dungeons-and-dragons-5e/keys-from-the-golden-vault" className="block">
+            <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer border border-gray-200 relative">
+              <a href="/play/dungeons-and-dragons-5e/keys-from-the-golden-vault" className="block h-full">
                 <div 
-                  className="h-48 bg-cover bg-center"
+                  className="h-96 bg-cover bg-center relative"
                   style={{ backgroundImage: 'url("https://spg-images.s3.us-west-1.amazonaws.com/7fd8d6c6-e477-4737-a7c5-478b4aeec8de")' }}
-                ></div>
-                <div className="p-4">
-                  <h3 className="font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors" style={{ fontSize: '16px' }}>
-                    Keys from the Golden Vault
-                  </h3>
-                  <p className="text-slate-600 text-sm leading-relaxed" style={{ fontSize: '12px', display: '-webkit-box', WebkitLineClamp: 4, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                    Risk it all for the thrill of pulling off the perfect heist. Keys from the Golden Vault contains thirteen exhilarating heist-themed adventures in which characters take on missions from a mysterious organization known as the Golden Vault.
-                  </p>
+                >
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-6">
+                    <h3 className="font-bold text-white mb-2 group-hover:text-blue-300 transition-colors" style={{ fontSize: '18px' }}>
+                      Keys from the Golden Vault
+                    </h3>
+                    <p className="text-white/90 text-sm leading-relaxed" style={{ fontSize: '12px', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                      Risk it all for the thrill of pulling off the perfect heist. Keys from the Golden Vault contains thirteen exhilarating heist-themed adventures.
+                    </p>
+                  </div>
                 </div>
               </a>
             </div>
 
             {/* Tomb of Annihilation */}
-            <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer border border-gray-200">
-              <a href="/play/dungeons-and-dragons-5e/tomb-of-annihilation" className="block">
+            <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group cursor-pointer border border-gray-200 relative">
+              <a href="/play/dungeons-and-dragons-5e/tomb-of-annihilation" className="block h-full">
                 <div 
-                  className="h-48 bg-cover bg-center"
+                  className="h-96 bg-cover bg-center relative"
                   style={{ backgroundImage: 'url("https://spg-images.s3.us-west-1.amazonaws.com/d6b2ce8d-7d75-4a26-a5c4-a66fbd09db01")' }}
-                ></div>
-                <div className="p-4">
-                  <h3 className="font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors" style={{ fontSize: '16px' }}>
-                    Tomb of Annihilation
-                  </h3>
-                  <p className="text-slate-600 text-sm leading-relaxed" style={{ fontSize: '12px', display: '-webkit-box', WebkitLineClamp: 4, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                    The talk of the streets and taverns has all been about the so-called death curse: a wasting disease afflicting everyone who's ever been raised from the dead. Victims grow thinner and weaker each day, slowly but steadily sliding toward the death they once denied.
-                  </p>
+                >
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-6">
+                    <h3 className="font-bold text-white mb-2 group-hover:text-blue-300 transition-colors" style={{ fontSize: '18px' }}>
+                      Tomb of Annihilation
+                    </h3>
+                    <p className="text-white/90 text-sm leading-relaxed" style={{ fontSize: '12px', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                      The talk of the streets and taverns has all been about the so-called death curse: a wasting disease afflicting everyone who's ever been raised from the dead.
+                    </p>
+                  </div>
                 </div>
               </a>
             </div>
@@ -343,7 +355,7 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Our Benefits Section */}
-      <section className="bg-white" style={{ paddingTop: '80px', paddingBottom: '80px' }}>
+      <section className="bg-white" style={{ paddingTop: '40px', paddingBottom: '80px' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="font-bold text-slate-900 mb-12" style={{ fontSize: '30px' }}>
             Our Benefits

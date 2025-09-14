@@ -2,7 +2,6 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
-import ScrollIndicator from '../UI/ScrollIndicator';
 
 const Layout: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   return (
@@ -12,7 +11,6 @@ const Layout: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
         {children || <Outlet />}
       </main>
       <Footer />
-      <ScrollIndicator />
     </div>
   );
 };

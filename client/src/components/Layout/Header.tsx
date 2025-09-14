@@ -154,7 +154,8 @@ const Header: React.FC = () => {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={isActivePath(link.path) ? 'nav-link-active text-lg' : 'nav-link text-lg'}
+                  className={isActivePath(link.path) ? 'nav-link-active' : 'nav-link'}
+                  style={{ fontSize: '16px', fontFamily: 'Inter, sans-serif' }}
                 >
                   {link.label}
                 </Link>
@@ -166,7 +167,8 @@ const Header: React.FC = () => {
                     <button
                       key={link.path}
                       onClick={() => handleSpecialNavigation(link.path, '🎲 Rolling into ' + link.label + '...')}
-                      className={isActivePath(link.path) ? 'nav-link-active text-lg' : 'nav-link text-lg'}
+                      className={isActivePath(link.path) ? 'nav-link-active' : 'nav-link'}
+                      style={{ fontSize: '16px', fontFamily: 'Inter, sans-serif' }}
                     >
                       {link.label}
                     </button>

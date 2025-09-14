@@ -1,8 +1,51 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const HomePage: React.FC = () => {
+  const [scrollY, setScrollY] = useState(0);
+  const [showScrollIndicator, setShowScrollIndicator] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setScrollY(currentScrollY);
+      setShowScrollIndicator(currentScrollY > 200);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const scrollProgress = Math.min(100, (scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100);
+
   return (
     <div className="min-h-screen">
+      {/* Scroll Indicator */}
+      {showScrollIndicator && (
+        <div className="fixed left-4 top-1/2 transform -translate-y-1/2 z-50 flex flex-col items-center space-y-4">
+          {/* Scroll Progress Bar */}
+          <div className="relative w-1 h-32 bg-gray-300 rounded-full overflow-hidden">
+            <div 
+              className="absolute bottom-0 w-full bg-blue-600 rounded-full transition-all duration-200"
+              style={{ height: `${scrollProgress}%` }}
+            ></div>
+          </div>
+          
+          {/* Scroll to Top Button */}
+          <button
+            onClick={scrollToTop}
+            className="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transition-all duration-200 hover:scale-110"
+            aria-label="Scroll to top"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M18 15l-6-6-6 6"/>
+            </svg>
+          </button>
+        </div>
+      )}
+      
       {/* Hero Section with Fantasy Background */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background Image with Blur */}
@@ -370,10 +413,10 @@ const HomePage: React.FC = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="font-bold text-slate-900 mb-3" style={{ fontSize: '18px' }}>
+                <h3 className="font-black text-slate-900 mb-4" style={{ fontSize: '24px', fontWeight: '900' }}>
                   Never played before?
                 </h3>
-                <p className="text-slate-600 leading-relaxed" style={{ fontSize: '16px' }}>
+                <p className="text-slate-600 leading-relaxed font-medium" style={{ fontSize: '18px', fontWeight: '500' }}>
                   If you're new to Dungeons & Dragons and other RPGs, our experienced professional Dungeon Masters and Game Masters are happy to introduce you to the game so you and your friends can learn to play D&D online.
                 </p>
               </div>
@@ -387,10 +430,10 @@ const HomePage: React.FC = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="font-bold text-slate-900 mb-3" style={{ fontSize: '18px' }}>
+                <h3 className="font-black text-slate-900 mb-4" style={{ fontSize: '24px', fontWeight: '900' }}>
                   How much does it cost?
                 </h3>
-                <p className="text-slate-600 leading-relaxed" style={{ fontSize: '16px' }}>
+                <p className="text-slate-600 leading-relaxed font-medium" style={{ fontSize: '18px', fontWeight: '500' }}>
                   That depends, each GM lists their own price. You can view each game's price when browsing games.
                 </p>
               </div>
@@ -404,10 +447,10 @@ const HomePage: React.FC = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="font-bold text-slate-900 mb-3" style={{ fontSize: '18px' }}>
+                <h3 className="font-black text-slate-900 mb-4" style={{ fontSize: '24px', fontWeight: '900' }}>
                   What are the Games like?
                 </h3>
-                <p className="text-slate-600 leading-relaxed" style={{ fontSize: '16px' }}>
+                <p className="text-slate-600 leading-relaxed font-medium" style={{ fontSize: '18px', fontWeight: '500' }}>
                   Love combat? Enjoy roleplaying? Excited by puzzles? Our Game Masters offer games of all play styles. StartPlaying makes it easy to find a D&D group that matches your play style.
                 </p>
               </div>
@@ -421,10 +464,10 @@ const HomePage: React.FC = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="font-bold text-slate-900 mb-3" style={{ fontSize: '18px' }}>
+                <h3 className="font-black text-slate-900 mb-4" style={{ fontSize: '24px', fontWeight: '900' }}>
                   Where do I play?
                 </h3>
-                <p className="text-slate-600 leading-relaxed" style={{ fontSize: '16px' }}>
+                <p className="text-slate-600 leading-relaxed font-medium" style={{ fontSize: '18px', fontWeight: '500' }}>
                   Currently, all of our games are online, but eventually, we will support finding local D&D games and other TTRPGs near you as well. If you're looking to play D&D online we have over 1000 professional dungeon masters ready to run your adventure.
                 </p>
               </div>
@@ -438,10 +481,10 @@ const HomePage: React.FC = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="font-bold text-slate-900 mb-3" style={{ fontSize: '18px' }}>
+                <h3 className="font-black text-slate-900 mb-4" style={{ fontSize: '24px', fontWeight: '900' }}>
                   Hosting a team event?
                 </h3>
-                <p className="text-slate-600 leading-relaxed" style={{ fontSize: '16px' }}>
+                <p className="text-slate-600 leading-relaxed font-medium" style={{ fontSize: '18px', fontWeight: '500' }}>
                   We've run team events for some of the coolest companies in the world! Check out our{" "}
                   <a href="/corporate-games" className="text-blue-600 hover:text-blue-700 underline">
                     corporate games page
@@ -459,10 +502,10 @@ const HomePage: React.FC = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="font-bold text-slate-900 mb-3" style={{ fontSize: '18px' }}>
+                <h3 className="font-black text-slate-900 mb-4" style={{ fontSize: '24px', fontWeight: '900' }}>
                   What if I don't have a group?
                 </h3>
-                <p className="text-slate-600 leading-relaxed" style={{ fontSize: '16px' }}>
+                <p className="text-slate-600 leading-relaxed font-medium" style={{ fontSize: '18px', fontWeight: '500' }}>
                   No worries, join a game solo and play with other players! StartPlaying is the largest RPG table finder for games run by professional dungeon masters and game masters. Over 20,000 players have found their online D&D group with us. Whether you wanna play D&D online with a pro-GM, or any other TTRPG, StartPlaying has you covered.
                 </p>
               </div>

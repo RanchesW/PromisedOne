@@ -20,15 +20,23 @@ const ScrollIndicator: React.FC = () => {
   if (!showScrollIndicator) return null;
 
   return (
-    <div className="fixed right-0 top-0 bottom-0 z-50 w-3 bg-gray-100 border-l border-gray-200">
+    <div className="fixed right-0 top-0 bottom-0 z-50 w-4" style={{ backgroundColor: '#f1f1f1' }}>
       {/* Scroll Track */}
       <div className="relative w-full h-full">
         {/* Scroll Thumb */}
         <div 
-          className="absolute right-0 w-full bg-gray-400 hover:bg-gray-500 transition-colors cursor-pointer"
+          className="absolute w-full cursor-pointer transition-colors"
           style={{ 
-            height: `${Math.max(10, (window.innerHeight / document.documentElement.scrollHeight) * 100)}%`,
-            top: `${scrollProgress * (100 - Math.max(10, (window.innerHeight / document.documentElement.scrollHeight) * 100)) / 100}%`
+            backgroundColor: '#c1c1c1',
+            height: `${Math.max(20, (window.innerHeight / document.documentElement.scrollHeight) * 100)}%`,
+            top: `${scrollProgress * (100 - Math.max(20, (window.innerHeight / document.documentElement.scrollHeight) * 100)) / 100}%`,
+            borderRadius: '0px'
+          }}
+          onMouseEnter={(e) => {
+            (e.target as HTMLElement).style.backgroundColor = '#a8a8a8';
+          }}
+          onMouseLeave={(e) => {
+            (e.target as HTMLElement).style.backgroundColor = '#c1c1c1';
           }}
           onClick={() => {
             const clickPosition = scrollProgress / 100;

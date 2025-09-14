@@ -115,7 +115,7 @@ const MechanicsPage: React.FC = () => {
             {/* Description text below image */}
             <div 
               className="absolute"
-              style={{ left: '40px', top: '365px', right: '40px' }}
+              style={{ left: '40px', top: '380px', right: '40px' }}
             >
               <p className="text-base text-slate-500 text-center" style={{ fontFamily: 'Inter, sans-serif' }}>
                 Looking for a tabletop RPG that fits your playstyle? Browse TTRPGs organized by game mechanics—from d20 systems and dice pools to narrative-focused rulesets and unique storytelling engines. If you love Monster of the Week, browse other games that use the Powered by the Apocalypse system. Whether you prefer tactical combat, collaborative storytelling, or lightweight rules, you can find the games that match how you love to play.

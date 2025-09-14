@@ -97,7 +97,7 @@ const StylesPage: React.FC = () => {
             {/* Description text below image */}
             <div 
               className="absolute"
-              style={{ left: '40px', top: '365px', right: '40px' }}
+              style={{ left: '40px', top: '375px', right: '40px' }}
             >
               <p className="text-base text-slate-500" style={{ fontFamily: 'Inter, sans-serif' }}>
                 Browse games by your favorite playstyles. Are you seeking a roleplay heavy adventure? Looking for treasure in a Dungeon Crawl? Search through everything from play by post games to organized play. Find all the different game styles that suit the way you want to play.

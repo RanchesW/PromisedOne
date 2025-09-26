@@ -472,45 +472,50 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Hire a Pro Dungeon Master Section */}
-      <section className="relative overflow-hidden bg-cover bg-center" style={{ backgroundPosition: 'center center', backgroundSize: 'cover' }}>
-        {/* Background Image */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ 
-            backgroundImage: 'url("/images/adventure-party.png")',
-            backgroundPosition: 'center center',
-            backgroundSize: 'cover'
-          }}
-        ></div>
-        
-        {/* Content Container */}
-        <div className="relative z-10 flex items-center min-h-[600px] bg-gradient-to-r from-slate-900/80 via-slate-800/70 to-transparent">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div className="max-w-2xl">
-              <div className="mb-6">
-                <p className="text-blue-400 font-semibold text-lg mb-4 tracking-wide">
-                  Hire a Pro Dungeon Master
-                </p>
-                <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6 leading-tight">
-                  Browse over 5000+ Dungeon Masters and Game Masters
-                </h2>
+      <section className="bg-white" style={{ paddingTop: '80px', paddingBottom: '80px' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div className="flex flex-col lg:flex-row">
+              {/* Image Side */}
+              <div className="lg:w-1/2">
+                <div 
+                  className="h-96 lg:h-full bg-cover bg-center"
+                  style={{ 
+                    backgroundImage: 'url("/images/dm-master.jpeg")',
+                    backgroundPosition: 'center center',
+                    backgroundSize: 'cover',
+                    minHeight: '400px'
+                  }}
+                ></div>
               </div>
-              <p className="text-xl text-slate-300 mb-8 leading-relaxed max-w-xl">
-                Find the perfect Dungeon Master or Game Master. Browse by systems and platforms. Read verified reviews and find a GM who matches your play-style!
-              </p>
-              <div className="flex justify-start">
-                <a 
-                  href="/find-game-masters"
-                  className="inline-block"
-                  style={{ textDecoration: 'none', color: 'inherit' }}
-                >
-                  <button 
-                    type="button"
-                    className="bg-slate-700 hover:bg-slate-600 text-white font-semibold px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl border border-slate-600"
+              
+              {/* Content Side */}
+              <div className="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center">
+                <div className="mb-6">
+                  <p className="text-blue-600 font-semibold text-lg mb-4 tracking-wide">
+                    Hire a Pro Dungeon Master
+                  </p>
+                  <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6 leading-tight">
+                    Browse over 5000+ Dungeon Masters and Game Masters
+                  </h2>
+                </div>
+                <p className="text-lg text-slate-600 mb-8 leading-relaxed">
+                  Find the perfect Dungeon Master or Game Master. Browse by systems and platforms. Read verified reviews and find a GM who matches your play-style!
+                </p>
+                <div className="flex justify-start">
+                  <a 
+                    href="/find-game-masters"
+                    className="inline-block"
+                    style={{ textDecoration: 'none', color: 'inherit' }}
                   >
-                    Hire a DM
-                  </button>
-                </a>
+                    <button 
+                      type="button"
+                      className="bg-slate-700 hover:bg-slate-600 text-white font-semibold px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                    >
+                      Hire a DM
+                    </button>
+                  </a>
+                </div>
               </div>
             </div>
           </div>

@@ -536,10 +536,10 @@ const HomePage: React.FC = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Dungeons & Dragons Essentials */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col h-full">
               <a 
                 href="/blog/posts/dungeons-and-dragons-resources" 
-                className="block h-full"
+                className="flex flex-col h-full"
                 style={{ textDecoration: 'none', color: 'inherit' }}
               >
                 <div className="relative">
@@ -548,18 +548,21 @@ const HomePage: React.FC = () => {
                     loading="lazy" 
                     width="300" 
                     height="200" 
+                    decoding="async"
+                    data-nimg="1"
+                    srcSet="/_next/image?url=%2Fassets%2Fhome%2Fdragon.jpg&w=384&q=75 1x, /_next/image?url=%2Fassets%2Fhome%2Fdragon.jpg&w=640&q=75 2x"
+                    src="/_next/image?url=%2Fassets%2Fhome%2Fdragon.jpg&w=640&q=75"
                     className="w-full h-48 object-cover"
-                    src="/assets/home/dragon.jpg"
                     style={{ color: 'transparent' }}
                   />
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-slate-900 mb-4">
+                <div className="p-6 flex flex-col flex-grow">
+                  <h3 className="text-xl font-bold text-slate-900 mb-4 flex-grow">
                     Dungeons & Dragons Essentials
                   </h3>
                   <button 
                     type="button"
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg transition-colors duration-200 w-full"
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg transition-colors duration-200 w-full mt-auto"
                   >
                     Read More
                   </button>
@@ -568,10 +571,10 @@ const HomePage: React.FC = () => {
             </div>
 
             {/* Learn To Play D&D Online */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col h-full">
               <a 
                 href="/blog/posts/how-to-learn-to-play-d-d-online" 
-                className="block h-full"
+                className="flex flex-col h-full"
                 style={{ textDecoration: 'none', color: 'inherit' }}
               >
                 <div className="relative">
@@ -580,18 +583,21 @@ const HomePage: React.FC = () => {
                     loading="lazy" 
                     width="300" 
                     height="200" 
+                    decoding="async"
+                    data-nimg="1"
+                    srcSet="/_next/image?url=%2Fassets%2Fhome%2Fhow_to_play.jpg&w=384&q=75 1x, /_next/image?url=%2Fassets%2Fhome%2Fhow_to_play.jpg&w=640&q=75 2x"
+                    src="/_next/image?url=%2Fassets%2Fhome%2Fhow_to_play.jpg&w=640&q=75"
                     className="w-full h-48 object-cover"
-                    src="/assets/home/how_to_play.jpg"
                     style={{ color: 'transparent' }}
                   />
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-slate-900 mb-4">
+                <div className="p-6 flex flex-col flex-grow">
+                  <h3 className="text-xl font-bold text-slate-900 mb-4 flex-grow">
                     Learn To Play D&D Online
                   </h3>
                   <button 
                     type="button"
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg transition-colors duration-200 w-full"
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg transition-colors duration-200 w-full mt-auto"
                   >
                     Read More
                   </button>
@@ -600,10 +606,10 @@ const HomePage: React.FC = () => {
             </div>
 
             {/* Everything You Need To Play D&D Online */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col h-full">
               <a 
                 href="/blog/posts/everything-you-need-to-play-d-d-online" 
-                className="block h-full"
+                className="flex flex-col h-full"
                 style={{ textDecoration: 'none', color: 'inherit' }}
               >
                 <div className="relative">
@@ -612,18 +618,21 @@ const HomePage: React.FC = () => {
                     loading="lazy" 
                     width="300" 
                     height="200" 
+                    decoding="async"
+                    data-nimg="1"
+                    srcSet="/_next/image?url=%2Fassets%2Fhome%2Feverything_you_need.jpg&w=384&q=75 1x, /_next/image?url=%2Fassets%2Fhome%2Feverything_you_need.jpg&w=640&q=75 2x"
+                    src="/_next/image?url=%2Fassets%2Fhome%2Feverything_you_need.jpg&w=640&q=75"
                     className="w-full h-48 object-cover"
-                    src="/assets/home/everything_you_need.jpg"
                     style={{ color: 'transparent' }}
                   />
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-slate-900 mb-4">
+                <div className="p-6 flex flex-col flex-grow">
+                  <h3 className="text-xl font-bold text-slate-900 mb-4 flex-grow">
                     Everything You Need To Play D&D Online
                   </h3>
                   <button 
                     type="button"
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg transition-colors duration-200 w-full"
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg transition-colors duration-200 w-full mt-auto"
                   >
                     Read More
                   </button>

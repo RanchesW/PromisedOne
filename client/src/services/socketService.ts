@@ -8,7 +8,7 @@ class SocketService {
     if (this.socket && this.isConnected) return;
 
     const SERVER_URL = process.env.REACT_APP_SERVER_URL || 
-      (process.env.NODE_ENV === 'production' ? '' : 'http://localhost:5000');
+      (process.env.NODE_ENV === 'production' ? 'https://kazrpg-fullstack.onrender.com' : 'http://localhost:5000');
 
     console.log('🔌 Connecting to Socket.IO server:', SERVER_URL);
 
@@ -16,7 +16,12 @@ class SocketService {
       auth: {
         token: token || localStorage.getItem('authToken')
       },
-      transports: ['websocket', 'polling']
+      transports: ['polling', 'websocket'], // Try polling first for better Render compatibility
+      timeout: 20000,
+      reconnection: true,
+      reconnectionDelay: 1000,
+      reconnectionAttempts: 5,
+      forceNew: true
     });
 
     this.socket.on('connect', () => {

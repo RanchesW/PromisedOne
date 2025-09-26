@@ -121,13 +121,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (customEvent.detail && customEvent.detail.status === 403) {
         console.log('JWT signature error detected, logging out...');
         logout();
-        window.location.href = '/login';
+        showNotification('Session expired. Please log in again.', 'error');
+        setTimeout(() => {
+          window.location.href = '/login';
+        }, 1000);
       }
     };
 
     window.addEventListener('jwt-signature-error', handleUnauthorized);
     return () => window.removeEventListener('jwt-signature-error', handleUnauthorized);
-  }, []);
+  }, [showNotification]);
 
   const login = async (email: string, password: string): Promise<void> => {
     setIsLoading(true);
@@ -312,8 +315,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     localStorage.removeItem('authToken');
     localStorage.removeItem('user');
     
+    // Clear any other auth-related localStorage items
+    localStorage.removeItem('token'); // Legacy token key
+    
     // Disconnect Socket.IO
     socketService.disconnect();
+    
+    // Clear any cached data
+    sessionStorage.clear();
   };
 
   const updateUser = async (userData: Partial<User>): Promise<void> => {

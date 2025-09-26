@@ -46,7 +46,8 @@ const io = new Server(httpServer, {
         'http://localhost:3000',
         'http://95.141.138.162:3000',
         'https://promised-one-client.vercel.app',
-        'https://promised-one-client-3zyz5hl0k-ranchesws-projects.vercel.app'
+        'https://promised-one-client-3zyz5hl0k-ranchesws-projects.vercel.app',
+        'https://kazrpg-fullstack.onrender.com'
       ];
       
       const isVercelPreview = origin.includes('promised-one-client') && origin.includes('vercel.app');

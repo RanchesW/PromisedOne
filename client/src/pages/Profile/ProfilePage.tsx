@@ -936,8 +936,16 @@ const ProfilePage: React.FC = () => {
       </div>
 
       {/* Availability */}
-      <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">Availability</h3>
+      <div className="relative">
+        <div className="flex justify-between items-center mb-2">
+          <h3 className="text-lg font-semibold text-gray-900">Availability</h3>
+          {isSaving && (
+            <div className="flex items-center space-x-2 text-blue-600">
+              <LoadingSpinner size="sm" />
+              <span className="text-sm font-medium">Saving...</span>
+            </div>
+          )}
+        </div>
         <p className="text-sm text-gray-600 mb-4">This will only be visible to you and may be used to tailor your search results.</p>
         
         <div className="overflow-x-auto">
@@ -973,6 +981,7 @@ const ProfilePage: React.FC = () => {
                         checked={profileData.availability[day][timeSlot.key as keyof typeof profileData.availability[typeof day]]}
                         onChange={() => handleAvailabilityChange(day, timeSlot.key)}
                         className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                        disabled={isSaving}
                       />
                     </td>
                   ))}
@@ -990,7 +999,6 @@ const ProfilePage: React.FC = () => {
           disabled={isSaving}
           className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
         >
-          {isSaving && <LoadingSpinner />}
           <span>{isSaving ? 'Saving...' : 'Save'}</span>
         </button>
       </div>

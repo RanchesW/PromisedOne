@@ -40,20 +40,15 @@ export const getAvatarUrl = (avatarPath: string | undefined): string | null => {
     return avatarPath;
   }
   
-  // Legacy support: If it starts with /uploads, convert to full URL
-  if (avatarPath.startsWith('/uploads/')) {
-    console.log('Legacy avatar path detected:', avatarPath);
-    return `${SERVER_BASE_URL}${avatarPath}`;
-  }
-  
-  // Legacy support: If it's just a filename, assume it's in uploads/avatars
-  if (!avatarPath.startsWith('/')) {
-    console.log('Legacy avatar filename detected:', avatarPath);
-    return `${SERVER_BASE_URL}/uploads/avatars/${avatarPath}`;
+  // For production, return null for legacy avatar paths to prevent 404s
+  // This will cause the component to show default avatar instead
+  if (avatarPath.startsWith('/uploads/') || !avatarPath.startsWith('/')) {
+    console.log('Legacy avatar path detected, using default avatar:', avatarPath);
+    return null; // Let the component handle default avatar
   }
   
   console.log('Unknown avatar path format:', avatarPath);
-  return `${SERVER_BASE_URL}${avatarPath}`;
+  return null; // Default to null for unknown formats
 };
 
 class APIService {

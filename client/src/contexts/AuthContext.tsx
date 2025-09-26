@@ -101,6 +101,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             // Force page reload to update UI components
             window.location.reload();
           }
+        } else if (response.status === 401 || response.status === 403) {
+          // Token is invalid, force logout
+          console.log('Invalid token detected during role check, logging out...');
+          logout();
+          showNotification('Your session has expired. Please log in again.', 'error');
+          setTimeout(() => {
+            window.location.href = '/login';
+          }, 1000);
         }
       } catch (error) {
         console.error('Role check error:', error);

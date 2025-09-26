@@ -470,6 +470,52 @@ const HomePage: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Hire a Pro Dungeon Master Section */}
+      <section className="relative overflow-hidden bg-cover bg-center" style={{ backgroundPosition: 'center center', backgroundSize: 'cover' }}>
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ 
+            backgroundImage: 'url("/images/adventure-party.png")',
+            backgroundPosition: 'center center',
+            backgroundSize: 'cover'
+          }}
+        ></div>
+        
+        {/* Content Container */}
+        <div className="relative z-10 flex items-center min-h-[600px] bg-gradient-to-r from-slate-900/80 via-slate-800/70 to-transparent">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div className="max-w-2xl">
+              <div className="mb-6">
+                <p className="text-blue-400 font-semibold text-lg mb-4 tracking-wide">
+                  Hire a Pro Dungeon Master
+                </p>
+                <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6 leading-tight">
+                  Browse over 5000+ Dungeon Masters and Game Masters
+                </h2>
+              </div>
+              <p className="text-xl text-slate-300 mb-8 leading-relaxed max-w-xl">
+                Find the perfect Dungeon Master or Game Master. Browse by systems and platforms. Read verified reviews and find a GM who matches your play-style!
+              </p>
+              <div className="flex justify-start">
+                <a 
+                  href="/find-game-masters"
+                  className="inline-block"
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  <button 
+                    type="button"
+                    className="bg-slate-700 hover:bg-slate-600 text-white font-semibold px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl border border-slate-600"
+                  >
+                    Hire a DM
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

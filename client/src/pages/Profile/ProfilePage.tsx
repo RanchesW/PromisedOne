@@ -1007,8 +1007,16 @@ const ProfilePage: React.FC = () => {
 
   const renderFeaturedPrompts = () => (
     <div className="space-y-8">
-      <div>
-        <h2 className="text-2xl font-semibold text-gray-900 mb-2">Featured Prompts</h2>
+      <div className="relative">
+        <div className="flex justify-between items-center mb-2">
+          <h2 className="text-2xl font-semibold text-gray-900">Featured Prompts</h2>
+          {isSaving && (
+            <div className="flex items-center space-x-2 text-blue-600">
+              <LoadingSpinner size="sm" />
+              <span className="text-sm font-medium">Saving...</span>
+            </div>
+          )}
+        </div>
         <p className="text-gray-600 mb-6">
           Choose up to 2 prompts to display on your profile. Complete the thought to show other users what kind of player or GM you are.
         </p>
@@ -1027,6 +1035,7 @@ const ProfilePage: React.FC = () => {
                   checked={isSelected}
                   onChange={(e) => handlePromptSelection(prompt.id, prompt.text, e.target.checked)}
                   className="mt-1 w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                  disabled={isSaving}
                 />
                 <div className="flex-1">
                   <div className="flex items-center space-x-2 mb-2">
@@ -1042,6 +1051,7 @@ const ProfilePage: React.FC = () => {
                         maxLength={100}
                         className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         placeholder="complete your thought..."
+                        disabled={isSaving}
                       />
                       <div className="text-sm text-gray-500 mt-1">
                         {(selectedPrompt?.customText || '').length}/100 characters
@@ -1078,7 +1088,6 @@ const ProfilePage: React.FC = () => {
           disabled={isSaving || selectedPrompts.length !== 2}
           className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
         >
-          {isSaving && <LoadingSpinner />}
           <span>{isSaving ? 'Saving...' : 'Save Featured Prompts'}</span>
         </button>
         <div className="flex items-center text-sm text-gray-500">

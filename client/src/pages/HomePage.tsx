@@ -373,7 +373,7 @@ const HomePage: React.FC = () => {
                 <h3 className="font-black text-slate-900 mb-4" style={{ fontSize: '24px', fontWeight: '900' }}>
                   Never played before?
                 </h3>
-                <p className="text-slate-600 leading-relaxed font-normal" style={{ fontSize: '16px', fontWeight: '400', fontFamily: 'Inter, sans-serif' }}>
+                <p className="text-slate-600 leading-relaxed font-normal" style={{ fontSize: '16px', fontFamily: 'Inter, sans-serif' }}>
                   If you're new to Dungeons & Dragons and other RPGs, our experienced professional Dungeon Masters and Game Masters are happy to introduce you to the game so you and your friends can learn to play D&D online.
                 </p>
               </div>
@@ -390,7 +390,7 @@ const HomePage: React.FC = () => {
                 <h3 className="font-black text-slate-900 mb-4" style={{ fontSize: '24px', fontWeight: '900' }}>
                   How much does it cost?
                 </h3>
-                <p className="text-slate-600 leading-relaxed font-normal" style={{ fontSize: '16px', fontWeight: '400', fontFamily: 'Inter, sans-serif' }}>
+                <p className="text-slate-600 leading-relaxed font-normal" style={{ fontSize: '16px', fontFamily: 'Inter, sans-serif' }}>
                   That depends, each GM lists their own price. You can view each game's price when browsing games.
                 </p>
               </div>
@@ -407,7 +407,7 @@ const HomePage: React.FC = () => {
                 <h3 className="font-black text-slate-900 mb-4" style={{ fontSize: '24px', fontWeight: '900' }}>
                   What are the Games like?
                 </h3>
-                <p className="text-slate-600 leading-relaxed font-normal" style={{ fontSize: '16px', fontWeight: '400', fontFamily: 'Inter, sans-serif' }}>
+                <p className="text-slate-600 leading-relaxed font-normal" style={{ fontSize: '16px', fontFamily: 'Inter, sans-serif' }}>
                   Love combat? Enjoy roleplaying? Excited by puzzles? Our Game Masters offer games of all play styles. StartPlaying makes it easy to find a D&D group that matches your play style.
                 </p>
               </div>
@@ -424,7 +424,7 @@ const HomePage: React.FC = () => {
                 <h3 className="font-black text-slate-900 mb-4" style={{ fontSize: '24px', fontWeight: '900' }}>
                   Where do I play?
                 </h3>
-                <p className="text-slate-600 leading-relaxed font-normal" style={{ fontSize: '16px', fontWeight: '400', fontFamily: 'Inter, sans-serif' }}>
+                <p className="text-slate-600 leading-relaxed font-normal" style={{ fontSize: '16px', fontFamily: 'Inter, sans-serif' }}>
                   Currently, all of our games are online, but eventually, we will support finding local D&D games and other TTRPGs near you as well. If you're looking to play D&D online we have over 1000 professional dungeon masters ready to run your adventure.
                 </p>
               </div>
@@ -441,7 +441,7 @@ const HomePage: React.FC = () => {
                 <h3 className="font-black text-slate-900 mb-4" style={{ fontSize: '24px', fontWeight: '900' }}>
                   Hosting a team event?
                 </h3>
-                <p className="text-slate-600 leading-relaxed font-normal" style={{ fontSize: '16px', fontWeight: '400', fontFamily: 'Inter, sans-serif' }}>
+                <p className="text-slate-600 leading-relaxed font-normal" style={{ fontSize: '16px', fontFamily: 'Inter, sans-serif' }}>
                   We've run team events for some of the coolest companies in the world! Check out our{" "}
                   <a href="/corporate-games" className="text-blue-600 hover:text-blue-700 underline">
                     corporate games page
@@ -462,7 +462,7 @@ const HomePage: React.FC = () => {
                 <h3 className="font-black text-slate-900 mb-4" style={{ fontSize: '24px', fontWeight: '900' }}>
                   What if I don't have a group?
                 </h3>
-                <p className="text-slate-600 leading-relaxed font-normal" style={{ fontSize: '16px', fontWeight: '400', fontFamily: 'Inter, sans-serif' }}>
+                <p className="text-slate-600 leading-relaxed font-normal" style={{ fontSize: '16px', fontFamily: 'Inter, sans-serif' }}>
                   No worries, join a game solo and play with other players! StartPlaying is the largest RPG table finder for games run by professional dungeon masters and game masters. Over 20,000 players have found their online D&D group with us. Whether you wanna play D&D online with a pro-GM, or any other TTRPG, StartPlaying has you covered.
                 </p>
               </div>

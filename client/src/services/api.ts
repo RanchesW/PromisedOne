@@ -40,15 +40,40 @@ export const getAvatarUrl = (avatarPath: string | undefined): string | null => {
     return avatarPath;
   }
   
-  // For production, return null for legacy avatar paths to prevent 404s
-  // This will cause the component to show default avatar instead
-  if (avatarPath.startsWith('/uploads/') || !avatarPath.startsWith('/')) {
-    console.log('Legacy avatar path detected, using default avatar:', avatarPath);
-    return null; // Let the component handle default avatar
+  // Check if this is a recently uploaded avatar (based on timestamp)
+  // Avatars uploaded after 2025-09-26 should be served, older ones are likely missing
+  if (avatarPath.startsWith('/uploads/avatars/avatar-')) {
+    const timestampMatch = avatarPath.match(/avatar-(\d+)-/);
+    if (timestampMatch) {
+      const timestamp = parseInt(timestampMatch[1]);
+      const cutoffDate = new Date('2025-09-26').getTime(); // Today's date
+      
+      if (timestamp > cutoffDate) {
+        // Recent upload, serve it
+        console.log('Recent avatar detected, serving:', avatarPath);
+        return `${SERVER_BASE_URL}${avatarPath}`;
+      } else {
+        // Old avatar, likely missing
+        console.log('Legacy avatar path detected, using default avatar:', avatarPath);
+        return null;
+      }
+    }
+  }
+  
+  // For other /uploads/ paths, try to serve them
+  if (avatarPath.startsWith('/uploads/')) {
+    console.log('Upload path detected:', avatarPath);
+    return `${SERVER_BASE_URL}${avatarPath}`;
+  }
+  
+  // Legacy support: If it's just a filename, assume it's in uploads/avatars
+  if (!avatarPath.startsWith('/')) {
+    console.log('Legacy avatar filename detected, using default:', avatarPath);
+    return null;
   }
   
   console.log('Unknown avatar path format:', avatarPath);
-  return null; // Default to null for unknown formats
+  return null;
 };
 
 class APIService {

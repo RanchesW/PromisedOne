@@ -521,6 +521,118 @@ const HomePage: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* How to Play Dungeons & Dragons Online Section */}
+      <section className="bg-white" style={{ paddingTop: '80px', paddingBottom: '80px' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-slate-900 mb-4">
+              How to Play Dungeons & Dragons Online
+            </h2>
+            <p className="text-slate-600 text-lg">
+              Featured guides from the blog
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Dungeons & Dragons Essentials */}
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+              <a 
+                href="/blog/posts/dungeons-and-dragons-resources" 
+                className="block h-full"
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
+                <div className="relative">
+                  <img 
+                    alt="Dungeons & Dragons Essentials" 
+                    loading="lazy" 
+                    width="300" 
+                    height="200" 
+                    className="w-full h-48 object-cover"
+                    src="/assets/home/dragon.jpg"
+                    style={{ color: 'transparent' }}
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-slate-900 mb-4">
+                    Dungeons & Dragons Essentials
+                  </h3>
+                  <button 
+                    type="button"
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg transition-colors duration-200 w-full"
+                  >
+                    Read More
+                  </button>
+                </div>
+              </a>
+            </div>
+
+            {/* Learn To Play D&D Online */}
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+              <a 
+                href="/blog/posts/how-to-learn-to-play-d-d-online" 
+                className="block h-full"
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
+                <div className="relative">
+                  <img 
+                    alt="Learn To Play D&D Online" 
+                    loading="lazy" 
+                    width="300" 
+                    height="200" 
+                    className="w-full h-48 object-cover"
+                    src="/assets/home/how_to_play.jpg"
+                    style={{ color: 'transparent' }}
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-slate-900 mb-4">
+                    Learn To Play D&D Online
+                  </h3>
+                  <button 
+                    type="button"
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg transition-colors duration-200 w-full"
+                  >
+                    Read More
+                  </button>
+                </div>
+              </a>
+            </div>
+
+            {/* Everything You Need To Play D&D Online */}
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+              <a 
+                href="/blog/posts/everything-you-need-to-play-d-d-online" 
+                className="block h-full"
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
+                <div className="relative">
+                  <img 
+                    alt="Everything You Need To Play D&D Online" 
+                    loading="lazy" 
+                    width="300" 
+                    height="200" 
+                    className="w-full h-48 object-cover"
+                    src="/assets/home/everything_you_need.jpg"
+                    style={{ color: 'transparent' }}
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-slate-900 mb-4">
+                    Everything You Need To Play D&D Online
+                  </h3>
+                  <button 
+                    type="button"
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg transition-colors duration-200 w-full"
+                  >
+                    Read More
+                  </button>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
